@@ -1,41 +1,39 @@
+name: 'Chromatic Deployment'
+
 on:
   pull_request:
     branches:
       - develop
 
-permissions: write-all
-
 jobs:
-  storybook:
+  test:
+    name: Storybook Chromatic Deployment
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v1
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          fetch-depth: 0
-
-      - name: Cache Dependencies
-        id: cache
-        uses: actions/cache@v3
+          version: 9
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}-storybook
-
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
-
-      - name: Publish to Chromatic
+          node-version: 21
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run Chromatic
         id: chromatic
-        uses: chromaui/action@v10
+        uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Comment PR
-        if: github.event_name == 'pull_request'
         uses: thollander/actions-comment-pull-request@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          message: '🚀 Storybook 배포가 완료되었습니다! 🔗 ${{ steps.chromatic.outputs.storybookUrl }}'
+          message: |
+            🚀 Storybook 확인하기 🚀
+            - [Build](${{steps.chromatic.outputs.buildUrl}})
+            - [Preview](${{steps.chromatic.outputs.storybookUrl}})
