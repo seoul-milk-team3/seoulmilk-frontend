@@ -18,7 +18,8 @@
       "@/constants/*": ["src/constants/*"],
       "@/hooks/*": ["src/hooks/*"],
       "@/apis/*": ["src/apis/*"],
-      "@/utils/*": ["src/utils/*"]
+      "@/utils/*": ["src/utils/*"],
+      "@/routes/*": ["src/routes/*"]
     },
 
     /* Bundler mode */
