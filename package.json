@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --fix",
+    "preview": "vite preview",
+    "svgr": "npx @svgr/cli -d src/assets/svg --no-prettier --ignore-existing --typescript --no-dimensions public/svg"
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -23,11 +25,13 @@
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "globals": "^15.14.0",
     "prettier": "^3.5.2",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.22.0",
     "vite": "^6.1.0",
+    "vite-plugin-svgr": "^4.3.0",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
