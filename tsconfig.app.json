@@ -7,6 +7,21 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
+    /* 절대 경로 */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/assets/*": ["src/assets/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/components/*": ["src/components/*"],
+      "@/styles/*": ["src/styles/*"],
+      "@/constants/*": ["src/constants/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/apis/*": ["src/apis/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/routes/*": ["src/routes/*"]
+    },
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -22,5 +37,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src", "custom.d.ts"]
 }
