@@ -28,6 +28,7 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
+    "jsxImportSource": "@emotion/react",
     "jsx": "react-jsx",
 
     /* Linting */

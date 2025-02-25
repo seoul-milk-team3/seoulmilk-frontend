@@ -7,7 +7,12 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   plugins: [
     // React 플러그인
-    react(),
+    react({
+      jsxImportSource: '@emotion/react',
+      babel: {
+        plugins: ['@emotion/babel-plugin'],
+      },
+    }),
     // tsconfig.json 경로 설정
     tsconfigPaths(),
 

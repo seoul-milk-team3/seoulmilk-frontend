@@ -118,12 +118,10 @@ const text = {
   },
 };
 
-const theme = {
+export const theme = {
   colors,
   text,
 };
-
-export default theme;
 
 export type ColorType = typeof theme.colors;
 export type TextType = typeof theme.text;

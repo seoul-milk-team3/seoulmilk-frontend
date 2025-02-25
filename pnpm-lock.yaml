@@ -20,6 +20,9 @@ importers:
       '@tanstack/react-query-devtools':
         specifier: ^5.66.9
         version: 5.66.9(@tanstack/react-query@5.66.9(react@19.0.0))(react@19.0.0)
+      jsx-runtime:
+        specifier: link:@emotion/react/jsx-runtime
+        version: link:@emotion/react/jsx-runtime
       react:
         specifier: ^19.0.0
         version: 19.0.0
