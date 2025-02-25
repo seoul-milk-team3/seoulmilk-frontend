@@ -1,4 +1,4 @@
-const colors = {
+export const colors = {
   main: '#E60012',
 
   sub_PANTONE_3022C: '#009857',
