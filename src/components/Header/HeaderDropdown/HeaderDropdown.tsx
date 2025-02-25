@@ -11,9 +11,6 @@ interface HeaderDropdownProps {
 const HeaderDropdown = ({ variant = 'primary' }: HeaderDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  
-  // primary일 때는 흰색 아이콘을 검정으로 반전
-  // secondary일 때는 원래 흰색 유지 (반전 X)
   const iconFilter = variant === 'primary' ? 'invert(1)' : 'invert(0)';
 
   useEffect(() => {
