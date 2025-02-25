@@ -4,9 +4,17 @@ import { dropdownMenuStyle, dropdownItemStyle } from './HeaderDropdown.style';
 import Flex from '@/components/Flex/Flex';
 import Text from '@/components/Text/Text';
 
-const HeaderDropdown = () => {
+interface HeaderDropdownProps {
+  variant?: 'primary' | 'secondary';
+}
+
+const HeaderDropdown = ({ variant = 'primary' }: HeaderDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  
+  // primary일 때는 흰색 아이콘을 검정으로 반전
+  // secondary일 때는 원래 흰색 유지 (반전 X)
+  const iconFilter = variant === 'primary' ? 'invert(1)' : 'invert(0)';
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -23,13 +31,13 @@ const HeaderDropdown = () => {
   return (
     <div ref={dropdownRef} style={{ position: 'relative' }}>
       <HeaderDropdownIcon
-        css={{ width: '24px', height: '24px', cursor: 'pointer' }}
+        css={{ width: '24px', height: '24px', cursor: 'pointer', filter: iconFilter }}
         onClick={() => setIsOpen((prev) => !prev)}
       />
       {isOpen && (
         <Flex css={dropdownMenuStyle}>
           <Text tag="md2-text-medium" css={dropdownItemStyle}>프로필 수정</Text>
-          <Text tag="md2-text-medium"css={dropdownItemStyle}>로그아웃</Text>
+          <Text tag="md2-text-medium" css={dropdownItemStyle}>로그아웃</Text>
         </Flex>
       )}
     </div>

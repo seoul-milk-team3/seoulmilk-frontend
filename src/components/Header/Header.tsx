@@ -12,14 +12,16 @@ import {
 } from './Header.style';
 
 export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
-  variant?: 'default' | 'alternate';
+  variant?: 'primary' | 'secondary';
 }
 
-const Header = ({ variant = 'default', ...props }: HeaderProps) => {
+const Header = ({ variant = 'primary', ...props }: HeaderProps) => {
+  const isPrimary = variant === 'primary';
+  const iconFilter = isPrimary ? 'invert(1)' : 'none';
+
   return (
     <header css={[headerBaseStyle, headerVariantStyle[variant]]} {...props}>
       <Flex css={{ width: '100%' }}>
-        {/* 왼쪽: 로고 */}
         <Flex styles={{ gap: '0px', width: '101px', height: '36px' }}>
           <SeoulmilkLogo css={{ marginTop: '5px', width: '27px', height: '27px' }} /> 
           <Text tag="md1-text-bold" css={logoTextStyle(variant)}>
@@ -28,12 +30,17 @@ const Header = ({ variant = 'default', ...props }: HeaderProps) => {
         </Flex>
 
         <Flex css={rightSectionStyle(variant)}>
-          <img src="/profile.png" alt="Profile" css={profileImageStyle} />
-          <Text tag="md2-text-medium" css={{ color: variant === 'default' ? 'black' : 'white' }}>
+          <img 
+            src="/profile.png" 
+            alt="Profile" 
+            css={[profileImageStyle]} 
+          />
+          <Text tag="md2-text-medium" css={{ color: isPrimary ? 'black' : 'white' }}>
             a12123
           </Text>
-          <HeaderDropdown />
-          <HeaderAlarm css={{ width: '24px', height: '24px' }} />
+          <HeaderDropdown variant={variant} />
+
+          <HeaderAlarm css={{ filter: iconFilter, width: '24px', height: '24px' }} />
         </Flex>
       </Flex>
     </header>
