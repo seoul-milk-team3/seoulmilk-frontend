@@ -1,0 +1,38 @@
+import type { StorybookConfig } from '@storybook/react-vite';
+import path from 'path';
+
+const config: StorybookConfig = {
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  addons: [
+    '@storybook/addon-onboarding',
+    '@storybook/addon-essentials',
+    '@chromatic-com/storybook',
+    '@storybook/addon-interactions',
+  ],
+  framework: {
+    name: '@storybook/react-vite',
+    options: {},
+  },
+  async viteFinal(config) {
+    if (config.resolve) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@emotion/core': path.resolve('node_modules/@emotion/react'),
+        '@': path.resolve(__dirname, '../src'),
+        '@/apis': path.resolve(__dirname, '../src/apis'),
+        '@/assets': path.resolve(__dirname, '../src/assets'),
+        '@/components': path.resolve(__dirname, '../src/components'),
+        '@/stories': path.resolve(__dirname, '../src/stories'),
+        '@/constants': path.resolve(__dirname, '../src/constants'),
+        '@/hooks': path.resolve(__dirname, '../src/hooks'),
+        '@/pages': path.resolve(__dirname, '../src/pages'),
+        '@/routes': path.resolve(__dirname, '../src/routes'),
+        '@/types': path.resolve(__dirname, '../src/types'),
+        '@/styles': path.resolve(__dirname, '../src/styles'),
+        '@/utils': path.resolve(__dirname, '../src/utils'),
+      };
+    }
+    return config;
+  },
+};
+export default config;
