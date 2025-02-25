@@ -1,9 +1,8 @@
-import { HTMLAttributes } from 'react';
 import Flex from '@/components/Flex/Flex';
 import Text from '@/components/Text/Text';
 import SeoulmilkLogo from '@/assets/svg/SeoulmilkLogo';
-import  HeaderAlarm  from '@/assets/svg/HeaderAlarm';
-import  HeaderDropdown  from '@/assets/svg/HeaderDropdown';
+import HeaderAlarm from '@/assets/svg/HeaderAlarm';
+import HeaderDropdown from './HeaderDropdown/HeaderDropdown';
 import {
   headerBaseStyle,
   headerVariantStyle,
@@ -12,34 +11,31 @@ import {
   profileImageStyle,
 } from './Header.style';
 
-export interface HeaderProps extends HTMLAttributes<HTMLElement> {
+export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
   variant?: 'default' | 'alternate';
 }
 
 const Header = ({ variant = 'default', ...props }: HeaderProps) => {
   return (
     <header css={[headerBaseStyle, headerVariantStyle[variant]]} {...props}>
-      {/* ✅ 부모 컨테이너를 `flex`로 설정하여 정렬 문제 해결 */}
       <Flex css={{ width: '100%' }}>
-          {/* 왼쪽: 로고 + 텍스트 */}
-          <Flex styles={{ gap: '0px', width: '101px', height: '36px' }}>
-            <SeoulmilkLogo css={{ marginTop: '5px', width: '27px', height: '27px' }} /> 
-            <Text tag="md1-text-bold" css={logoTextStyle(variant)}>
-              서울우유
-            </Text>
-          </Flex>
-
-          {/* ✅ 오른쪽: 사용자 정보 + 알림 아이콘 */}
-          <Flex css={rightSectionStyle(variant)}>
-            <img src="/profile.png" alt="Profile" css={profileImageStyle} />
-            <Text tag="md2-text-medium" css={{ color: variant === 'default' ? 'black' : 'white' }}>
-              a12123
-            </Text>
-            <HeaderDropdown css={{ width: '24px', height: '24px' }} />
-            <HeaderAlarm css={{ width: '24px', height: '24px' }} />
-          </Flex>
+        {/* 왼쪽: 로고 */}
+        <Flex styles={{ gap: '0px', width: '101px', height: '36px' }}>
+          <SeoulmilkLogo css={{ marginTop: '5px', width: '27px', height: '27px' }} /> 
+          <Text tag="md1-text-bold" css={logoTextStyle(variant)}>
+            서울우유
+          </Text>
         </Flex>
 
+        <Flex css={rightSectionStyle(variant)}>
+          <img src="/profile.png" alt="Profile" css={profileImageStyle} />
+          <Text tag="md2-text-medium" css={{ color: variant === 'default' ? 'black' : 'white' }}>
+            a12123
+          </Text>
+          <HeaderDropdown />
+          <HeaderAlarm css={{ width: '24px', height: '24px' }} />
+        </Flex>
+      </Flex>
     </header>
   );
 };
