@@ -30,7 +30,7 @@ const config: StorybookConfig = {
         "@": path.resolve(__dirname, "../packages/ui/src"),
         "@seoulmilk/ui": path.resolve(__dirname, "../packages/ui/src"),
         "@seoulmilk/utils": path.resolve(__dirname, "../packages/utils/src"),
-        "@seoulmilk/icon": path.resolve(__dirname, "../packages/icon/dist"),
+        "@seoulmilk/icon": path.resolve(__dirname, "../packages/icon/src"),
         "@seoulmilk/styles": path.resolve(__dirname, "../packages/styles/src"),
       };
     }
