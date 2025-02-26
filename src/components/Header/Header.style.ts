@@ -1,74 +1,66 @@
 import { css } from '@emotion/react';
-
-export const fontFace = css`
-  @font-face {
-    font-family: 'Seoulmilk_font';
-    src: url('/font/Seoulmilk_font.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-`;
+import { colors } from '@/styles/theme';
 
 export const headerBaseStyle = css({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-
   position: 'relative',
 
   width: '100%',
-  maxWidth: '1440px',
-  height: '70px',
-  padding: '16px 48px',
+  maxWidth: '144rem',
+  height: '7rem',
+  padding: '1.6rem 4.8rem',
   boxSizing: 'border-box',
 });
 
 export const rightSectionStyle = (variant?: 'primary' | 'secondary') => css({
   display: 'flex',
   alignItems: 'center',
-  gap: '16px',
+  gap: '1.6rem',
 
-  fontSize: '13px',
-  color: variant === 'primary' ? '#333' : 'white',
+  fontSize: '1.3rem',
+  color: variant === 'primary' ? 'grayscale_90' : 'grayscale_0',
 
   marginLeft: 'auto',
 });
 
 export const headerVariantStyle = {
   primary: css({
-    backgroundColor: 'white',
+    backgroundColor: colors.grayscale_0,
   }),
   secondary: css({
-    backgroundColor: '#009857',
+    backgroundColor: colors.green_50,
     borderBottom: 'none',
   }),
 };
 
-export const logoTextStyle = (variant?: 'primary' | 'secondary') => css`
-  ${fontFace}
 
+export const logoTextStyle = (variant?: 'primary' | 'secondary') => css`
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
   flex-shrink: 0;
 
   font-family: 'Seoulmilk_font', sans-serif;
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: ${variant === 'primary' ? '#333' : 'white'};
+  color: ${variant === 'primary' ? colors.grayscale_90 : colors.grayscale_0};
 
-  margin-top: 10px;
-  margin-left: 2px;
+  margin-top: 1rem;
+  margin-left: 0.2rem;
+  
 `;
 
 export const profileImageStyle = css({
-  width: '32px',
-  height: '32px',
+  width: '3.2rem',
+  height: '3.2rem',
   borderRadius: '50%',
 });
 
+
 export const notificationIconStyle = (variant?: 'primary' | 'secondary') => css({
-  width: '20px',
-  height: '20px',
+  width: '2rem',
+  height: '2rem',
   filter: variant === 'primary' ? 'none' : 'invert(1)',
 });

@@ -5,6 +5,13 @@ const globalStyles = css`
   ${Reset}
 
   @font-face {
+    font-family: 'Seoulmilk_font';
+    src: url('/font/Seoulmilk_font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
     font-family: 'Pretendard Variable';
     src: url('/font/subset-PretendardVariable.woff2') format('woff2');
     font-style: normal;
