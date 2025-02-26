@@ -3,6 +3,8 @@ import Text from '@/components/Text/Text';
 import SeoulmilkLogo from '@/assets/svg/SeoulmilkLogo';
 import HeaderAlarm from '@/assets/svg/HeaderAlarm';
 import HeaderDropdown from './HeaderDropdown/HeaderDropdown';
+import UserProfile from '@/assets/svg/UserProfile';
+
 import {
   headerBaseStyle,
   headerVariantStyle,
@@ -22,25 +24,21 @@ const Header = ({ variant = 'primary', ...props }: HeaderProps) => {
   return (
     <header css={[headerBaseStyle, headerVariantStyle[variant]]} {...props}>
       <Flex css={{ width: '100%' }}>
-        <Flex styles={{ gap: '0px', width: '101px', height: '36px' }}>
-          <SeoulmilkLogo css={{ marginTop: '5px', width: '27px', height: '27px' }} /> 
+        <Flex styles={{ gap: '0rem', width: '10.1rem', height: '3.6rem' }}>
+          <SeoulmilkLogo css={{ marginTop: '0.5rem', width: '2.7rem', height: '2.7rem' }} /> 
           <Text tag="md1-text-bold" css={logoTextStyle(variant)}>
             서울우유
           </Text>
         </Flex>
 
         <Flex css={rightSectionStyle(variant)}>
-          <img 
-            src="/profile.png" 
-            alt="Profile" 
-            css={[profileImageStyle]} 
-          />
+          <UserProfile css={{ width: '3.2rem', height: '3.2rem', borderRadius: '50%' }} />
           <Text tag="md2-text-medium" css={{ color: isPrimary ? 'black' : 'white' }}>
             a12123
           </Text>
           <HeaderDropdown variant={variant} />
 
-          <HeaderAlarm css={{ filter: iconFilter, width: '24px', height: '24px' }} />
+          <HeaderAlarm css={{ filter: iconFilter, width: '2.4rem', height: '2.4rem' }} />
         </Flex>
       </Flex>
     </header>

@@ -23,7 +23,7 @@ const Modal = ({
 }: ModalProps) => {
   return (
     <Flex styles={{ align: "center", justify: "center" }} css={modalOverlayStyle}>
-      <Flex tag="div" styles={{ direction: "column", align: "center", gap: "16px", padding: "24px" }} css={modalStyle}>
+      <Flex tag="div" styles={{ direction: "column", align: "center", gap: "1.6rem", padding: "2.4rem" }} css={modalStyle}>
         <Text tag="lg-subtitle-semibold" css={titleStyle}>
           {title}
         </Text>
@@ -31,7 +31,7 @@ const Modal = ({
           {message}
         </Text>
 
-        <Flex styles={{ justify: "center", gap: "12px" }} css={buttonContainerStyle}>
+        <Flex styles={{ justify: "center", gap: "1.2rem" }} css={buttonContainerStyle}>
           <Button
             variant="primary"
             css={buttonStyle}

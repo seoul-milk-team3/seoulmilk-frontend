@@ -28,7 +28,7 @@ const HeaderDropdown = ({ variant = 'primary' }: HeaderDropdownProps) => {
   return (
     <div ref={dropdownRef} style={{ position: 'relative' }}>
       <HeaderDropdownIcon
-        css={{ width: '24px', height: '24px', cursor: 'pointer', filter: iconFilter }}
+        css={{ width: '2.4rem', height: '2.4rem', cursor: 'pointer', filter: iconFilter }}
         onClick={() => setIsOpen((prev) => !prev)}
       />
       {isOpen && (

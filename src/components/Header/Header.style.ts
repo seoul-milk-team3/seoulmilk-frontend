@@ -52,12 +52,6 @@ export const logoTextStyle = (variant?: 'primary' | 'secondary') => css`
   
 `;
 
-export const profileImageStyle = css({
-  width: '3.2rem',
-  height: '3.2rem',
-  borderRadius: '50%',
-});
-
 
 export const notificationIconStyle = (variant?: 'primary' | 'secondary') => css({
   width: '2rem',
