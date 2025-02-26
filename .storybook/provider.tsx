@@ -1,7 +1,7 @@
-import { ThemeProvider } from '@emotion/react';
-import React, { ReactNode } from 'react';
-import GlobalStyle from '../src/styles/GlobalStyles';
-import { theme } from '../src/styles/theme';
+import { ThemeProvider } from "@emotion/react";
+import React, { ReactNode } from "react";
+import GlobalStyle from "../packages/styles/src/GlobalStyles";
+import { theme } from "../packages/styles/src/theme";
 
 interface ProviderProps {
   children?: ReactNode;
