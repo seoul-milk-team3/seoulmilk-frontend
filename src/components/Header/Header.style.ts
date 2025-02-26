@@ -28,7 +28,7 @@ export const rightSectionStyle = (variant?: 'primary' | 'secondary') => css({
   alignItems: 'center',
   gap: '16px',
 
-  fontSize: '14px',
+  fontSize: '13px',
   color: variant === 'primary' ? '#333' : 'white',
 
   marginLeft: 'auto',
@@ -57,7 +57,8 @@ export const logoTextStyle = (variant?: 'primary' | 'secondary') => css`
   font-weight: bold;
   color: ${variant === 'primary' ? '#333' : 'white'};
 
-  margin-top: 9px;
+  margin-top: 10px;
+  margin-left: 2px;
 `;
 
 export const profileImageStyle = css({
