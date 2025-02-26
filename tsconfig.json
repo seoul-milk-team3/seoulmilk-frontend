@@ -12,6 +12,9 @@
       "path": "apps/main"
     },
     {
+      "path": "apps/agency"
+    },
+    {
       "path": "packages/ui"
     },
     {
