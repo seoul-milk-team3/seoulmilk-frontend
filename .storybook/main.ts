@@ -27,9 +27,10 @@ const config: StorybookConfig = {
     if (config.resolve) {
       config.resolve.alias = {
         ...config.resolve.alias,
-        "@": path.resolve(__dirname, "../packages/ui/src"), // ✅ alias를 Vite 설정과 맞추기
+        "@": path.resolve(__dirname, "../packages/ui/src"),
         "@seoulmilk/ui": path.resolve(__dirname, "../packages/ui/src"),
         "@seoulmilk/utils": path.resolve(__dirname, "../packages/utils/src"),
+        "@seoulmilk/icon": path.resolve(__dirname, "../packages/icon/src"),
       };
     }
 
