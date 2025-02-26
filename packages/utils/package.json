@@ -1,0 +1,10 @@
+{
+  "name": "@seoulmilk/utils",
+  "version": "1.0.0",
+  "description": "utils package for seoulmilk-front",
+  "main": "src/index.ts",
+  "license": "ISC",
+  "devDependencies": {
+    "@seoulmilk/tsconfig": "workspace:^"
+  }
+}
