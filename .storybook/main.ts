@@ -34,7 +34,7 @@ const config: StorybookConfig = {
     }
 
     config.optimizeDeps = {
-      include: ["@seoulmilk/ui", "@seoulmilk/utils"],
+      include: ["@seoulmilk/ui", "@seoulmilk/utils", "@seoulmilk/icon"],
     };
 
     return config;
