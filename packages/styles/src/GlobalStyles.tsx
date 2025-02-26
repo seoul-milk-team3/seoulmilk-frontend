@@ -1,13 +1,19 @@
-import { Global, css } from "@emotion/react";
-import Reset from "./reset";
+import { Global, css } from '@emotion/react';
+import Reset from './reset';
 
 const globalStyles = css`
   ${Reset}
 
   @font-face {
-    font-family: "Pretendard Variable";
-    src: url("../../../apps/main/public/font/subset-PretendardVariable.woff2")
-      format("woff2");
+    font-family: 'Seoulmilk_font';
+    src: url('/font/Seoulmilk_font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Pretendard Variable';
+    src: url('/font/subset-PretendardVariable.woff2') format('woff2');
     font-style: normal;
   }
 
@@ -27,7 +33,7 @@ const globalStyles = css`
   body {
     font-size: 62.5%;
     scroll-behavior: smooth;
-    font-family: "Pretendard Variable", sans-serif;
+    font-family: 'Pretendard Variable', sans-serif;
   }
 
   a {
