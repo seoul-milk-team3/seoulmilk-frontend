@@ -1,7 +1,11 @@
-import { Header } from '@seoulmilk/ui';
-import { Sidebar } from '@seoulmilk/ui';
-import { Outlet } from 'react-router-dom';
-import { layoutStyle, containerStyle, contentStyle } from '@/layouts/main/MainLayout.style';
+import Header from "@/Header/Header";
+import Sidebar from "@/Sidebar/Sidebar";
+import { Outlet } from "react-router-dom";
+import {
+  layoutStyle,
+  containerStyle,
+  contentStyle,
+} from "@/Layout/main/MainLayout.style";
 
 const MainLayout = () => {
   return (
