@@ -7,8 +7,7 @@ export const headerBaseStyle = css({
   alignItems: "center",
   position: "relative",
 
-  width: "100%",
-  maxWidth: "144rem",
+  width: "100vw",
   height: "7rem",
   padding: "1.6rem 4.8rem",
   boxSizing: "border-box",
@@ -16,9 +15,7 @@ export const headerBaseStyle = css({
 
 export const rightSectionStyle = (variant?: "primary" | "secondary") =>
   css({
-    display: "flex",
     alignItems: "center",
-    gap: "1.6rem",
 
     fontSize: "1.3rem",
     color: variant === "primary" ? "grayscale_90" : "grayscale_0",
@@ -46,9 +43,6 @@ export const logoTextStyle = (variant?: "primary" | "secondary") => css`
   font-size: 1.8rem;
   font-weight: bold;
   color: ${variant === "primary" ? colors.grayscale_90 : colors.grayscale_0};
-
-  margin-top: 1rem;
-  margin-left: 0.2rem;
 `;
 
 export const notificationIconStyle = (variant?: "primary" | "secondary") =>
