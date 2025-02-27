@@ -20,5 +20,5 @@
   },
   /*svg*/
   "exclude": ["node_modules", "dist"],
-  "include": ["src"]
+  "include": ["src", "../../packages/ui/src/FileUpload/UploadSection", "../../packages/ui/src/FileUpload/UploadTopMessage"]
 }

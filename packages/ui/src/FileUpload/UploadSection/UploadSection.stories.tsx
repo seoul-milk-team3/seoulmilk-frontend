@@ -1,4 +1,4 @@
-import UploadSection from '../../pages/fileUpload/components/UploadSection/UploadSection';
+import UploadSection from '@/FileUpload/UploadSection/UploadSection';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof UploadSection> = {
