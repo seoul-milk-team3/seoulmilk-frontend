@@ -1,7 +1,30 @@
 {
-  "files": [],
+  "extends": "./packages/tsconfig/base.json",
+  "exclude": [
+    "./apps/**/dist/**",
+    "./apps/**/node_modules/**",
+    "./packages/**/dist/**",
+    "./packages/**/node_modules/**"
+  ],
+
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    {
+      "path": "apps/main"
+    },
+    {
+      "path": "apps/agency"
+    },
+    {
+      "path": "packages/ui"
+    },
+    {
+      "path": "packages/icon"
+    },
+    {
+      "path": "packages/styles"
+    },
+    {
+      "path": "packages/utils"
+    }
   ]
 }
