@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import UploadTopMessage from "./uploadTopMessage";
+import UploadTopMessage from "../../pages/fileUpload/components/UploadTopMessage/UploadTopMessage";
 
 export default {
   title: "Components/UploadTopMessage",

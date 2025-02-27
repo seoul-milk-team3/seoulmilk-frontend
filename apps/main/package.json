@@ -12,16 +12,17 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@seoulmilk/icon": "workspace:^",
+    "@seoulmilk/styles": "workspace:^",
+    "@seoulmilk/tsconfig": "workspace:^",
+    "@seoulmilk/ui": "workspace:^",
+    "@seoulmilk/utils": "workspace:^",
     "@tanstack/react-query": "^5.66.9",
     "@tanstack/react-query-devtools": "^5.66.9",
     "jsx-runtime": "link:@emotion/react/jsx-runtime",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "@seoulmilk/styles": "workspace:^",
-    "@seoulmilk/utils": "workspace:^",
-    "@seoulmilk/tsconfig": "workspace:^",
-    "@seoulmilk/ui": "workspace:^",
-    "@seoulmilk/icon": "workspace:^"
+    "react-dropzone": "^14.3.8"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
