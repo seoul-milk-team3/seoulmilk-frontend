@@ -1,19 +1,19 @@
 import * as React from "react";
 import type { SVGProps } from "react";
-const SvgHeaderDropdown = (props: SVGProps<SVGSVGElement>) => (
+const SvgDeleteX = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
-    viewBox="0 0 24 24"
+    viewBox="0 0 18 18"
     {...props}
   >
     <path
-      stroke="#fff"
+      stroke="#404040"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
-      d="m6 9 6 6 6-6"
+      d="m13.5 4.5-9 9M4.5 4.5l9 9"
     />
   </svg>
 );
-export default SvgHeaderDropdown;
+export default SvgDeleteX;

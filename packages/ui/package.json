@@ -18,10 +18,11 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@seoulmilk/styles": "workspace:^",
     "@seoulmilk/icon": "workspace:^",
+    "@seoulmilk/styles": "workspace:^",
     "@seoulmilk/tsconfig": "workspace:^",
     "@seoulmilk/utils": "workspace:^",
+    "react-dropzone": "^14.3.8",
     "tsup": "^8.3.0"
   },
   "peerDependencies": {
