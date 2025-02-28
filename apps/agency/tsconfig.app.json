@@ -14,7 +14,8 @@
       "@/hooks/*": ["src/hooks/*"],
       "@/apis/*": ["src/apis/*"],
       "@/utils/*": ["src/utils/src"],
-      "@/routes/*": ["src/routes/*"]
+      "@/routes/*": ["src/routes/*"],
+      "@/layouts/*": ["src/layouts/*"]
     },
     "jsxImportSource": "@emotion/react"
   },

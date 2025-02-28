@@ -21,32 +21,37 @@ const Header = ({ variant = "primary", ...props }: HeaderProps) => {
 
   return (
     <header css={[headerBaseStyle, headerVariantStyle[variant]]} {...props}>
-      <Flex css={{ width: "100%" }}>
-        <Flex styles={{ gap: "0rem", width: "10.1rem", height: "3.6rem" }}>
-          <SeoulmilkLogo
-            css={{ marginTop: "0.5rem", width: "2.7rem", height: "2.7rem" }}
-          />
-          <Text tag="md1-text-bold" css={logoTextStyle(variant)}>
-            서울우유
-          </Text>
-        </Flex>
+      <Flex styles={{ align: "center", gap: "0.2rem" }}>
+        <SeoulmilkLogo css={{ width: "2.7rem", height: "2.7rem" }} />
+        <Text tag="md1-text-bold" css={logoTextStyle(variant)}>
+          서울우유
+        </Text>
+      </Flex>
 
-        <Flex css={rightSectionStyle(variant)}>
-          <UserProfile
-            css={{ width: "3.2rem", height: "3.2rem", borderRadius: "50%" }}
-          />
-          <Text
-            tag="md2-text-medium"
-            css={{ color: isPrimary ? "black" : "white" }}
-          >
-            a12123
-          </Text>
-          <HeaderDropdown variant={variant} />
+      <Flex css={rightSectionStyle(variant)}>
+        <UserProfile
+          css={{ width: "3.2rem", height: "3.2rem", borderRadius: "50%" }}
+        />
+        <Text
+          tag="md2-text-medium"
+          css={{
+            color: isPrimary ? "black" : "white",
+            marginLeft: "0.8rem",
+            marginRight: "1.2rem",
+          }}
+        >
+          a12123
+        </Text>
+        <HeaderDropdown variant={variant} />
 
-          <HeaderAlarm
-            css={{ filter: iconFilter, width: "2.4rem", height: "2.4rem" }}
-          />
-        </Flex>
+        <HeaderAlarm
+          css={{
+            filter: iconFilter,
+            width: "2.4rem",
+            height: "2.4rem",
+            marginLeft: "1.6rem",
+          }}
+        />
       </Flex>
     </header>
   );

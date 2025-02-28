@@ -7,7 +7,7 @@ export default defineConfig({
   dts: true,
   sourcemap: true,
   clean: true,
-  external: ["react", "react-dom", "@emotion/react"],
+  external: ["react", "react-dom", "@emotion/react", "react-router-dom"],
 
   esbuildOptions(options) {
     options.minify = true;
