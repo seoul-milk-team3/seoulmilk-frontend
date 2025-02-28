@@ -1,7 +1,7 @@
-import { AuthLayout } from '@seoulmilk/ui';
-import { MainLayout } from '@seoulmilk/ui';
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
+import AuthLayout from '@/layouts/auth/AuthLayout';
+import MainLayout from '@/layouts/main/MainLayout';
 
 const Login = lazy(() => import('@/pages/login/LoginPage'));
 const List = lazy(() => import('@/pages/list/ListPage'));
@@ -16,6 +16,7 @@ export const router = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [
+      // 일단 default 경로를 List 로 설정 --> 추후 변경해야함
       { path: '/', element: <List /> },
       { path: '/error-list', element: <ErrorList /> },
       { path: '/list', element: <List /> },
