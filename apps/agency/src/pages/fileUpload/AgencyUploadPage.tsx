@@ -11,14 +11,14 @@ import {
   mainContentStyle, 
   uploadContentStyle, 
   uploadBoxStyle 
-} from "./FileUploadPage.style";
+} from "./AgencyUploadPage.style";
 
 const FileUploadPage = () => {
   return (
     <Flex css={pageContainerStyle}>
       {/* 메인 콘텐츠 영역 */}
       <Flex css={contentContainerStyle}>
-        <Header variant="secondary" />
+        <Header variant="primary" />
         
         <Flex css={mainContentStyle}>
           {/* 사이드바 */}

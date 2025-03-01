@@ -1,11 +1,11 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { MemoryRouter } from "react-router-dom"; // 추가
-import FileUploadPage from "./FileUploadPage";
+import AgencyUploadPage from "./AgencyUploadPage";
 
 export default {
-  title: "Pages/FileUploadPage",
-  component: FileUploadPage,
+  title: "Pages/AgencyUploadPage",
+  component: AgencyUploadPage,
   decorators: [
     (Story) => (
       <MemoryRouter initialEntries={["/"]}>
@@ -15,6 +15,6 @@ export default {
   ],
 } as Meta;
 
-const Template: Story = (args) => <FileUploadPage {...args} />;
+const Template: Story = (args) => <AgencyUploadPage {...args} />;
 
 export const Default = Template.bind({});
