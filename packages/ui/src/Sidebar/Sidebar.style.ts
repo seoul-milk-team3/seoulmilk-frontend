@@ -40,8 +40,8 @@ export const menuItemStyle = (isActive: boolean) =>
     backgroundColor: isActive ? theme.colors.green_5 : "transparent",
 
     "&:hover": {
-      backgroundColor: theme.colors.green_5,
-      color: theme.colors.green_50,
+      backgroundColor: theme.colors.grayscale_20,
+      color: theme.colors.grayscale_70,
     },
   });
 
