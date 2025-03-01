@@ -8,4 +8,5 @@ export { default as IcHome } from "./src/IcHome";
 export { default as IcNotice } from "./src/IcNotice";
 export { default as IcSearch } from "./src/IcSearch";
 export { default as SeoulmilkLogo } from "./src/SeoulmilkLogo";
+export { default as Telephone } from "./src/Telephone";
 export { default as UserProfile } from "./src/UserProfile";

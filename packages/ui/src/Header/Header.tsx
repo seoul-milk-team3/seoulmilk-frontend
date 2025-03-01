@@ -1,6 +1,7 @@
 import { SeoulmilkLogo } from "@seoulmilk/icon";
 import { HeaderAlarm } from "@seoulmilk/icon";
 import { UserProfile } from "@seoulmilk/icon";
+import { Telephone } from "@seoulmilk/icon";
 import Flex from "@/Flex/Flex";
 import Text from "@/Text/Text";
 import {
@@ -10,6 +11,7 @@ import {
   rightSectionStyle,
 } from "@/Header/Header.style";
 import HeaderDropdownCo from "@/Header/HeaderDropdown/HeaderDropdown";
+import { colors } from "@seoulmilk/styles";
 
 export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
   variant?: "primary" | "secondary";
@@ -52,6 +54,26 @@ const Header = ({ variant = "primary", ...props }: HeaderProps) => {
             marginLeft: "1.6rem",
           }}
         />
+        {isPrimary && (
+          <Flex styles={{ align: "center", gap: "0.8rem", marginLeft: "1.2rem" }}>
+            <Telephone
+              css={{
+                width: "2.4rem",
+                height: "2.4rem",
+              }}
+            />
+            <Text
+              tag="md2-text-medium"
+              css={{
+                textDecoration: "underline",
+                color: colors.grayscale_60
+  
+              }}
+            >
+              본사문의
+            </Text>
+          </Flex>
+        )}
       </Flex>
     </header>
   );
