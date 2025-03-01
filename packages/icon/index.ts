@@ -1,5 +1,6 @@
 export { default as HeaderAlarm } from "./src/HeaderAlarm";
 export { default as HeaderDropdownIcon } from "./src/HeaderDropdownIcon";
+export { default as IcAlarm } from "./src/IcAlarm";
 export { default as IcError } from "./src/IcError";
 export { default as IcHeaderLogo } from "./src/IcHeaderLogo";
 export { default as IcHome } from "./src/IcHome";
