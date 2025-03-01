@@ -3,6 +3,7 @@ export { default as HeaderDropdownIcon } from "./src/HeaderDropdownIcon";
 export { default as IcError } from "./src/IcError";
 export { default as IcHeaderLogo } from "./src/IcHeaderLogo";
 export { default as IcHome } from "./src/IcHome";
+export { default as IcMenu } from "./src/IcMenu";
 export { default as IcNotice } from "./src/IcNotice";
 export { default as IcPhone } from "./src/IcPhone";
 export { default as IcSearch } from "./src/IcSearch";

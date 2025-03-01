@@ -1,7 +1,7 @@
+import { layoutStyle, containerStyle, contentStyle } from '@main/layouts/main/MainLayout.style';
 import { Header } from '@seoulmilk/ui';
 import { Sidebar } from '@seoulmilk/ui';
 import { Outlet } from 'react-router-dom';
-import { layoutStyle, containerStyle, contentStyle } from '@/layouts/main/MainLayout.style';
 
 const MainLayout = () => {
   return (
