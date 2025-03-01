@@ -26,6 +26,7 @@ export const rightSectionStyle = (variant?: "primary" | "secondary") =>
 export const headerVariantStyle = {
   primary: css({
     backgroundColor: colors.grayscale_0,
+    borderBottom: `1px solid ${colors.grayscale_20}`,
   }),
   secondary: css({
     backgroundColor: colors.green_50,
