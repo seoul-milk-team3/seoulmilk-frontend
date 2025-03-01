@@ -11,7 +11,7 @@ export default {
   },
 } as Meta<typeof MobileHeader>;
 
-const Template: StoryFn<typeof MobileHeader> = (args) => <MobileHeader />;
+const Template: StoryFn<typeof MobileHeader> = (args) => <MobileHeader openSidebar={() => alert('사이드바 열기!')} />;
 
 export const Default = Template.bind({});
 Default.args = {};
