@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { colors } from "@seoulmilk/styles";
+import { colors, theme } from "@seoulmilk/styles";
 
 export const headerBaseStyle = css({
   display: "flex",
@@ -13,41 +13,25 @@ export const headerBaseStyle = css({
   boxSizing: "border-box",
 });
 
-export const rightSectionStyle = (variant?: "primary" | "secondary") =>
+export const rightSectionStyle = (variant?: "agency" | "main") =>
   css({
     alignItems: "center",
-
     fontSize: "1.3rem",
-    color: variant === "primary" ? "grayscale_90" : "grayscale_0",
-
+    color: variant === "agency" ? colors.grayscale_90 : colors.grayscale_0,
     marginLeft: "auto",
   });
 
 export const headerVariantStyle = {
-  primary: css({
-    backgroundColor: colors.grayscale_0,
-  }),
-  secondary: css({
+  main: css({
     backgroundColor: colors.green_50,
-    borderBottom: "none",
+  }),
+  agency: css({
+    backgroundColor: colors.grayscale_0,
+    borderBottom: `1px solid ${theme.colors.grayscale_20}`,
   }),
 };
 
-export const logoTextStyle = (variant?: "primary" | "secondary") => css`
-  display: inline-flex;
-  align-items: center;
-  white-space: nowrap;
-  flex-shrink: 0;
-
-  font-family: "Seoulmilk_font", sans-serif;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: ${variant === "primary" ? colors.grayscale_90 : colors.grayscale_0};
-`;
-
-export const notificationIconStyle = (variant?: "primary" | "secondary") =>
-  css({
-    width: "2rem",
-    height: "2rem",
-    filter: variant === "primary" ? "none" : "invert(1)",
-  });
+export const phoneStyle = css({
+  textDecorationLine: "underline",
+  color: theme.colors.grayscale_60,
+});

@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { SVGProps } from "react";
-const SvgHeaderDropdown = (props: SVGProps<SVGSVGElement>) => (
+const SvgHeaderDropdownIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -16,4 +16,4 @@ const SvgHeaderDropdown = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-export default SvgHeaderDropdown;
+export default SvgHeaderDropdownIcon;

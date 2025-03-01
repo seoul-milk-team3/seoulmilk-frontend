@@ -6,7 +6,7 @@ import { layoutStyle, containerStyle, contentStyle } from '@/layouts/main/MainLa
 const MainLayout = () => {
   return (
     <div css={layoutStyle}>
-      <Header variant="primary" />
+      <Header variant="agency" />
       <div css={containerStyle}>
         <Sidebar variant="agency" />
         <main css={contentStyle}>

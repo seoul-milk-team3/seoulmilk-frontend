@@ -8,13 +8,13 @@ import {
 } from "@/Header/HeaderDropdown/HeaderDropdown.style";
 
 interface HeaderDropdownProps {
-  variant?: "primary" | "secondary";
+  variant?: "agency" | "main";
 }
 
-const HeaderDropdown = ({ variant = "primary" }: HeaderDropdownProps) => {
+const HeaderDropdown = ({ variant = "agency" }: HeaderDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const iconFilter = variant === "primary" ? "invert(1)" : "invert(0)";
+  const iconFilter = variant === "agency" ? "invert(1)" : "invert(0)";
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
