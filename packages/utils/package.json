@@ -4,9 +4,6 @@
   "description": "utils package for seoulmilk-front",
   "main": "src/index.ts",
   "license": "ISC",
-  "scripts": {
-    "build": "tsup --format cjs,esm --dts --sourcemap"
-  },
   "devDependencies": {
     "@seoulmilk/tsconfig": "workspace:^"
   },

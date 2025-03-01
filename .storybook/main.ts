@@ -3,17 +3,12 @@ import path from "path";
 
 const config: StorybookConfig = {
   stories: [
-    path.resolve(__dirname, "../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx)"),
-    // 추후 main이나 agency 에 스토리북파일 추가한다면 주석 풀기!
-    // path.resolve(
-    //   __dirname,
-    //   "../apps/main/src/stories/**/*.stories.@(js|jsx|ts|tsx)"
-    // ),
-    // path.resolve(
-    //   __dirname,
-    //   "../apps/agency/src/stories/**/*.stories.@(js|jsx|ts|tsx)"
-    // ),
+    "./src/**/*.stories.@(js|jsx|ts|tsx)",  
+    "../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx)",
+    "../apps/main/src/stories/**/*.stories.@(js|jsx|ts|tsx)",
+    "../apps/main/src/**/*.stories.@(js|jsx|ts|tsx)",
   ],
+  
   addons: [
     "@storybook/addon-onboarding",
     "@storybook/addon-essentials",
