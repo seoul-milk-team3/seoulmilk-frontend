@@ -4,18 +4,19 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "baseUrl": ".",
+
     "paths": {
-      "@/*": ["src/*"],
-      "@/assets/*": ["src/assets/*"],
-      "@/pages/*": ["src/pages/*"],
-      "@/components/*": ["src/components/*"],
-      "@/styles/*": ["src/styles/*"],
-      "@/constants/*": ["src/constants/*"],
-      "@/hooks/*": ["src/hooks/*"],
-      "@/apis/*": ["src/apis/*"],
-      "@/utils/*": ["src/utils/src"],
-      "@/routes/*": ["src/routes/*"],
-      "@/layouts/*": ["src/layouts/*"]
+      "@main/*": ["src/*"],
+      "@main/assets/*": ["src/assets/*"],
+      "@main/pages/*": ["src/pages/*"],
+      "@main/components/*": ["src/components/*"],
+      "@main/styles/*": ["src/styles/*"],
+      "@main/constants/*": ["src/constants/*"],
+      "@main/hooks/*": ["src/hooks/*"],
+      "@main/apis/*": ["src/apis/*"],
+      "@main/utils/*": ["src/utils/src"],
+      "@main/routes/*": ["src/routes/*"],
+      "@main/layouts/*": ["src/layouts/*"]
     },
     "jsxImportSource": "@emotion/react"
   },

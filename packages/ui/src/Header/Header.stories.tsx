@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Header from '@/Header/Header';
+import type { Meta, StoryObj } from "@storybook/react";
+import Header from "@/Header/Header";
 
 const meta: Meta<typeof Header> = {
-  title: 'Components/Header',
+  title: "Components/Header",
   component: Header,
   argTypes: {
     variant: {
-      control: { type: 'radio' },
-      options: ['primary', 'secondary'],
+      control: { type: "radio" },
+      options: ["agency", "main"],
     },
   },
 };
@@ -17,12 +17,12 @@ type Story = StoryObj<typeof Header>;
 
 export const Default: Story = {
   args: {
-    variant: "secondary",
+    variant: "agency",
   },
 };
 
 export const GreenBackground: Story = {
   args: {
-    variant: 'secondary',
+    variant: "main",
   },
 };
