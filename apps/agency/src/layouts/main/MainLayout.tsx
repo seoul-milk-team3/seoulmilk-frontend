@@ -8,7 +8,7 @@ const MainLayout = () => {
     <div css={layoutStyle}>
       <Header variant="primary" />
       <div css={containerStyle}>
-        <Sidebar />
+        <Sidebar variant="agency" />
         <main css={contentStyle}>
           <Outlet />
         </main>
