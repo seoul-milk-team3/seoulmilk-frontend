@@ -1,4 +1,5 @@
 {
+  
   "name": "@seoulmilk/ui",
   "version": "1.0.0",
   "description": "ui package for seoulmilk-front",
@@ -27,10 +28,12 @@
   },
   "peerDependencies": {
     "@emotion/react": "^11.13.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^7.2.0"
-  },
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0",
+        "react-router-dom": "^6.0.0"
+    }
+    
+  ,
   "devDependencies": {
     "tsx": "^4.19.3"
   }

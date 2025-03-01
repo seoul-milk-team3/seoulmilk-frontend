@@ -9,7 +9,7 @@ import {
   logoTextStyle,
   rightSectionStyle,
 } from "@/Header/Header.style";
-import HeaderDropdown from "@/Header/HeaderDropdown/HeaderDropdown";
+import HeaderDropdownCo from "@/Header/HeaderDropdown/HeaderDropdown";
 
 export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
   variant?: "primary" | "secondary";
@@ -42,7 +42,7 @@ const Header = ({ variant = "primary", ...props }: HeaderProps) => {
         >
           a12123
         </Text>
-        <HeaderDropdown variant={variant} />
+        <HeaderDropdownCo variant={variant} />
 
         <HeaderAlarm
           css={{

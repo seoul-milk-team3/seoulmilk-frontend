@@ -29,7 +29,7 @@ export const fileListStyle = css`
   grid-template-columns: repeat(2, 1fr);
   gap: 1.2rem;
   padding: 1rem;
-  padding-bottom:8rem;
+  padding-bottom:1rem;
 `;
 
 export const fileItemStyle = css`

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { HeaderDropdownIcon } from "@seoulmilk/icon";
+import { HeaderDropdown } from "@seoulmilk/icon";
 import Flex from "@/Flex/Flex";
 import Text from "@/Text/Text";
 import {
@@ -11,7 +11,7 @@ interface HeaderDropdownProps {
   variant?: "primary" | "secondary";
 }
 
-const HeaderDropdown = ({ variant = "primary" }: HeaderDropdownProps) => {
+const HeaderDropdownCo = ({ variant = "primary" }: HeaderDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const iconFilter = variant === "primary" ? "invert(1)" : "invert(0)";
@@ -33,7 +33,7 @@ const HeaderDropdown = ({ variant = "primary" }: HeaderDropdownProps) => {
 
   return (
     <div ref={dropdownRef} style={{ position: "relative" }}>
-      <HeaderDropdownIcon
+      <HeaderDropdown
         css={{
           width: "2.4rem",
           height: "2.4rem",
@@ -56,4 +56,4 @@ const HeaderDropdown = ({ variant = "primary" }: HeaderDropdownProps) => {
   );
 };
 
-export default HeaderDropdown;
+export default HeaderDropdownCo;
