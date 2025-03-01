@@ -260,10 +260,10 @@ importers:
         version: link:../utils
       react:
         specifier: ^18.3.1
-        version: 19.0.0
+        version: 18.3.1
       react-dropzone:
         specifier: ^14.3.8
-        version: 14.3.8(react@19.0.0)
+        version: 14.3.8(react@18.3.1)
       tsup:
         specifier: ^8.3.0
         version: 8.4.0(postcss@8.5.3)(tsx@4.19.3)(typescript@5.7.3)
@@ -4816,6 +4816,13 @@ snapshots:
     dependencies:
       react: 19.0.0
       scheduler: 0.25.0
+
+  react-dropzone@14.3.8(react@18.3.1):
+    dependencies:
+      attr-accept: 2.2.5
+      file-selector: 2.1.2
+      prop-types: 15.8.1
+      react: 18.3.1
 
   react-dropzone@14.3.8(react@19.0.0):
     dependencies:

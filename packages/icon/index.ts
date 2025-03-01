@@ -1,3 +1,4 @@
+export { default as CheckDoneIcon } from "./src/CheckDoneIcon";
 export { default as DeleteX } from "./src/DeleteX";
 export { default as FileUploadIcon } from "./src/FileUploadIcon";
 export { default as HeaderAlarm } from "./src/HeaderAlarm";
