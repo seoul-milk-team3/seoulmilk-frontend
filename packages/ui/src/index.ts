@@ -8,3 +8,4 @@ export { default as FileCheck } from "./FileUpload/FileCheck/FileCheck";
 export { default as UploadSection } from "./FileUpload/UploadSection/UploadSection";
 export { default as UploadTopMessage } from "./FileUpload/UploadTopMessage/UploadTopMessage";
 export { default as SidebarItem } from "./Sidebar/SidebarItem/SidebarItem";
+export { default as SelectDropdown } from "./DropDown/SelectDropdown";
