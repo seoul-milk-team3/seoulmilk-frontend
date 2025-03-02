@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState,useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import {
   uploadWrapperStyle,
@@ -6,7 +6,6 @@ import {
   fileListStyle,
   fileItemStyle,
   filePreviewStyle,
-  fileNameStyle,
   buttonStyle,
 } from "./UploadSection.style";
 import UploadTopMessage from "@/FileUpload/UploadTopMessage/UploadTopMessage";
@@ -31,6 +30,8 @@ const UploadSection = ({
   onUploadSuccess,
   onCheckValidity,
 }: UploadSectionProps) => {
+  console.log("🔄 UploadSection 렌더링됨");
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isChecking, setIsChecking] = useState(false);
@@ -39,17 +40,22 @@ const UploadSection = ({
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 0) {
-        onUploadStart(); // ✅ 업로드 시작 상태로 변경
+        onUploadStart();
         setUploadedFiles(acceptedFiles.slice(0, MAX_FILES));
-
+        
+        console.log("현재 업로드된 파일:", acceptedFiles.slice(0, MAX_FILES)); // 상태 확인
+  
         setTimeout(() => {
-          onUploadSuccess(); // ✅ 업로드 완료 상태로 변경
+          onUploadSuccess();
         }, 2000);
       }
     },
     [onUploadStart, onUploadSuccess]
   );
-
+  useEffect(() => {
+    console.log("업로드된 파일 상태 변경:", uploadedFiles);
+  }, [uploadedFiles]);
+    
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: false,
@@ -154,7 +160,7 @@ const UploadSection = ({
           >
             {uploadedFiles.length === 0 ? (
               <Flex
-                styles={{ direction: "column", align: "center", gap: "9rem" }}
+                styles={{ direction: "column", align: "center", gap: "9rem",padding: "6rem" }}
                 css={{ flexGrow: 1 }}
               >
                 <Flex styles={{ direction: "column", align: "center" }}>
@@ -201,24 +207,22 @@ const UploadSection = ({
                           css={filePreviewStyle}
                           styles={{ align: "center", justify: "center" }}
                         >
-                          📄
                         </Flex>
                       )}
 
                       <Flex
                         styles={{
                           direction: "column",
-                          justify: "center",
+                          justify: "flex-start", // 상단 정렬
+                          align: "flex-start", // 왼쪽 정렬
                           gap: "0.8rem",
+                          paddingTop:"2rem",
                         }}
                       >
-                        <Text tag="sm-text-medium" css={fileNameStyle}>
+                        <Text tag="lg-subtitle-bold" css={{ color: colors.grayscale_90 }}>
                           {file.name}
                         </Text>
-                        <Text
-                          tag="sm-text-medium"
-                          css={{ color: colors.grayscale_40 }}
-                        >
+                        <Text tag="lg-subtitle-medium" css={{ color: colors.grayscale_40 }}>
                           {(file.size / 1024).toFixed(1)} KB
                         </Text>
                       </Flex>

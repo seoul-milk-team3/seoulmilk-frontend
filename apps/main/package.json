@@ -19,6 +19,7 @@
     "@seoulmilk/utils": "workspace:^",
     "@tanstack/react-query": "^5.66.9",
     "@tanstack/react-query-devtools": "^5.66.9",
+    "@types/react-dropzone": "^5.1.0",
     "jsx-runtime": "link:@emotion/react/jsx-runtime",
     "react-dropzone": "^14.3.8"
   },

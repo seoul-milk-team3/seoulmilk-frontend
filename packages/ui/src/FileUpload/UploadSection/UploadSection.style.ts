@@ -21,7 +21,7 @@ export const uploadSectionContainerStyle = (hasFiles: boolean) => css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 9rem;
 
   background-color: ${colors.grayscale_0};
@@ -32,26 +32,28 @@ export const uploadSectionContainerStyle = (hasFiles: boolean) => css`
   }`}
 `;
 
-export const fileListStyle = css`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.2rem;
-  padding: 1rem;
-  padding-bottom: 1rem;
-  flex-grow: 1;
-  overflow-y: auto;
-`;
-
 export const fileItemStyle = css`
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  align-items: flex-start; /* 내부 요소들을 상단에 정렬 */
+  gap: 2rem;
   padding: 1rem;
+  padding-top:1rem;
   border-radius: 1.2rem;
   width: 77.4rem;
   height: 14.9rem;
   border: 2px solid ${colors.grayscale_30};
   margin-left: 3rem;
+  
+`;
+
+
+export const fileListStyle = css`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  padding: 2rem;
+  padding-bottom: 1rem;
+  overflow-y: auto;
 `;
 
 export const filePreviewStyle = css`
@@ -59,13 +61,12 @@ export const filePreviewStyle = css`
   height: 10.2rem;
   border-radius: 0.4rem;
   object-fit: cover;
+  margin : 3rem;
+  margin-right : 1rem;
+  margin-top : 1rem;
+
 `;
 
-export const fileNameStyle = css`
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: ${colors.grayscale_90};
-`;
 
 export const buttonStyle = css`
   display: flex;

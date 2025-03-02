@@ -11,23 +11,23 @@ const FileUploadPage = () => {
     <Flex css={pageContainerStyle}>
       <Flex css={uploadContentStyle}>
         <Flex css={uploadBoxStyle}>
+          <UploadSection
+            onUploadStart={() => setUploadState('uploading')}
+            onUploadSuccess={() => setUploadState('uploaded')}
+            onCheckValidity={() => setUploadState('checking')}
+          />
+
           {uploadState === 'uploading' && (
             <FileCheck variant="primary" onComplete={() => setUploadState('uploaded')} checkFiles={async () => {}} />
           )}
           {uploadState === 'checking' && (
             <FileCheck variant="secondary" onComplete={() => setUploadState('uploaded')} checkFiles={async () => {}} />
           )}
-          {uploadState !== 'uploading' && uploadState !== 'checking' && (
-            <UploadSection
-              onUploadStart={() => setUploadState('uploading')}
-              onUploadSuccess={() => setUploadState('uploaded')}
-              onCheckValidity={() => setUploadState('checking')}
-            />
-          )}
         </Flex>
       </Flex>
     </Flex>
   );
 };
+
 
 export default FileUploadPage;
