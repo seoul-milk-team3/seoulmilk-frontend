@@ -10,9 +10,15 @@ type DropdownTriggerProps = PropsWithChildren & {
   icon?: React.ReactNode;
   type: "date" | "region" | "email";
   selected: string;
+  isDefault?: boolean;
 };
 
-const DropdownTrigger = ({ icon, type, selected }: DropdownTriggerProps) => {
+const DropdownTrigger = ({
+  icon,
+  type,
+  selected,
+  isDefault = false,
+}: DropdownTriggerProps) => {
   const { isOpen, toggle } = useDropdownContext();
 
   return (
@@ -22,12 +28,9 @@ const DropdownTrigger = ({ icon, type, selected }: DropdownTriggerProps) => {
         <Text
           tag={type === "email" ? "md2-text-regular" : "md2-text-medium"}
           css={{
-            color:
-              selected === "선택해주세요"
-                ? theme.colors.grayscale_40
-                : type === "email"
-                  ? theme.colors.grayscale_80
-                  : theme.colors.grayscale_50,
+            color: isDefault
+              ? theme.colors.grayscale_40
+              : theme.colors.grayscale_80,
           }}
         >
           {selected}

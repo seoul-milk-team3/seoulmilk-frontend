@@ -1,7 +1,6 @@
 import { IcCalendar, IcLocal } from "@seoulmilk/icon";
 import { format, subMonths } from "date-fns";
 import { ko } from "date-fns/locale";
-import { useState } from "react";
 import DropdownItem from "@/DropDown/DropdownItem";
 import DropdownList from "@/DropDown/DropdownList";
 import DropdownRoot from "@/DropDown/DropdownRoot";
@@ -26,49 +25,44 @@ const regions = [
   "전북특별자치도",
 ];
 
-const emailDomains = [
-  "naver.com",
-  "hanmail.net",
-  "daum.net",
-  "gmail.com",
-  "nate.com",
-  "hotmail.com",
-  "outlook.com",
-  "icloud.com",
-];
-
-// 현재 날짜 기준 12개월 생성
 const generateMonths = () => {
   return Array.from({ length: 12 }, (_, i) =>
     format(subMonths(new Date(), 11 - i), "yyyy.MM", { locale: ko })
   );
 };
 
-const SelectDropdown = ({ type }: { type: "date" | "region" | "email" }) => {
-  const defaultValue =
-    type === "date" ? "날짜" : type === "region" ? "지역" : "선택해주세요";
-  const [selected, setSelected] = useState(defaultValue);
+const SelectDropdown = ({
+  type,
+  value,
+  onSelect,
+}: {
+  type: "date" | "region";
+  value?: string;
+  onSelect: (val: string) => void;
+}) => {
+  const defaultValue = type === "date" ? "날짜" : "지역";
+  const selectedValue = value ?? defaultValue;
 
-  const options =
-    type === "date"
-      ? generateMonths()
-      : type === "region"
-        ? regions
-        : emailDomains;
+  const options = type === "date" ? generateMonths() : regions;
 
   const icon =
     type === "date" ? (
       <IcCalendar width={24} height={24} />
-    ) : type === "region" ? (
+    ) : (
       <IcLocal width={24} height={24} />
-    ) : null;
+    );
 
   return (
     <DropdownRoot>
-      <DropdownTrigger icon={icon} type={type} selected={selected} />
+      <DropdownTrigger
+        icon={icon}
+        type={type}
+        selected={selectedValue}
+        isDefault={selectedValue === defaultValue}
+      />
       <DropdownList>
         {options.map((item) => (
-          <DropdownItem key={item} onSelect={() => setSelected(item)}>
+          <DropdownItem key={item} onSelect={() => onSelect(item)}>
             {item}
           </DropdownItem>
         ))}
