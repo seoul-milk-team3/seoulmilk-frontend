@@ -1,19 +1,10 @@
-import { Meta, StoryObj } from "@storybook/react";
 import CheckDone from "./CheckDone";
 
-const meta: Meta<typeof CheckDone> = {
+export default {
   title: "Components/CheckDone",
   component: CheckDone,
-  tags: ["autodocs"],
-  argTypes: {
-    onClose: { action: "closed" },
-  },
 };
 
-export default meta;
+export const primary = () => <CheckDone isNormal={true} onClose={() => {}} />;
+export const secondary = () => <CheckDone isNormal={false} onClose={() => {}} />;
 
-type Story = StoryObj<typeof CheckDone>;
-
-export const Default: Story = {
-  args: {},
-};

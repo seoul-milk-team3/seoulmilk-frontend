@@ -1,16 +1,21 @@
-import { Header } from '@seoulmilk/ui';
-import { Sidebar } from '@seoulmilk/ui';
-import { Outlet } from 'react-router-dom';
-import { layoutStyle, containerStyle, contentStyle } from '@/layouts/main/MainLayout.style';
+import React, { ReactNode } from "react";
+import { Outlet } from "react-router-dom";
+import { Header } from "@seoulmilk/ui";
+import { Sidebar } from "@seoulmilk/ui";
+import { layoutStyle, containerStyle, contentStyle } from "@/layouts/main/MainLayout.style";
 
-const MainLayout = () => {
+interface MainLayoutProps {
+  children?: ReactNode;
+}
+
+const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
     <div css={layoutStyle}>
       <Header variant="secondary" />
       <div css={containerStyle}>
         <Sidebar />
         <main css={contentStyle}>
-          <Outlet />
+          {children ?? <Outlet />}  {/* children이 있으면 렌더링, 없으면 Outlet */}
         </main>
       </div>
     </div>

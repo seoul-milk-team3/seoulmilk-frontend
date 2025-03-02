@@ -18,27 +18,45 @@ export const contentWrapper = css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-grow: 1; /* 중간 영역을 차지하여 버튼을 밀어냄 */
-  gap: 1rem;
+  flex-grow: 1; 
 `;
 
 export const titleText = css`
   font-size: 2.8rem;
   font-weight: bold;
   color: ${colors.grayscale_90};
-  margin-top :3rem;
+  margin-top: 3rem;
+`;
+
+export const subtitleText = css`
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: ${colors.grayscale_90};
+  margin-top: 2rem;
 `;
 
 export const resultText = css`
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: ${colors.red_50}; /* 빨간색 */
+  margin-left: 0.5rem;
+`;
+
+export const errorDetailsText = css`
   font-size: 1.8rem;
-  font-weight: semibold;
-  color: ${colors.grayscale_50};
+  font-weight: bold;
+  color: ${colors.red_50}; /* 빨간색 */
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 0.5rem;
 `;
 
 export const buttonContainer = css`
   display: flex;
   gap: 2rem;
+  margin-bottom: 1rem;
 `;
+
 export const buttonStyle = css`
   display: flex;
   align-items: center;
@@ -59,8 +77,6 @@ export const buttonStyle = css`
     background: ${colors.grayscale_20};
     color: ${colors.grayscale_50};
   }
-  display: flex;
-  gap: 2rem;
+
   margin-top: auto; /* 버튼을 하단에 위치하도록 설정 */
 `;
-

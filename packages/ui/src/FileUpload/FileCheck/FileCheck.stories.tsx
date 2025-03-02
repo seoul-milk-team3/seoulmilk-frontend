@@ -1,26 +1,34 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import FileCheck from "./FileCheck";
 
-const meta: Meta<typeof FileCheck> = {
+export default {
   title: "Components/FileCheck",
   component: FileCheck,
   argTypes: {
-    onComplete: { action: "onComplete" },
-    checkFiles: { action: "checkFiles" },
+    variant: {
+      control: { type: "radio" },
+      options: ["primary", "secondary"],
+    },
+    onComplete: { action: "completed" },
+    checkFiles: { action: "checking files" },
+    onCancel: { action: "canceled" },
+  },
+} as ComponentMeta<typeof FileCheck>;
+
+const Template: ComponentStory<typeof FileCheck> = (args) => <FileCheck {...args} />;
+
+export const Primary = Template.bind({});
+Primary.args = {
+  variant: "primary",
+  checkFiles: async () => {
+    await new Promise((resolve) => setTimeout(resolve, 2000000000));
   },
 };
 
-export default meta;
-
-type Story = StoryObj<typeof FileCheck>;
-
-export const Default: Story = {
-  args: {
-    onComplete: () => console.log("진위여부 확인 완료"),
-    checkFiles: async () => {
-      console.log("파일 검사 요청 중...");
-      await new Promise((resolve) => setTimeout(resolve, 1000000000)); // 3초 대기 (로딩 시뮬레이션)
-      console.log("파일 검사 완료!");
-    },
+export const Secondary = Template.bind({});
+Secondary.args = {
+  variant: "secondary",
+  checkFiles: async () => {
+    await new Promise((resolve) => setTimeout(resolve, 20000000));
   },
 };
