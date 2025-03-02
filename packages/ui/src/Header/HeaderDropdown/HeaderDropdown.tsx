@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { HeaderDropdownIcon } from "@seoulmilk/icon";
+import { HeaderDropdown } from "@seoulmilk/icon";
 import Flex from "@/Flex/Flex";
 import Text from "@/Text/Text";
 import {
@@ -10,6 +10,7 @@ import {
 interface HeaderDropdownProps {
   variant?: "agency" | "main";
 }
+
 
 const HeaderDropdown = ({ variant = "agency" }: HeaderDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +34,7 @@ const HeaderDropdown = ({ variant = "agency" }: HeaderDropdownProps) => {
 
   return (
     <div ref={dropdownRef} style={{ position: "relative" }}>
-      <HeaderDropdownIcon
+      <HeaderDropdown
         css={{
           width: "2.4rem",
           height: "2.4rem",
@@ -56,4 +57,4 @@ const HeaderDropdown = ({ variant = "agency" }: HeaderDropdownProps) => {
   );
 };
 
-export default HeaderDropdown;
+export default HeaderDropdownCo;

@@ -1,4 +1,8 @@
+export { default as CheckDoneIcon } from "./src/CheckDoneIcon";
+export { default as DeleteX } from "./src/DeleteX";
+export { default as FileUploadIcon } from "./src/FileUploadIcon";
 export { default as HeaderAlarm } from "./src/HeaderAlarm";
+export { default as HeaderDropdown } from "./src/HeaderDropdown";
 export { default as HeaderDropdownIcon } from "./src/HeaderDropdownIcon";
 export { default as IcAlarm } from "./src/IcAlarm";
 export { default as IcError } from "./src/IcError";
@@ -9,4 +13,5 @@ export { default as IcNotice } from "./src/IcNotice";
 export { default as IcPhone } from "./src/IcPhone";
 export { default as IcSearch } from "./src/IcSearch";
 export { default as SeoulmilkLogo } from "./src/SeoulmilkLogo";
+export { default as Telephone } from "./src/Telephone";
 export { default as UserProfile } from "./src/UserProfile";

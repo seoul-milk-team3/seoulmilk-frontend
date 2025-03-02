@@ -1,3 +1,4 @@
+
 import {
   HeaderAlarm,
   IcHeaderLogo,
@@ -12,7 +13,8 @@ import {
   rightSectionStyle,
   phoneStyle,
 } from "@/Header/Header.style";
-import HeaderDropdown from "@/Header/HeaderDropdown/HeaderDropdown";
+import HeaderDropdownCo from "@/Header/HeaderDropdown/HeaderDropdown";
+import { colors } from "@seoulmilk/styles";
 
 export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
   variant?: "agency" | "main";
@@ -42,6 +44,7 @@ const Header = ({ variant = "main", ...props }: HeaderProps) => {
         </Text>
         <HeaderDropdown />
 
+
         <HeaderAlarm
           css={{
             filter: iconFilter,
@@ -51,6 +54,7 @@ const Header = ({ variant = "main", ...props }: HeaderProps) => {
           }}
         />
 
+
         {/* agency일 때만 본사 문의 표시 */}
         {isAgency && (
           <Flex
@@ -59,6 +63,7 @@ const Header = ({ variant = "main", ...props }: HeaderProps) => {
             <IcPhone width={24} height={24} />
             <Text tag="md2-text-medium" css={phoneStyle}>
               본사 문의
+
             </Text>
           </Flex>
         )}

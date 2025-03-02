@@ -9,8 +9,10 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "jsx": "react-jsx",
-    "noEmit": true
+    "noEmit": true,
+    
   },
-  "include": ["src", "svgr.d.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src", "svgr.d.ts", "index.ts"],
+  "exclude": ["node_modules", "dist"],
+  
 }
