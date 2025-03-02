@@ -9,7 +9,7 @@ import {
   fileNameStyle,
   buttonStyle
 } from "./UploadSection.style";
-import UploadTopMessage from "@/FileUpload/UploadTopMessage/UploadTopMessage"; // 🔥 메시지 컴포넌트 추가
+import UploadTopMessage from "@/FileUpload/UploadTopMessage/UploadTopMessage"; 
 import Flex from "@/Flex/Flex";
 import Button from "@/Button/Button";
 import Text from "@/Text/Text";
@@ -77,7 +77,6 @@ const UploadSection = () => {
 
   return (
     <Flex styles={{ direction: "column", width: "100%" }}>
-      {/* 🔥 UploadTopMessage 추가 */}
       <UploadTopMessage
         title={isDone ? "세금계산서 업로드를 완료했어요" : uploadedFiles.length > 0 ? "세금계산서 업로드를 완료했어요" : "세금계산서를 업로드해주세요"}
         subTitle={
