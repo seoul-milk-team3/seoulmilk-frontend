@@ -1,34 +1,32 @@
-import { SeoulmilkLogo } from "@seoulmilk/icon";
-import { HeaderAlarm } from "@seoulmilk/icon";
-import { UserProfile } from "@seoulmilk/icon";
-import { Telephone } from "@seoulmilk/icon";
+
+import {
+  HeaderAlarm,
+  IcHeaderLogo,
+  IcPhone,
+  UserProfile,
+} from "@seoulmilk/icon";
 import Flex from "@/Flex/Flex";
 import Text from "@/Text/Text";
 import {
   headerBaseStyle,
   headerVariantStyle,
-  logoTextStyle,
   rightSectionStyle,
+  phoneStyle,
 } from "@/Header/Header.style";
 import HeaderDropdownCo from "@/Header/HeaderDropdown/HeaderDropdown";
 import { colors } from "@seoulmilk/styles";
 
 export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
-  variant?: "primary" | "secondary";
+  variant?: "agency" | "main";
 }
 
-const Header = ({ variant = "primary", ...props }: HeaderProps) => {
-  const isPrimary = variant === "primary";
-  const iconFilter = isPrimary ? "invert(1)" : "none";
+const Header = ({ variant = "main", ...props }: HeaderProps) => {
+  const isAgency = variant === "agency";
+  const iconFilter = isAgency ? "invert(1)" : "none";
 
   return (
     <header css={[headerBaseStyle, headerVariantStyle[variant]]} {...props}>
-      <Flex styles={{ align: "center", gap: "0.2rem" }}>
-        <SeoulmilkLogo css={{ width: "2.7rem", height: "2.7rem" }} />
-        <Text tag="md1-text-bold" css={logoTextStyle(variant)}>
-          서울우유
-        </Text>
-      </Flex>
+      <IcHeaderLogo width={101} height={36} />
 
       <Flex css={rightSectionStyle(variant)}>
         <UserProfile
@@ -37,14 +35,15 @@ const Header = ({ variant = "primary", ...props }: HeaderProps) => {
         <Text
           tag="md2-text-medium"
           css={{
-            color: isPrimary ? "black" : "white",
+            color: isAgency ? "black" : "white",
             marginLeft: "0.8rem",
             marginRight: "1.2rem",
           }}
         >
           a12123
         </Text>
-        <HeaderDropdownCo variant={variant} />
+        <HeaderDropdown />
+
 
         <HeaderAlarm
           css={{
@@ -54,23 +53,17 @@ const Header = ({ variant = "primary", ...props }: HeaderProps) => {
             marginLeft: "1.6rem",
           }}
         />
-        {isPrimary && (
-          <Flex styles={{ align: "center", gap: "0.8rem", marginLeft: "1.2rem" }}>
-            <Telephone
-              css={{
-                width: "2.4rem",
-                height: "2.4rem",
-              }}
-            />
-            <Text
-              tag="md2-text-medium"
-              css={{
-                textDecoration: "underline",
-                color: colors.grayscale_60
-  
-              }}
-            >
-              본사문의
+
+
+        {/* agency일 때만 본사 문의 표시 */}
+        {isAgency && (
+          <Flex
+            styles={{ gap: "0.8rem", align: "center", marginLeft: "2.4rem" }}
+          >
+            <IcPhone width={24} height={24} />
+            <Text tag="md2-text-medium" css={phoneStyle}>
+              본사 문의
+
             </Text>
           </Flex>
         )}

@@ -5,17 +5,17 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@/assets/*": ["src/assets/*"],
-      "@/pages/*": ["src/pages/*"],
-      "@/components/*": ["src/components/*"],
-      "@/styles/*": ["src/styles/*"],
-      "@/constants/*": ["src/constants/*"],
-      "@/hooks/*": ["src/hooks/*"],
-      "@/apis/*": ["src/apis/*"],
-      "@/utils/*": ["src/utils/src"],
-      "@/routes/*": ["src/routes/*"],
-      "@/layouts/*": ["src/layouts/*"]
+      "@agency/*": ["src/*"],
+      "@agency/assets/*": ["src/assets/*"],
+      "@agency/pages/*": ["src/pages/*"],
+      "@agency/components/*": ["src/components/*"],
+      "@agency/styles/*": ["src/styles/*"],
+      "@agency/constants/*": ["src/constants/*"],
+      "@agency/hooks/*": ["src/hooks/*"],
+      "@agency/apis/*": ["src/apis/*"],
+      "@agency/utils/*": ["src/utils/src"],
+      "@agency/routes/*": ["src/routes/*"],
+      "@agency/layouts/*": ["src/layouts/*"]
     },
     "jsxImportSource": "@emotion/react"
   },

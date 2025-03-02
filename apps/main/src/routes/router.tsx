@@ -1,11 +1,11 @@
+import AuthLayout from '@main/layouts/auth/AuthLayout';
+import MainLayout from '@main/layouts/main/MainLayout';
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import AuthLayout from '@/layouts/auth/AuthLayout';
-import MainLayout from '@/layouts/main/MainLayout';
 
-const Login = lazy(() => import('@/pages/login/LoginPage'));
-const List = lazy(() => import('@/pages/list/ListPage'));
-const ErrorList = lazy(() => import('@/pages/errorList/ErrorListPage'));
+const Login = lazy(() => import('@main/pages/login/LoginPage'));
+const List = lazy(() => import('@main/pages/list/ListPage'));
+const ErrorList = lazy(() => import('@main/pages/errorList/ErrorListPage'));
 
 export const router = createBrowserRouter([
   {

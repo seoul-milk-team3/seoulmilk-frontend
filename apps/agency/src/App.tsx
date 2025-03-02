@@ -1,5 +1,8 @@
+import { router } from '@agency/routes/router';
+import { RouterProvider } from 'react-router-dom';
+
 function App() {
-  return <h1>안녕</h1>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
