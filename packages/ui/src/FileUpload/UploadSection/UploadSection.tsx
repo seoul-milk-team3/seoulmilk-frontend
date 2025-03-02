@@ -154,7 +154,7 @@ const UploadSection = ({
           >
             {uploadedFiles.length === 0 ? (
               <Flex
-                styles={{ direction: "column", align: "center", gap: "9rem" }}
+                styles={{ direction: "column", align: "center", gap: "9rem",padding: "6rem" }}
                 css={{ flexGrow: 1 }}
               >
                 <Flex styles={{ direction: "column", align: "center" }}>
@@ -208,17 +208,16 @@ const UploadSection = ({
                       <Flex
                         styles={{
                           direction: "column",
-                          justify: "center",
+                          justify: "flex-start", // 상단 정렬
+                          align: "flex-start", // 왼쪽 정렬
                           gap: "0.8rem",
+                          paddingTop:"2rem",
                         }}
                       >
-                        <Text tag="sm-text-medium" css={fileNameStyle}>
+                        <Text tag="lg-subtitle-bold" css={{ color: colors.grayscale_90 }}>
                           {file.name}
                         </Text>
-                        <Text
-                          tag="sm-text-medium"
-                          css={{ color: colors.grayscale_40 }}
-                        >
+                        <Text tag="lg-subtitle-medium" css={{ color: colors.grayscale_40 }}>
                           {(file.size / 1024).toFixed(1)} KB
                         </Text>
                       </Flex>
