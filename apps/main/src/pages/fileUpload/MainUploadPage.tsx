@@ -18,15 +18,7 @@ const FileUploadPage = () => {
 
   return (
     <Flex css={pageContainerStyle}>
-      {/* 메인 콘텐츠 영역 */}
-      <Flex css={contentContainerStyle}>
-        <Header variant="secondary" />
 
-        <Flex css={mainContentStyle}>
-          {/* 사이드바 */}
-          <Sidebar css={sidebarStyle} />
-
-          {/* 업로드 섹션 */}
           <Flex css={uploadContentStyle}>
            
 
@@ -43,8 +35,6 @@ const FileUploadPage = () => {
             </Flex>
           </Flex>
         </Flex>
-      </Flex>
-    </Flex>
   );
 };
 
