@@ -4,7 +4,7 @@ import { FileCheck } from '@seoulmilk/ui';
 import { UploadSection } from '@seoulmilk/ui';
 import { useState } from 'react';
 
-const FileUploadPage = () => {
+const MainUploadPage = () => {
   const [uploadState, setUploadState] = useState<'idle' | 'uploading' | 'uploaded' | 'checking'>('idle');
 
   return (
@@ -30,4 +30,4 @@ const FileUploadPage = () => {
 };
 
 
-export default FileUploadPage;
+export default MainUploadPage;
