@@ -1,35 +1,40 @@
 import { useDropdownContext } from "@/DropDown/context";
-import {
-  Children,
-  cloneElement,
-  isValidElement,
-  PropsWithChildren,
-  ReactElement,
-} from "react";
+import { IcArrowDropdown } from "@seoulmilk/icon";
+import { PropsWithChildren } from "react";
+import { triggerStyle, arrowStyle } from "@/DropDown/Dropdown.style";
+import Flex from "@/Flex/Flex";
+import Text from "@/Text/Text";
+import { theme } from "@seoulmilk/styles";
 
 type DropdownTriggerProps = PropsWithChildren & {
-  variant?: "button" | "input";
+  icon?: React.ReactNode;
+  type: "date" | "region" | "email";
+  selected: string;
 };
 
-const DropdownTrigger = ({
-  variant = "button",
-  children,
-}: DropdownTriggerProps) => {
-  const { isOpen, toggle, open, close } = useDropdownContext();
+const DropdownTrigger = ({ icon, type, selected }: DropdownTriggerProps) => {
+  const { isOpen, toggle } = useDropdownContext();
 
   return (
-    <>
-      {Children.map(children, (child) => {
-        if (isValidElement(child)) {
-          return cloneElement(child as ReactElement, {
-            isOpen,
-            onClick: variant === "button" ? toggle : undefined,
-            onFocus: variant === "input" ? open : undefined,
-            onBlur: variant === "input" ? close : undefined,
-          });
-        }
-      })}
-    </>
+    <button type="button" onClick={toggle} css={triggerStyle(type)}>
+      <Flex styles={{ gap: "1rem", align: "center" }}>
+        {icon}
+        <Text
+          tag={type === "email" ? "md2-text-regular" : "md2-text-medium"}
+          css={{
+            color:
+              selected === "선택해주세요"
+                ? theme.colors.grayscale_40
+                : type === "email"
+                  ? theme.colors.grayscale_80
+                  : theme.colors.grayscale_50,
+          }}
+        >
+          {selected}
+        </Text>
+      </Flex>
+      <IcArrowDropdown width={24} height={24} css={arrowStyle(isOpen)} />
+    </button>
   );
 };
 

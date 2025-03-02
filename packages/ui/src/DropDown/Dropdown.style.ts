@@ -49,6 +49,5 @@ export const dropdownItemStyle = css({
 
 export const arrowStyle = (isOpen: boolean) =>
   css({
-    transition: "transform 0.3s ease-in-out",
     transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
   });
