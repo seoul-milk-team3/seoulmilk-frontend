@@ -6,8 +6,7 @@ export const uploadWrapperStyle = css`
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
-  padding-top:1rem;
-  
+  padding-top: 1rem;
 `;
 
 export const uploadSectionContainerStyle = (hasFiles: boolean) => css`
@@ -18,7 +17,7 @@ export const uploadSectionContainerStyle = (hasFiles: boolean) => css`
   border-radius: 2rem;
   text-align: center;
   cursor: pointer;
-  
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,15 +32,14 @@ export const uploadSectionContainerStyle = (hasFiles: boolean) => css`
   }`}
 `;
 
-
-
 export const fileListStyle = css`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.2rem;
   padding: 1rem;
-  padding-bottom:1rem;
-
+  padding-bottom: 1rem;
+  flex-grow: 1;
+  overflow-y: auto;
 `;
 
 export const fileItemStyle = css`
@@ -53,7 +51,7 @@ export const fileItemStyle = css`
   width: 77.4rem;
   height: 14.9rem;
   border: 2px solid ${colors.grayscale_30};
-  margin-left:3rem;
+  margin-left: 3rem;
 `;
 
 export const filePreviewStyle = css`
