@@ -3,19 +3,22 @@ import path from "path";
 
 const config: StorybookConfig = {
   stories: [
-    "./src/**/*.stories.@(js|jsx|ts|tsx)",  
-    "../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx)",
-    "../apps/main/src/stories/**/*.stories.@(js|jsx|ts|tsx)",
-    "../apps/main/src/**/*.stories.@(js|jsx|ts|tsx)",
-    "../apps/agency/src/stories/**/*.stories.@(js|jsx|ts|tsx)",
-    "../apps/agency/src/**/*.stories.@(js|jsx|ts|tsx)",
+    path.resolve(__dirname, "../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx)"),
+    path.resolve(
+      __dirname,
+      "../apps/main/src/stories/**/*.stories.@(js|jsx|ts|tsx)"
+    ),
+    path.resolve(
+      __dirname,
+      "../apps/agency/src/stories/**/*.stories.@(js|jsx|ts|tsx)"
+    ),
   ],
-  
   addons: [
     "@storybook/addon-onboarding",
     "@storybook/addon-essentials",
     "@chromatic-com/storybook",
     "@storybook/addon-interactions",
+    "@storybook/addon-viewport",
   ],
   framework: {
     name: "@storybook/react-vite",
@@ -27,12 +30,13 @@ const config: StorybookConfig = {
         ...config.resolve.alias,
         "@": path.resolve(__dirname, "../packages/ui/src"),
         "@seoulmilk/ui": path.resolve(__dirname, "../packages/ui/src"),
+        "@agency": path.resolve(__dirname, "../apps/agency/src"),
+        "@main": path.resolve(__dirname, "../apps/main/src"),
         "@seoulmilk/utils": path.resolve(__dirname, "../packages/utils/src"),
         "@seoulmilk/icon": path.resolve(__dirname, "../packages/icon/index.ts"),
         "@seoulmilk/styles": path.resolve(__dirname, "../packages/styles/src"),
-        
-        // ✅ 추가한 부분
-        "@agency": path.resolve(__dirname, "../apps/agency/src"),
+        "@seoulmilk/main": path.resolve(__dirname, "../apps/main/src"),
+        "@seoulmilk/agency": path.resolve(__dirname, "../apps/agency/src"),
       };
     }
 

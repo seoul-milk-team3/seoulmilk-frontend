@@ -5,7 +5,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 const Login = lazy(() => import('@agency/pages/login/LoginPage'));
 const List = lazy(() => import('@agency/pages/list/ListPage'));
-const FileUpload = lazy(() => import('@agency/pages/fileUpload/FileUploadPage'));
+const FileUpload = lazy(() => import('@agency/pages/fileUpload/AgencyUploadPage'));
 
 export const router = createBrowserRouter([
   {

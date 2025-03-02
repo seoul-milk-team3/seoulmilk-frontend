@@ -6,6 +6,7 @@ import { createBrowserRouter } from 'react-router-dom';
 const Login = lazy(() => import('@main/pages/login/LoginPage'));
 const List = lazy(() => import('@main/pages/list/ListPage'));
 const ErrorList = lazy(() => import('@main/pages/errorList/ErrorListPage'));
+const FileUpload = lazy(() => import('@main/pages/fileUpload/MainUploadPage'));
 
 export const router = createBrowserRouter([
   {
@@ -16,8 +17,7 @@ export const router = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [
-      // 일단 default 경로를 List 로 설정 --> 추후 변경해야함
-      { path: '/', element: <List /> },
+      { path: '/', element: <FileUpload /> },
       { path: '/error-list', element: <ErrorList /> },
       { path: '/list', element: <List /> },
     ],

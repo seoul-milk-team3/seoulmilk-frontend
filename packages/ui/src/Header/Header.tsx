@@ -1,4 +1,3 @@
-
 import {
   HeaderAlarm,
   IcHeaderLogo,
@@ -42,13 +41,7 @@ const Header = ({ variant = "main", ...props }: HeaderProps) => {
         >
           a12123
         </Text>
-        <HeaderDropdown
-  css={{
-    color: isAgency ? "black" : "white",
-  }}
-/>
-
-
+        <HeaderDropdown />
 
         <HeaderAlarm
           css={{
@@ -59,7 +52,6 @@ const Header = ({ variant = "main", ...props }: HeaderProps) => {
           }}
         />
 
-
         {/* agency일 때만 본사 문의 표시 */}
         {isAgency && (
           <Flex
@@ -68,7 +60,6 @@ const Header = ({ variant = "main", ...props }: HeaderProps) => {
             <IcPhone width={24} height={24} />
             <Text tag="md2-text-medium" css={phoneStyle}>
               본사 문의
-
             </Text>
           </Flex>
         )}

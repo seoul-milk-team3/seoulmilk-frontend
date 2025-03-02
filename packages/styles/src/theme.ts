@@ -4,6 +4,7 @@ export const colors = {
   sub_PANTONE_3022C: "#009857",
   sub_PANTONE_361C: "#6BBC64",
   sub_PANTONE_7484C: "#00573D",
+  red_50: "#E60012",
 
   green_5: "#E6F5EE",
   green_10: "#B0DFCB",

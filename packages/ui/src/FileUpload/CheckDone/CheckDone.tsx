@@ -1,4 +1,11 @@
-import { checkDoneContainer, titleText, subtitleText, buttonContainer, buttonStyle, contentWrapper } from "./CheckDone.style";
+import {
+  checkDoneContainer,
+  titleText,
+  subtitleText,
+  buttonContainer,
+  buttonStyle,
+  contentWrapper,
+} from "./CheckDone.style";
 import Flex from "@/Flex/Flex";
 import Text from "@/Text/Text";
 import Button from "@/Button/Button";
@@ -8,13 +15,16 @@ import { CheckDoneIcon } from "@seoulmilk/icon";
 
 interface CheckDoneProps {
   onClose: () => void; // 확인 버튼 클릭 시 실행할 콜백
-  isNormal: boolean; // 서버에서 받은 결과 (정상 여부)
+  isNormal?: boolean; // 서버에서 받은 결과 (정상 여부)
   onErrorClick?: () => void; // 오류 내역 확인 버튼 클릭 시 실행할 콜백
 }
 
 const CheckDone = ({ onClose, isNormal, onErrorClick }: CheckDoneProps) => {
   return (
-    <Flex css={checkDoneContainer} styles={{ direction: "column", align: "center" }}>
+    <Flex
+      css={checkDoneContainer}
+      styles={{ direction: "column", align: "center" }}
+    >
       {/* 아이콘과 텍스트를 감싸는 Wrapper */}
       <Flex css={contentWrapper}>
         <CheckDoneIcon css={{ width: "6.4rem", height: "6.4rem" }} />
