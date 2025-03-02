@@ -1,6 +1,16 @@
-import { IcSearch } from '@seoulmilk/icon';
+import { IcSearchInput, IcReset } from '@seoulmilk/icon';
 import { SelectDropdown } from '@seoulmilk/ui';
+import { Flex } from '@seoulmilk/ui';
+import { Text } from '@seoulmilk/ui';
 import { useState, useEffect } from 'react';
+import {
+  inputStyle,
+  inputContainerStyle,
+  iconStyle,
+  textColorStyle,
+  resetBtnStyle,
+  searchBtnStyle,
+} from './FilterContainer.style';
 
 type FilterState = {
   startDate: string;
@@ -48,27 +58,43 @@ const FilterContainer = ({ onFilter }: { onFilter: (filters: FilterState) => voi
   };
 
   return (
-    <div className="filter-container">
-      <input
-        type="text"
-        placeholder="대리점명을 검색해주세요"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)} // 실시간 검색 처리
-      />
-      <SelectDropdown
-        type="date"
-        value={filters.startDate}
-        onSelect={(val: string) => handleChange('startDate', val)}
-      />
-      <span>~</span>
-      <SelectDropdown type="date" value={filters.endDate} onSelect={(val: string) => handleChange('endDate', val)} />
-      <SelectDropdown type="region" value={filters.region} onSelect={(val: string) => handleChange('region', val)} />
-      <button onClick={handleReset}>초기화</button>
-      <button onClick={handleSearch} className="search-button">
-        <IcSearch />
-        검색
-      </button>
-    </div>
+    <Flex styles={{ justify: 'space-between', width: '100%' }}>
+      <Flex styles={{ align: 'center', gap: '1.2rem' }}>
+        <div css={inputContainerStyle}>
+          <IcSearchInput css={iconStyle} />
+          <input
+            type="text"
+            placeholder="대리점명을 검색해주세요"
+            value={searchTerm}
+            css={inputStyle}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <SelectDropdown
+          type="date"
+          value={filters.startDate}
+          onSelect={(val: string) => handleChange('startDate', val)}
+        />
+        <Text tag="md1-text-semibold" css={textColorStyle}>
+          ~
+        </Text>
+        <SelectDropdown type="date" value={filters.endDate} onSelect={(val: string) => handleChange('endDate', val)} />
+        <SelectDropdown type="region" value={filters.region} onSelect={(val: string) => handleChange('region', val)} />
+      </Flex>
+      <Flex styles={{ align: 'center', gap: '1.2rem' }}>
+        <Flex
+          tag="button"
+          onClick={handleReset}
+          styles={{ gap: '1rem', align: 'center', justify: 'center' }}
+          css={resetBtnStyle}>
+          <IcReset width={24} height={24} />
+          초기화
+        </Flex>
+        <Flex tag="button" styles={{ align: 'center', justify: 'center' }} onClick={handleSearch} css={searchBtnStyle}>
+          검색
+        </Flex>
+      </Flex>
+    </Flex>
   );
 };
 

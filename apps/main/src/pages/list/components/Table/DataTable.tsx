@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
 const sampleData = [
-  { id: 1, date: '2024.04.15', store: '서울지점', region: '서울특별시', status: '정상' },
-  { id: 2, date: '2024.05.10', store: '부산지점', region: '부산광역시', status: '정상' },
-  { id: 3, date: '2024.06.05', store: '대구지점', region: '대구광역시', status: '정상' },
-  { id: 4, date: '2024.07.25', store: '서울지점', region: '서울특별시', status: '정상' },
+  { date: '2024.04.15', store: '서울지점', region: '서울특별시', status: '정상' },
+  { date: '2024.05.10', store: '부산지점', region: '부산광역시', status: '정상' },
+  { date: '2024.06.05', store: '대구지점', region: '대구광역시', status: '정상' },
+  { date: '2024.07.25', store: '서울지점', region: '서울특별시', status: '정상' },
 ];
 
 const CHOSUNG_LIST = [
@@ -71,7 +71,6 @@ const DataTable = ({ filters }: { filters: any }) => {
     <table>
       <thead>
         <tr>
-          <th>자료번호</th>
           <th>일자</th>
           <th>공급자명</th>
           <th>처리결과</th>
@@ -79,9 +78,8 @@ const DataTable = ({ filters }: { filters: any }) => {
       </thead>
       <tbody>
         {filteredData.length > 0 ? (
-          filteredData.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
+          filteredData.map((item, index) => (
+            <tr key={index}>
               <td>{item.date}</td>
               <td>{item.store}</td>
               <td>{item.status}</td>
@@ -89,7 +87,7 @@ const DataTable = ({ filters }: { filters: any }) => {
           ))
         ) : (
           <tr>
-            <td colSpan={4}>검색 결과가 없습니다.</td>
+            <td colSpan={3}>검색 결과가 없습니다.</td>
           </tr>
         )}
       </tbody>

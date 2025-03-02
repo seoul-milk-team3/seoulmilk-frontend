@@ -13,6 +13,7 @@ export const triggerStyle = (type: "date" | "region" | "email") =>
     alignItems: "center",
     justifyContent: "space-between",
     border: `1px solid ${theme.colors.grayscale_30}`,
+    backgroundColor: theme.colors.grayscale_0,
     borderRadius: "12px",
     cursor: "pointer",
     padding: type === "email" ? "1.6rem 2rem" : "1.2rem 1.4rem",
