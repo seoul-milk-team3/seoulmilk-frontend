@@ -17,7 +17,7 @@ export const dropdownMenuStyle = css({
   paddingTop: "1rem",
   borderRadius: "1.2rem",
 
-  backgroundColor: "grayscale_0",
+  backgroundColor: colors.grayscale_0,
   boxShadow: "0.4rem 0.4rem 0.8rem 0rem #9797972E",
 });
 
@@ -30,12 +30,17 @@ export const dropdownItemStyle = css({
   height: "5.6rem",
   padding: "1.2rem 1.6rem",
 
-  color: "grayscale_70",
   fontSize: "1.6rem",
   textAlign: "center",
-
   cursor: "pointer",
   transition: "background-color 0.2s ease-in-out",
+
+  // 기본 색상 (agency)
+  color: colors.grayscale_70,
+
+  "&[data-variant='main']": {
+    color: colors.grayscale_90, // main일 때 글씨 검정색 유지
+  },
 
   "&:hover": {
     backgroundColor: colors.grayscale_20,

@@ -13,7 +13,7 @@ import {
   rightSectionStyle,
   phoneStyle,
 } from "@/Header/Header.style";
-import HeaderDropdownCo from "@/Header/HeaderDropdown/HeaderDropdown";
+import HeaderDropdown from "@/Header/HeaderDropdown/HeaderDropdown";
 import { colors } from "@seoulmilk/styles";
 
 export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
@@ -42,7 +42,12 @@ const Header = ({ variant = "main", ...props }: HeaderProps) => {
         >
           a12123
         </Text>
-        <HeaderDropdown />
+        <HeaderDropdown
+  css={{
+    color: isAgency ? "black" : "white",
+  }}
+/>
+
 
 
         <HeaderAlarm
