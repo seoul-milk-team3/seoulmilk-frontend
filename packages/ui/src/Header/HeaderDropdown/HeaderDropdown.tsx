@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { HeaderDropdown } from "@seoulmilk/icon";
+import { HeaderDropdownIcon } from "@seoulmilk/icon";
 import Flex from "@/Flex/Flex";
 import Text from "@/Text/Text";
 import {
@@ -11,11 +11,12 @@ interface HeaderDropdownProps {
   variant?: "agency" | "main";
 }
 
-
 const HeaderDropdown = ({ variant = "agency" }: HeaderDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const iconFilter = variant === "agency" ? "invert(1)" : "invert(0)";
+  
+  // variant 값에 따라 아이콘 스타일 변경
+  const iconFilter = variant === "agency" ? "none" : "invert(1)";
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -34,21 +35,21 @@ const HeaderDropdown = ({ variant = "agency" }: HeaderDropdownProps) => {
 
   return (
     <div ref={dropdownRef} style={{ position: "relative" }}>
-      <HeaderDropdown
+      <HeaderDropdownIcon
         css={{
           width: "2.4rem",
           height: "2.4rem",
           cursor: "pointer",
-          filter: iconFilter,
+          filter: iconFilter, // 여기서 variant에 따라 색상 변경
         }}
         onClick={() => setIsOpen((prev) => !prev)}
       />
       {isOpen && (
-        <Flex css={dropdownMenuStyle}>
-          <Text tag="md2-text-medium" css={dropdownItemStyle}>
+        <Flex css={dropdownMenuStyle} data-variant={variant}>
+          <Text tag="md2-text-medium" css={dropdownItemStyle} data-variant={variant}>
             프로필 수정
           </Text>
-          <Text tag="md2-text-medium" css={dropdownItemStyle}>
+          <Text tag="md2-text-medium" css={dropdownItemStyle} data-variant={variant}>
             로그아웃
           </Text>
         </Flex>
@@ -57,4 +58,4 @@ const HeaderDropdown = ({ variant = "agency" }: HeaderDropdownProps) => {
   );
 };
 
-export default HeaderDropdownCo;
+export default HeaderDropdown;
