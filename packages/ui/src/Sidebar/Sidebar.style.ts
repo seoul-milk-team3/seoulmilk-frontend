@@ -3,7 +3,7 @@ import { theme } from "@seoulmilk/styles";
 
 // 전체 사이드바 컨테이너
 export const sidebarContainerStyle = css({
-  width: "25.5rem",
+  width: "23.2rem",
   height: "100vh",
   backgroundColor: theme.colors.grayscale_0,
   padding: "2.8rem 2.4rem",
