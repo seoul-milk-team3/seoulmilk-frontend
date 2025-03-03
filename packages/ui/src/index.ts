@@ -10,3 +10,4 @@ export { default as UploadTopMessage } from "./FileUpload/UploadTopMessage/Uploa
 export { default as SidebarItem } from "./Sidebar/SidebarItem/SidebarItem";
 export { default as SelectDropdown } from "./DropDown/SelectDropdown";
 export { default as Pagination } from "./Pagination/Pagination";
+export { default as Input } from "./Input/Input";

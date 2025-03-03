@@ -25,6 +25,16 @@ const regions = [
   "전북특별자치도",
 ];
 
+const emailDomains = [
+  "naver.com",
+  "daum.net",
+  "gmail.com",
+  "yahoo.com",
+  "outlook.com",
+  "hanmail.net",
+  "nate.com",
+];
+
 const generateMonths = () => {
   return Array.from({ length: 12 }, (_, i) =>
     format(subMonths(new Date(), 11 - i), "yyyy.MM", { locale: ko })
@@ -36,21 +46,31 @@ const SelectDropdown = ({
   value,
   onSelect,
 }: {
-  type: "date" | "region";
+  type: "date" | "region" | "email";
   value?: string;
   onSelect: (val: string) => void;
 }) => {
-  const defaultValue = type === "date" ? "날짜" : "지역";
-  const selectedValue = value ?? defaultValue;
+  const defaultValues = {
+    date: "날짜 선택",
+    region: "지역 선택",
+    email: "이메일 선택",
+  };
 
-  const options = type === "date" ? generateMonths() : regions;
+  const selectedValue = value ?? defaultValues[type];
+
+  const options =
+    type === "date"
+      ? generateMonths()
+      : type === "region"
+        ? regions
+        : emailDomains;
 
   const icon =
     type === "date" ? (
       <IcCalendar width={24} height={24} />
-    ) : (
+    ) : type === "region" ? (
       <IcLocal width={24} height={24} />
-    );
+    ) : null;
 
   return (
     <DropdownRoot>
@@ -58,7 +78,7 @@ const SelectDropdown = ({
         icon={icon}
         type={type}
         selected={selectedValue}
-        isDefault={selectedValue === defaultValue}
+        isDefault={selectedValue === defaultValues[type]}
       />
       <DropdownList>
         {options.map((item) => (

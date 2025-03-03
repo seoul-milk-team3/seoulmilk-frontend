@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { theme } from '@seoulmilk/styles';
 import { Outlet } from 'react-router-dom';
 
 const AuthLayout = () => {
@@ -16,4 +17,5 @@ const authContainerStyle = css({
   alignItems: 'center',
   justifyContent: 'center',
   height: '100vh',
+  backgroundColor: theme.colors.grayscale_5,
 });

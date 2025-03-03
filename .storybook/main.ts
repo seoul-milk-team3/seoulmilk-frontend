@@ -47,6 +47,7 @@ const config: StorybookConfig = {
         "@seoulmilk/icon",
         "@seoulmilk/styles",
       ],
+      exclude: ["@seoulmilk/icon"],
     };
 
     return config;
