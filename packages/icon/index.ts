@@ -16,6 +16,7 @@ export { default as IcErrorArrow } from "./src/IcErrorArrow";
 export { default as IcErrorDot } from "./src/IcErrorDot";
 export { default as IcGrayArrow } from "./src/IcGrayArrow";
 export { default as IcHeaderLogo } from "./src/IcHeaderLogo";
+export { default as IcHeaderLogoMain } from "./src/IcHeaderLogoMain";
 export { default as IcHome } from "./src/IcHome";
 export { default as IcLocal } from "./src/IcLocal";
 export { default as IcMenu } from "./src/IcMenu";

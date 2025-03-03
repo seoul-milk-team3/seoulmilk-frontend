@@ -11,8 +11,7 @@ const menuConfig: Record<
 > = {
   main: [
     { to: "/", icon: <IcHome />, label: "홈" },
-    { to: "/error-list", icon: <IcError />, label: "오류 내역" },
-    { to: "/list", icon: <IcSearch />, label: "자료 조회" },
+    { to: "/list", icon: <IcSearch />, label: "내 업무보기" },
     { to: "/notices", icon: <IcNotice />, label: "공지사항" },
   ],
   agency: [
