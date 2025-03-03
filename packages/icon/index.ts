@@ -1,3 +1,5 @@
+export { default as Camera } from "./src/Camera";
+export { default as CameraGray } from "./src/CameraGray";
 export { default as CheckDoneIcon } from "./src/CheckDoneIcon";
 export { default as DeleteX } from "./src/DeleteX";
 export { default as FileUploadIcon } from "./src/FileUploadIcon";
@@ -11,6 +13,7 @@ export { default as IcMenu } from "./src/IcMenu";
 export { default as IcNotice } from "./src/IcNotice";
 export { default as IcPhone } from "./src/IcPhone";
 export { default as IcSearch } from "./src/IcSearch";
+export { default as Image } from "./src/Image";
 export { default as SeoulmilkLogo } from "./src/SeoulmilkLogo";
 export { default as Telephone } from "./src/Telephone";
 export { default as UserProfile } from "./src/UserProfile";
