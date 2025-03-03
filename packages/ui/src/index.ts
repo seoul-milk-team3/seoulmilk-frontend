@@ -9,3 +9,4 @@ export { default as UploadSection } from "./FileUpload/UploadSection/UploadSecti
 export { default as UploadTopMessage } from "./FileUpload/UploadTopMessage/UploadTopMessage";
 export { default as SidebarItem } from "./Sidebar/SidebarItem/SidebarItem";
 export { default as SelectDropdown } from "./DropDown/SelectDropdown";
+export { default as Pagination } from "./Pagination/Pagination";
