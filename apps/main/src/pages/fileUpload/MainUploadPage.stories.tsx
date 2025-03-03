@@ -1,11 +1,11 @@
-import MainUploadPage from '@main/pages/fileUpload/MainUploadPage';
+import FileUploadPage from '@main/pages/fileUpload/MainUploadPage';
 import { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 export default {
   title: 'Pages/MainUploadPage',
-  component: MainUploadPage,
+  component: FileUploadPage,
   decorators: [
     (Story) => (
       <MemoryRouter initialEntries={['/']}>
@@ -15,9 +15,9 @@ export default {
       </MemoryRouter>
     ),
   ],
-} as Meta<typeof MainUploadPage>;
+} as Meta<typeof FileUploadPage>;
 
-const Template: StoryFn<typeof MainUploadPage> = (args) => <MainUploadPage />;
+const Template: StoryFn<typeof FileUploadPage> = (args) => <FileUploadPage />;
 
 export const Default = Template.bind({});
 Default.args = {};
