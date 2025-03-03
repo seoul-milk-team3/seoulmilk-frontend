@@ -3,6 +3,7 @@ import {
   IcHeaderLogo,
   IcPhone,
   UserProfile,
+  IcHeaderLogoMain,
 } from "@seoulmilk/icon";
 import Flex from "@/Flex/Flex";
 import Text from "@/Text/Text";
@@ -13,7 +14,6 @@ import {
   phoneStyle,
 } from "@/Header/Header.style";
 import HeaderDropdown from "@/Header/HeaderDropdown/HeaderDropdown";
-import { colors } from "@seoulmilk/styles";
 
 export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
   variant?: "agency" | "main";
@@ -25,7 +25,11 @@ const Header = ({ variant = "main", ...props }: HeaderProps) => {
 
   return (
     <header css={[headerBaseStyle, headerVariantStyle[variant]]} {...props}>
-      <IcHeaderLogo width={101} height={36} />
+      {isAgency ? (
+        <IcHeaderLogo width={101} height={36} />
+      ) : (
+        <IcHeaderLogoMain width={101} height={36} />
+      )}
 
       <Flex css={rightSectionStyle(variant)}>
         <UserProfile
