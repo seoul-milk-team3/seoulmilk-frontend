@@ -2,7 +2,7 @@ import Tabs from '@main/components/Tabs/Tabs';
 import { Flex } from '@seoulmilk/ui';
 import { useState } from 'react';
 import FilterContainer from './components/Filter/FilterContainer';
-import DataTable from './components/Table/DataTable';
+import ListContainer from './components/ListContainer/ListContainer';
 
 const initialFilters = {
   startDate: '날짜',
@@ -24,7 +24,7 @@ const ListPage = () => {
     <Flex styles={{ direction: 'column', gap: '3.4rem', padding: '4rem 4.8rem' }}>
       <Tabs tabs={['자료 조회', '오류 내역']} activeTab={activeTab} onChange={handleTabChange} />
       <FilterContainer onFilter={setFilters} />
-      <DataTable filters={filters} />
+      <ListContainer activeTab={activeTab} filters={filters} />
     </Flex>
   );
 };
