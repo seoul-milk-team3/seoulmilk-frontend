@@ -53,7 +53,7 @@ const SelectDropdown = ({
   const defaultValues = {
     date: "날짜 선택",
     region: "지역 선택",
-    email: "이메일 선택",
+    email: "선택해주세요",
   };
 
   const selectedValue = value ?? defaultValues[type];

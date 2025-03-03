@@ -17,7 +17,7 @@ export const inputWrapperStyle = (
     width: width,
     border: `1px solid ${hasError ? theme.colors.main : theme.colors.grayscale_20}`,
     borderRadius: "8px",
-    padding: variant === "pc" ? "1.6rem 2rem" : "1.4rem 2rem",
+    padding: variant === "pc" ? "1.75rem 2rem" : "1.4rem 2rem",
     backgroundColor: theme.colors.grayscale_0,
   });
 
