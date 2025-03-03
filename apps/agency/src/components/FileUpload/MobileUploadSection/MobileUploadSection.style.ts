@@ -7,26 +7,13 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 2rem;
+  padding-left: 0rem;
   width: 100%;
+  backgroud:none;
+  transform: translateX(-4%);
 `;
 
-export const UploadBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 300px;
-  max-width: 400px;
-  height: 300px;
-  border: 2px dashed ${colors.grayscale_30};
-  border-radius: 8px;
-  padding: 1.5rem;
-  text-align: center;
-  background: ${colors.grayscale_0};
-  cursor: pointer;
-  margin-top:1rem;
-  gap:5rem;
-`;
+
 
 export const UploadIcon = styled.div`
   margin-bottom: 1rem;
@@ -37,11 +24,22 @@ export const UploadText = styled.p`
   font-weight: bold;
   margin-bottom: 0.5rem;
 `;
-
-export const UploadButton = styled.button`
+export const FileUploadButton = styled.button`
   margin-top: 1rem;
   background: ${colors.green_50};
-  color: white;
+  color:  ${colors.grayscale_0};
+  padding: 1rem 2.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  width:17rem;
+  height:35px;
+`;
+export const CameraButton = styled.button`
+  margin-top: 1rem;
+  background: ${colors.grayscale_10};
+  color:  ${colors.grayscale_90};
   padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 6px;
@@ -49,6 +47,32 @@ export const UploadButton = styled.button`
   font-size: 1rem;
 `;
 
+export const UploadButton = styled.button`
+  margin-top: 1rem;
+  background: ${colors.green_5};
+  color:  ${colors.green_50};
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  width : 120px;
+  height:30px;
+  font-weight:500px;
+`;
+export const ConfirmButton = styled.button`
+  margin-top: 1rem;
+  background: ${colors.green_50};
+  color:  ${colors.grayscale_0};
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  width : 120px;
+  height:30px;
+  font-weight:500px;
+`;
 export const FileInfoText = styled.p`
   margin-top: 1rem;
   font-size: 0.9rem;
@@ -94,22 +118,11 @@ export const modalButtonStyle = css`
     background: #ddd;
     cursor: not-allowed;
   }
-`;export const FileList = styled.div`
-  width: 100%;
-  margin-top: 1rem;
-`;
-
-export const FileItem = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid ${colors.grayscale_30};
 `;
 
 export const FilePreview = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 7.4rem;
+  height: 5.2rem;
   object-fit: cover;
   border-radius: 5px;
 `;
@@ -121,4 +134,59 @@ export const RemoveButton = styled.button`
   color: ${colors.red_50};
   display: flex;
   align-items: center;
+`;
+
+export const UploadBox = styled.div<{ hasFiles: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  height:300px;
+  width: 300px;
+  max-width: 400px;
+  height: ${({ hasFiles }) => (hasFiles ? "400px" : "300px")};
+  border: 2px dashed ${colors.grayscale_30};
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  background: ${colors.grayscale_0};
+  cursor: pointer;
+  margin-top: 1rem;
+  gap: 1rem;
+  overflow: hidden; 
+`;
+
+export const FileList = styled.div`
+  width: 100%;
+  flex: 1; 
+  min-height: 150px;
+  max-height: 300px; 
+  overflow-y: auto; 
+  padding-right: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+
+
+export const FileItem = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: ${colors.grayscale_10};
+`;
+
+export const ActionButtons = styled.div`
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  padding : 0rem 2rem ;
 `;
