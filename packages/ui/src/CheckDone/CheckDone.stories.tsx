@@ -6,14 +6,19 @@ const meta: Meta<typeof CheckDone> = {
   component: CheckDone,
   tags: ["autodocs"],
   argTypes: {
+    variant: {
+      control: "radio",
+      options: ["primary", "secondary"],
+      description: "CheckDone 컴포넌트의 변형 타입",
+    },
     isNormal: {
       control: "boolean",
-      description: "분석 결과 (정상 여부)",
+      description: "분석 결과 (정상 여부) - primary variant에서만 사용",
     },
     onClose: { action: "close clicked", description: "확인 버튼 클릭" },
     onErrorClick: {
       action: "error details clicked",
-      description: "오류 내역 확인 버튼 클릭",
+      description: "오류 내역 확인 버튼 클릭 (비정상일 경우) - primary variant에서만 사용",
     },
   },
 };
@@ -21,14 +26,22 @@ const meta: Meta<typeof CheckDone> = {
 export default meta;
 type Story = StoryObj<typeof CheckDone>;
 
-export const Normal: Story = {
+export const PrimaryNormal: Story = {
   args: {
+    variant: "primary",
     isNormal: true,
   },
 };
 
-export const Abnormal: Story = {
+export const PrimaryAbnormal: Story = {
   args: {
+    variant: "primary",
     isNormal: false,
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    variant: "secondary",
   },
 };
