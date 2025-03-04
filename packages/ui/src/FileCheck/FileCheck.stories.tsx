@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import FileCheck, { FileCheckProps } from "@/FileUpload/FileCheck/FileCheck";
+import FileCheck, { FileCheckProps } from "@/FileCheck/FileCheck";
 
 const meta: Meta<typeof FileCheck> = {
   title: "Components/FileCheck",

@@ -14,8 +14,8 @@ import Text from "@/Text/Text";
 import { FileUploadIcon, DeleteX } from "@seoulmilk/icon";
 import { colors } from "@seoulmilk/styles";
 // import { colors } from "@seoulmilk/styles";
-import FileCheck from "../FileCheck/FileCheck";
- import CheckDone from "../CheckDone/CheckDone";
+import FileCheck from "../../FileCheck/FileCheck";
+ import CheckDone from "../../CheckDone/CheckDone";
 
 const MAX_FILES = 10;
 
