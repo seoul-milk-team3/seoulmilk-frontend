@@ -8,10 +8,10 @@ import { theme } from "@seoulmilk/styles";
 
 type DropdownTriggerProps = PropsWithChildren & {
   icon?: React.ReactNode;
-  type: "date" | "region" | "email";
+  type: "date" | "region" | "email" | "status";
   selected: string;
   isDefault?: boolean;
-  isMobile: boolean; // ✅ 모바일 여부 추가
+  isMobile: boolean;
 };
 
 const DropdownTrigger = ({
@@ -19,7 +19,7 @@ const DropdownTrigger = ({
   type,
   selected,
   isDefault = false,
-  isMobile, // ✅ props로 받음
+  isMobile,
 }: DropdownTriggerProps) => {
   const { isOpen, toggle } = useDropdownContext();
 
@@ -33,7 +33,7 @@ const DropdownTrigger = ({
           tag={type === "email" ? "md2-text-regular" : "md2-text-medium"}
           css={{
             color: isDefault
-              ? theme.colors.grayscale_40
+              ? theme.colors.grayscale_50
               : theme.colors.grayscale_80,
           }}
         >

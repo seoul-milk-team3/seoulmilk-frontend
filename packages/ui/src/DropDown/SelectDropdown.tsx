@@ -37,6 +37,8 @@ const emailDomains = [
   "nate.com",
 ];
 
+const status = ["전체", "정상", "비정상"];
+
 const generateMonths = () => {
   return Array.from({ length: 12 }, (_, i) =>
     format(subMonths(new Date(), 11 - i), "yyyy.MM", { locale: ko })
@@ -48,16 +50,17 @@ const SelectDropdown = ({
   value,
   onSelect,
 }: {
-  type: "date" | "region" | "email";
+  type: "date" | "region" | "email" | "status";
   value?: string;
   onSelect: (val: string) => void;
 }) => {
   const isMobile = useMediaQuery("(max-width: 768px)"); // ✅ Hook 사용
 
   const defaultValues = {
-    date: "날짜 선택",
-    region: "지역 선택",
+    date: "날짜",
+    region: "지역",
     email: "선택해주세요",
+    status: "전체",
   };
 
   const selectedValue = value ?? defaultValues[type];
@@ -67,7 +70,9 @@ const SelectDropdown = ({
       ? generateMonths()
       : type === "region"
         ? regions
-        : emailDomains;
+        : type === "status"
+          ? status
+          : emailDomains;
 
   const icon =
     type === "date" ? (

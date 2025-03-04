@@ -7,9 +7,8 @@ export const dropdownRootStyle = css({
   width: "auto",
 });
 
-// ✅ Hook 제거, isMobile을 외부에서 받도록 변경
 export const triggerStyle = (
-  type: "date" | "region" | "email",
+  type: "date" | "region" | "email" | "status",
   isMobile: boolean
 ) =>
   css({
@@ -30,12 +29,13 @@ export const triggerStyle = (
           ? "15.6rem"
           : type === "region"
             ? "19.1rem"
-            : "19rem",
+            : type === "status"
+              ? "10.9rem"
+              : "19rem",
   });
 
-// ✅ Hook 제거, isMobile을 외부에서 받도록 변경
 export const dropdownListStyle = (
-  type: "date" | "region" | "email",
+  type: "date" | "region" | "email" | "status",
   isMobile: boolean
 ) =>
   css({
@@ -44,7 +44,12 @@ export const dropdownListStyle = (
     marginTop: "0.8rem",
     left: 0,
     zIndex: 3,
-    width: type === "email" && isMobile ? "16.1rem" : "16.3rem",
+    width:
+      type === "status"
+        ? "10.9rem"
+        : type === "email" && isMobile
+          ? "16.1rem" // email일 때 모바일에서는 16.1rem
+          : "16.3rem", // 기본값
     overflowY: "hidden",
     borderRadius: "12px",
     backgroundColor: theme.colors.grayscale_0,
