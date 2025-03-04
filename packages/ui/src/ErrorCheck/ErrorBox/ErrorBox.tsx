@@ -35,7 +35,7 @@ const ErrorBox = ({ images }: ErrorBoxProps) => {
   };
 
   if (isCompleted) {
-    return <CheckDone onClose={() => setIsCompleted(false)} isNormal={true} />;
+    return <CheckDone variant="secondary" onClose={() => setIsCompleted(false)} isNormal={true} />;
   }
 
   return (

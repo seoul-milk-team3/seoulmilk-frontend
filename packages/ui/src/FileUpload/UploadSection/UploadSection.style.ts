@@ -6,6 +6,8 @@ export const uploadWrapperStyle = css`
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+
 `;
 
 export const uploadSectionContainerStyle = css`

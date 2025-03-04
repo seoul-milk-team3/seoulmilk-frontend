@@ -11,6 +11,7 @@ import { Button } from "..";
 import { css } from "@emotion/react";
 import { colors } from "@seoulmilk/styles";
 import { CheckDoneIcon } from "@seoulmilk/icon";
+import UploadTopMessage from "@/FileUpload/UploadTopMessage/UploadTopMessage";
 
 interface CheckDoneProps {
   onClose: () => void;
@@ -31,16 +32,32 @@ const CheckDone = ({ onClose, variant, isNormal, onErrorClick }: CheckDoneProps)
       ]}
       styles={{ direction: "column", align: "center" }}
     >
+      {variant === "secondary" && (
+        <div
+          css={css`
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translate(0%, -120%);
+          `}
+        >
+          <UploadTopMessage
+            title="세금계산서 업로드를 완료했어요"
+            subTitle="업로드한 세금계산서의 진위 여부를 확인하러 가볼까요?"
+          />
+        </div>
+      )}
       <Flex css={contentWrapper}>
         <CheckDoneIcon css={{ width: "6.4rem", height: "6.4rem" }} />
         <Text tag="xxl-title-bold" css={titleText}>
-          {variant === "primary" ? "분석이 완료됐어요" : (
+          {variant === "primary" ? (
+            "분석이 완료됐어요"
+          ) : (
             <>
               <span> </span>
               <span
                 css={css`
                   color: red;
-
                 `}
               >
                 업로드가

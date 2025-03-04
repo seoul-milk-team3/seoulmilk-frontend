@@ -11,12 +11,13 @@ import {
 import Flex from "@/Flex/Flex";
 import Button from "@/Button/Button";
 import Text from "@/Text/Text";
+import UploadTopMessage from "../UploadTopMessage/UploadTopMessage";
 import { FileUploadIcon, DeleteX } from "@seoulmilk/icon";
 import { colors } from "@seoulmilk/styles";
 // import { colors } from "@seoulmilk/styles";
 import FileCheck from "../../FileCheck/FileCheck";
  import CheckDone from "../../CheckDone/CheckDone";
-
+import ErrorBox from "@/ErrorCheck/ErrorBox/ErrorBox";
 const MAX_FILES = 10;
 interface UploadSectionProps {
   onUploadStart?: () => void;
@@ -29,6 +30,28 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isChecking, setIsChecking] = useState(false); // 진위여부 확인 중 상태
   const [isDone, setIsDone] = useState(false); // 완료 화면 상태 추가
+  const [isErrorBoxVisible, setIsErrorBoxVisible] = useState(false);
+
+  const getTopMessage = () => {
+    if (isErrorBoxVisible) return null;
+
+    if (isDone) {
+      return {
+        title: "세금계산서 업로드를 완료했어요",
+        subTitle: "업로드한 세금계산서의 진위 여부를 확인하러 가볼까요?",
+      };
+    } else if (isChecking) {
+      return {
+        title: "세금계산서를 업로드해주세요",
+        subTitle: "업로드한 세금계산서의 내용을 한번 더 확인해주세요.",
+      };
+    } else {
+      return {
+        title: "세금계산서를 업로드해주세요",
+        subTitle: "진위여부를 확인 할 세금계산서를 업로드해주세요",
+      };
+    }
+  };
 
   // 파일 드롭 시 업데이트
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -61,24 +84,19 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
   // 진위여부 확인 버튼 클릭 시 실행
   const checkFiles = async () => {
     if (uploadedFiles.length === 0) return;
-  
     setIsChecking(true);
     onCheckValidity?.();
-  
+
     try {
-      const response = await fetch("/api/file-check", {
-        method: "POST",
-        body: new FormData(),
-      });
-  
+      const response = await fetch("/api/file-check", { method: "POST", body: new FormData() });
       if (!response.ok) throw new Error("파일 검사 요청 실패");
-  
       onUploadSuccess?.();
     } catch (error) {
       console.error("파일 검사 오류:", error);
     } finally {
       setIsChecking(false);
       setIsDone(true);
+      setIsErrorBoxVisible(true);
     }
   };
   
@@ -87,15 +105,18 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
   const handleCloseCheckDone = () => {
     setUploadedFiles([]); // 파일 초기화
     setIsDone(false); // 업로드 화면으로 복귀
+    setIsErrorBoxVisible(false);
   };
 
+  const topMessage = getTopMessage();
   return (
     <Flex css={uploadWrapperStyle}>
+    {topMessage && <UploadTopMessage title={topMessage.title} subTitle={topMessage.subTitle} />}
       {isChecking ? (
         <FileCheck onComplete={() => setIsChecking(false)} checkFiles={checkFiles} />
-      ) : isDone ? (
-        <CheckDone onClose={handleCloseCheckDone} />
-      ) : (
+      ) : isErrorBoxVisible ? (
+        <ErrorBox images={uploadedFiles.map(file => URL.createObjectURL(file))} />
+      )  : (
         <Flex
           css={uploadSectionContainerStyle}
           styles={{
@@ -174,9 +195,12 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
           )}
         </Flex>
       )}
-      <Text tag="md1-text-medium" css={{ color: colors.grayscale_40, marginTop: "1rem" }}>
-      지원형식 : png, jpeg, jpg, pdf (최대 : 1 mb) | * 파일 첨부는 최대 10개까지 가능해요.    </Text>
-    </Flex>
+      {!isErrorBoxVisible && (
+        <Text tag="md1-text-medium" css={{ color: colors.grayscale_40, marginTop: "1rem" }}>
+          지원형식 : png, jpeg, jpg, pdf (최대 : 1 mb) | * 파일 첨부는 최대 10개까지 가능해요.
+        </Text>
+      )}
+      </Flex>
     
   );
 };
