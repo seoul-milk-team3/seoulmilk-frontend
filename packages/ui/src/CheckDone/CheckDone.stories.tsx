@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CheckDone from "@/FileUpload/CheckDone/CheckDone";
+import CheckDone from "@/CheckDone/CheckDone";
 
 const meta: Meta<typeof CheckDone> = {
   title: "Components/CheckDone",

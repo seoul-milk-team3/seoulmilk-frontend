@@ -1,12 +1,4 @@
-import { css } from "@emotion/react";
-
-// 전체 페이지 컨테이너 스타일
-export const pageContainerStyle = css`
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  background-color: #f9f9f9;
-`;
+import { css } from '@emotion/react';
 
 // 메인 콘텐츠 컨테이너 (헤더 포함)
 export const contentContainerStyle = css`
@@ -26,11 +18,10 @@ export const mainContentStyle = css`
   width: 100%;
 `;
 
-
 // 사이드바 스타일
 export const sidebarStyle = css`
   width: 250px;
-  background-color: #00873c; 
+  background-color: #00873c;
   color: white;
   flex-shrink: 0;
 `;
@@ -45,7 +36,6 @@ export const uploadContentStyle = css`
   padding: 4rem 5rem; /* 왼쪽(padding-left)과 위쪽(padding-top)에 여백 추가 */
   gap: 2rem; /* 메시지와 업로드 섹션 간격 */
 `;
-
 
 // 업로드 박스 스타일 (파일 업로드 중앙 정렬)
 export const uploadBoxStyle = css`
