@@ -1,7 +1,7 @@
 import { IcCalendar, IcLocal } from "@seoulmilk/icon";
 import { format, subMonths } from "date-fns";
 import { ko } from "date-fns/locale";
-import useMediaQuery from "@seoulmilk/utils/src/hooks/useMediaQuery"; // ✅ Hook 사용
+import useMediaQuery from "@seoulmilk/utils/src/hooks/useMediaQuery";
 import DropdownItem from "@/DropDown/DropdownItem";
 import DropdownList from "@/DropDown/DropdownList";
 import DropdownRoot from "@/DropDown/DropdownRoot";
