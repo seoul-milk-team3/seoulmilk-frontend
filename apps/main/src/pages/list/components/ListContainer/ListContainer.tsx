@@ -1,25 +1,24 @@
 import { dataList } from '@main/constants/listData';
 import { StoreItem } from '@main/types';
 import { getChosung } from '@main/utils';
-import { Flex, Text } from '@seoulmilk/ui';
-import { Pagination } from '@seoulmilk/ui';
+import { Flex, Text, Pagination } from '@seoulmilk/ui';
 import { useState } from 'react';
 import ListItem from '../ListItem/ListItem';
 import { textStyle, text1Style, text2Style } from './ListContainer.style';
 
 interface ListContainerProps {
-  activeTab: string;
   filters: {
     startDate: string;
     endDate: string;
     region: string;
     storeName: string;
+    status: string;
   };
 }
 
 const ITEMS_PER_PAGE = 8;
 
-const ListContainer = ({ activeTab, filters }: ListContainerProps) => {
+const ListContainer = ({ filters }: ListContainerProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const filteredData = dataList.filter((item: StoreItem) => {
@@ -37,12 +36,13 @@ const ListContainer = ({ activeTab, filters }: ListContainerProps) => {
       item.store.toLowerCase().includes(filters.storeName.trim().toLowerCase()) ||
       storeNameChosung.startsWith(searchChosung);
 
-    return dateMatch && regionMatch && storeMatch;
+    // 상태 필터링 로직
+    const statusMatch = filters.status === '전체' || item.status === filters.status;
+
+    return dateMatch && regionMatch && storeMatch && statusMatch;
   });
 
-  const data = activeTab === '오류 내역' ? filteredData.filter((item) => item.status === '비정상') : filteredData;
-
-  const paginatedData = data.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+  const paginatedData = filteredData.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   return (
     <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
@@ -63,7 +63,7 @@ const ListContainer = ({ activeTab, filters }: ListContainerProps) => {
         ))}
       </Flex>
       <Pagination
-        totalItems={data.length}
+        totalItems={filteredData.length}
         itemsPerPage={ITEMS_PER_PAGE}
         currentPage={currentPage}
         onPageChange={setCurrentPage}

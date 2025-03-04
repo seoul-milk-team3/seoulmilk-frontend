@@ -7,8 +7,8 @@ const meta: Meta<typeof SelectDropdown> = {
   argTypes: {
     type: {
       control: { type: "radio" },
-      options: ["date", "region", "email"],
-      description: "드롭다운 타입 (날짜, 지역, 이메일)",
+      options: ["date", "region", "email", "status"],
+      description: "드롭다운 타입 (날짜, 지역, 이메일, 상태)",
     },
   },
 };
@@ -31,5 +31,11 @@ export const RegionDropdown: Story = {
 export const EmailDropdown: Story = {
   args: {
     type: "email",
+  },
+};
+
+export const StatusDropdown: Story = {
+  args: {
+    type: "status",
   },
 };

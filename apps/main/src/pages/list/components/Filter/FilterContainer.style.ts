@@ -5,12 +5,12 @@ export const inputContainerStyle = css({
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
-  width: '25.6rem',
+  width: '23.6rem',
   height: '4.8rem',
   borderRadius: '12px',
   border: `1px solid ${theme.colors.grayscale_30}`,
   backgroundColor: 'white',
-  paddingLeft: '4rem', // 아이콘 공간 확보
+  paddingLeft: '3.3rem', // 아이콘 공간 확보
 });
 
 export const inputStyle = css({
@@ -40,19 +40,16 @@ export const textColorStyle = css({
 
 export const resetBtnStyle = css({
   backgroundColor: theme.colors.grayscale_0,
-  color: theme.colors.grayscale_90,
-  width: '13rem',
+  width: '5.4rem',
   height: '4.8rem',
-  borderRadius: '12px',
-
-  ...theme.text.md2_text_medium,
+  borderRadius: '10px',
 });
 
 export const searchBtnStyle = css({
   backgroundColor: theme.colors.green_50,
   color: theme.colors.grayscale_0,
   borderRadius: '12px',
-  width: '13rem',
+  width: '11.4rem',
   height: '4.8rem',
 
   ...theme.text.md2_text_medium,
