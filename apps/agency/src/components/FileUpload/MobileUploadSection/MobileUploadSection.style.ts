@@ -13,8 +13,6 @@ export const Container = styled.div`
   transform: translateX(-4%);
 `;
 
-
-
 export const UploadIcon = styled.div`
   margin-bottom: 1rem;
 `;
