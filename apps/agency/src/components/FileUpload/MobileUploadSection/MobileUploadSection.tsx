@@ -82,8 +82,45 @@ const MobileSection = () => {
     return <MobileCheckDone />;
   }
 
-  return (
+  return ( <> {/* 파일 업로드 & 카메라 선택 모달 */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <Flex styles={{ direction: "column", align: "center", width: "100%" }}>
+          <button style={{ display: "flex", alignItems: "center", padding: "12px", cursor: "pointer", width: "100%" }} onClick={() => setIsCameraOpen(true)}>
+            <Camera style={{ width: "24px", height: "24px", marginRight: "0.8rem" }} />
+            카메라로 촬영하기
+          </button>
+          <button
+            style={{ display: "flex", alignItems: "center", padding: "12px", cursor: "pointer", width: "100%" }}
+            onClick={() => {
+              setIsModalOpen(false);
+              fileInputRef.current?.click();
+            }}
+          >
+            <Image style={{ width: "24px", height: "24px", marginRight: "0.8rem" }} />
+            이미지 업로드
+          </button>
+        </Flex>
+      </Modal>
+
+      {/* 카메라 촬영 모달 */}
+      <Modal isOpen={isCameraOpen} onClose={() => setIsCameraOpen(false)}>
+        <Webcam
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat="image/png"
+          width='100%'
+          height='100%'
+          videoConstraints={{ facingMode: isFrontCamera ? "user" : "environment" }}
+        />
+        <Flex styles={{ gap: "1rem", marginTop: "1rem" }}>
+          <CameraButton onClick={toggleCamera}>
+            카메라 전환
+          </CameraButton>
+          <CameraButton onClick={capture}>촬영하기</CameraButton>
+        </Flex>
+      </Modal>
     <Container>
+      
       <Text tag="md1-text-bold" css={{ textAlign: "left", marginBottom: "1rem", width: "100%" }}>
         세금계산서를 업로드해주세요
       </Text>
@@ -92,6 +129,7 @@ const MobileSection = () => {
       </Text>
 
       <UploadBox hasFiles={files.length > 0}>
+      
         <input {...getInputProps()} ref={fileInputRef} style={{ display: "none" }} />
 
         {files.length > 0 ? (
@@ -140,44 +178,8 @@ const MobileSection = () => {
         지원형식 : png, jpeg, jpg, pdf (최대 : 1mb)
       </Text>
 
-      {/* 파일 업로드 & 카메라 선택 모달 */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <Flex styles={{ direction: "column", align: "center", width: "100%" }}>
-          <button style={{ display: "flex", alignItems: "center", padding: "12px", cursor: "pointer", width: "100%" }} onClick={() => setIsCameraOpen(true)}>
-            <Camera style={{ width: "24px", height: "24px", marginRight: "0.8rem" }} />
-            카메라로 촬영하기
-          </button>
-          <button
-            style={{ display: "flex", alignItems: "center", padding: "12px", cursor: "pointer", width: "100%" }}
-            onClick={() => {
-              setIsModalOpen(false);
-              fileInputRef.current?.click();
-            }}
-          >
-            <Image style={{ width: "24px", height: "24px", marginRight: "0.8rem" }} />
-            이미지 업로드
-          </button>
-        </Flex>
-      </Modal>
-
-      {/* 카메라 촬영 모달 */}
-      <Modal isOpen={isCameraOpen} onClose={() => setIsCameraOpen(false)}>
-        <Webcam
-          audio={false}
-          ref={webcamRef}
-          screenshotFormat="image/png"
-          width='100%'
-          height='100%'
-          videoConstraints={{ facingMode: isFrontCamera ? "user" : "environment" }}
-        />
-        <Flex styles={{ gap: "1rem", marginTop: "1rem" }}>
-          <CameraButton onClick={toggleCamera}>
-            카메라 전환
-          </CameraButton>
-          <CameraButton onClick={capture}>촬영하기</CameraButton>
-        </Flex>
-      </Modal>
-    </Container>
+      
+    </Container></>
   );
 };
 

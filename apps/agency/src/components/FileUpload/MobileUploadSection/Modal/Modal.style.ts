@@ -7,10 +7,12 @@ export const ModalOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
   display: flex;
+  background: rgba(0, 0, 0, 0.5); /* 어두운 배경 효과 */
   align-items: center;
   justify-content: center;
+  z-index: 1000000;
+
 `;
 
 export const ModalContent = styled.div`
