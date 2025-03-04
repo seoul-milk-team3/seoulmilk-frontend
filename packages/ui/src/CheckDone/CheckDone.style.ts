@@ -5,7 +5,6 @@ export const checkDoneContainer = css`
   width: 92.4rem;
   height: 57.6rem;
   padding: 2rem;
-  border: 0.3rem dashed ${colors.grayscale_30};
   border-radius: 2rem;
   text-align: center;
   display: flex;

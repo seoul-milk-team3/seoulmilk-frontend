@@ -8,7 +8,7 @@ import {
 } from "./FileCheck.style";
 import Flex from "@/Flex/Flex";
 import Text from "@/Text/Text";
-
+import Button from "@/Button/Button";
 export interface FileCheckProps {
   onComplete: () => void;
   checkFiles: () => Promise<void>;
@@ -39,14 +39,14 @@ const FileCheck = ({
 
   return (
     <Flex
-      css={fileCheckContainerStyle}
-      styles={{
-        direction: "column",
-        align: "center",
-        justify: "center",
-        gap: "8rem",
-      }}
-    >
+  css={fileCheckContainerStyle(variant)} // variant에 따라 border 표시 여부 변경
+  styles={{
+    direction: "column",
+    align: "center",
+    justify: "center",
+    gap: "8rem",
+  }}
+>
       {/* 제목과 부제목을 묶어 여백 조정 */}
       <Flex styles={{ direction: "column", align: "center", gap: "0.8rem" }}>
         <Text tag="xxl-title-bold" css={titleText}>
@@ -61,9 +61,9 @@ const FileCheck = ({
 
       {isLoading && <div css={spinnerStyle} />}
       {isLoading && variant === "primary" && (
-        <button css={cancelButtonStyle} onClick={onCancel}>
+        <Button variant="primary" onClick={onCancel}>
           업로드 취소
-        </button>
+        </Button>
       )}
     </Flex>
   );
