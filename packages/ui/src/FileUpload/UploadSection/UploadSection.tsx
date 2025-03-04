@@ -18,8 +18,13 @@ import FileCheck from "../../FileCheck/FileCheck";
  import CheckDone from "../../CheckDone/CheckDone";
 
 const MAX_FILES = 10;
+interface UploadSectionProps {
+  onUploadStart?: () => void;
+  onUploadSuccess?: () => void;
+  onCheckValidity?: () => void;
+}
 
-const UploadSection = () => {
+const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: UploadSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isChecking, setIsChecking] = useState(false); // 진위여부 확인 중 상태
@@ -31,7 +36,9 @@ const UploadSection = () => {
       const newFiles = [...prev, ...acceptedFiles];
       return newFiles.slice(0, MAX_FILES);
     });
-  }, []);
+    onUploadStart?.();
+  }, [onUploadStart]);
+  
 
   const { getInputProps } = useDropzone({
     onDrop,
@@ -54,32 +61,27 @@ const UploadSection = () => {
   // 진위여부 확인 버튼 클릭 시 실행
   const checkFiles = async () => {
     if (uploadedFiles.length === 0) return;
-    
-    setIsChecking(true); // 로딩 시작
-
+  
+    setIsChecking(true);
+    onCheckValidity?.();
+  
     try {
-      const formData = new FormData();
-      uploadedFiles.forEach((file) => formData.append("files", file));
-
       const response = await fetch("/api/file-check", {
         method: "POST",
-        body: formData,
+        body: new FormData(),
       });
-
-      if (!response.ok) {
-        throw new Error("파일 검사 요청 실패");
-      }
-
-      const result = await response.json();
-      console.log("파일 검사 결과:", result);
-
+  
+      if (!response.ok) throw new Error("파일 검사 요청 실패");
+  
+      onUploadSuccess?.();
     } catch (error) {
-      console.error("파일 검사 중 오류 발생:", error);
+      console.error("파일 검사 오류:", error);
     } finally {
-      setIsChecking(false); // 로딩 종료
-      setIsDone(true); // 완료 화면 표시
+      setIsChecking(false);
+      setIsDone(true);
     }
   };
+  
 
   // 완료 후 화면에서 확인 버튼 클릭 시
   const handleCloseCheckDone = () => {
@@ -107,7 +109,7 @@ const UploadSection = () => {
           <input {...getInputProps()} ref={fileInputRef} style={{ display: "none" }} />
 
           {uploadedFiles.length === 0 ? (
-            <Flex styles={{ direction: "column", align: "center", gap: "9rem", flexGrow: 1 }}>
+            <Flex styles={{ direction: "column", align: "center", gap: "9rem" }}>
               <Flex styles={{ direction: "column", align: "center" }}>
                 <Text tag="xxl-title-bold">파일 업로드</Text>
                 <Text tag="md1-text-medium" css={{ color: colors.grayscale_50, marginTop: "0.8rem" }}>
@@ -129,7 +131,7 @@ const UploadSection = () => {
             </Flex>
           ) : (
             <>
-              <Flex css={fileListStyle} styles={{ flexGrow: 1, overflowY: "auto" }}>
+              <Flex css={fileListStyle} >
                 {uploadedFiles.map((file, index) => (
                   <Flex key={index} css={fileItemStyle}>
                     {file.type.startsWith("image/") ? (
