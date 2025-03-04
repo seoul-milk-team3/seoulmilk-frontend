@@ -1,50 +1,68 @@
 import {
   checkDoneContainer,
   titleText,
-  subtitleText,
   buttonContainer,
   buttonStyle,
   contentWrapper,
 } from "./CheckDone.style";
 import Flex from "@/Flex/Flex";
 import Text from "@/Text/Text";
-import Button from "@/Button/Button";
+import { Button } from "..";
 import { css } from "@emotion/react";
 import { colors } from "@seoulmilk/styles";
 import { CheckDoneIcon } from "@seoulmilk/icon";
 
 interface CheckDoneProps {
-  onClose: () => void; // 확인 버튼 클릭 시 실행할 콜백
-  isNormal?: boolean; // 서버에서 받은 결과 (정상 여부)
-  onErrorClick?: () => void; // 오류 내역 확인 버튼 클릭 시 실행할 콜백
+  onClose: () => void;
+  variant: "primary" | "secondary";
+  isNormal?: boolean;
+  onErrorClick?: () => void;
 }
 
-const CheckDone = ({ onClose, isNormal, onErrorClick }: CheckDoneProps) => {
+const CheckDone = ({ onClose, variant, isNormal, onErrorClick }: CheckDoneProps) => {
   return (
     <Flex
-      css={checkDoneContainer}
+      css={[
+        checkDoneContainer,
+        variant === "secondary" &&
+          css`
+            border: 3px dashed #d4d4d4;
+          `,
+      ]}
       styles={{ direction: "column", align: "center" }}
     >
-      {/* 아이콘과 텍스트를 감싸는 Wrapper */}
       <Flex css={contentWrapper}>
         <CheckDoneIcon css={{ width: "6.4rem", height: "6.4rem" }} />
         <Text tag="xxl-title-bold" css={titleText}>
-          분석이 완료됐어요
-        </Text>
-        <Text tag="xxl-title-semibold" css={subtitleText}>
-          진위여부 결과 :{" "}
-          <span
-            css={css`
-              color: ${colors.main};
-              font-weight: bold;
-            `}
-          >
-            {isNormal ? "정상" : "비정상"}
-          </span>
-        </Text>
+          {variant === "primary" ? "분석이 완료됐어요" : (
+            <>
+              <span> </span>
+              <span
+                css={css`
+                  color: red;
 
-        {/* 비정상일 경우 오류내역 확인 버튼 추가 */}
-        {!isNormal && (
+                `}
+              >
+                업로드가
+              </span>
+              <span> 완료됐어요</span>
+            </>
+          )}
+        </Text>
+        {variant === "primary" && (
+          <Text tag="xxl-title-semibold">
+            진위여부 결과 :{" "}
+            <span
+              css={css`
+                color: ${colors.main};
+                font-weight: bold;
+              `}
+            >
+              {isNormal ? "정상" : "비정상"}
+            </span>
+          </Text>
+        )}
+        {variant === "primary" && !isNormal && (
           <Text
             tag="lg-subtitle-medium"
             css={css`
@@ -62,9 +80,8 @@ const CheckDone = ({ onClose, isNormal, onErrorClick }: CheckDoneProps) => {
         )}
       </Flex>
 
-      {/* 버튼을 하단에 배치 */}
       <Flex css={buttonContainer}>
-        <Button css={buttonStyle} variant="primary">
+        <Button css={buttonStyle} variant="primary" onClick={onClose}>
           새로운 파일 업로드하기
         </Button>
         <Button css={buttonStyle} variant="secondary" onClick={onClose}>
