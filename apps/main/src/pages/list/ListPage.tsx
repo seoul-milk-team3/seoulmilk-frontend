@@ -9,6 +9,7 @@ const initialFilters = {
   endDate: '날짜',
   region: '지역',
   storeName: '',
+  status: '전체',
 };
 
 const ListPage = () => {

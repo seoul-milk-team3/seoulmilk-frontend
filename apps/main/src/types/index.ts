@@ -1,4 +1,5 @@
 export interface StoreItem {
+  id: string;
   date: string;
   store: string;
   region: string;
