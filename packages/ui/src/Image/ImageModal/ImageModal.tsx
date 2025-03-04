@@ -1,5 +1,11 @@
 import { createPortal } from "react-dom";
 import { IcImageClose } from "@seoulmilk/icon";
+import {
+  modalOverlayStyle,
+  modalContainerStyle,
+  closeButtonStyle,
+  imageStyle,
+} from "./ImageModal.style";
 
 interface ImageModalProps {
   imageUrl: string;
@@ -17,55 +23,12 @@ const ImageModal = ({
   if (!isOpen) return null;
 
   return createPortal(
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-        background: "rgba(0, 0, 0, 0.6)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 4,
-        padding: "10rem 5rem",
-      }}
-      onClick={onClose}
-    >
-      <div
-        style={{
-          position: "relative",
-          borderRadius: "32px",
-          backgroundColor: "white",
-          width: "100%",
-          height: "100%",
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          style={{
-            position: "absolute",
-            top: "2rem",
-            right: "2rem",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-          }}
-        >
-          <IcImageClose width={40} height={40} fill="white" />
+    <div css={modalOverlayStyle} onClick={onClose}>
+      <div css={modalContainerStyle} onClick={(e) => e.stopPropagation()}>
+        <button onClick={onClose} css={closeButtonStyle}>
+          <IcImageClose width={40} height={40} />
         </button>
-        <img
-          src={imageUrl}
-          alt={altText}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-          }}
-        />
+        <img src={imageUrl} alt={altText} css={imageStyle} />
       </div>
     </div>,
     document.body

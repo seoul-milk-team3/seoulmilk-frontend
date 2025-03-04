@@ -24,7 +24,7 @@ const ImagePreview = ({ imageUrl, altText = "이미지" }: ImagePreviewProps) =>
       />
       <button
         onClick={() => setIsModalOpen(true)}
-        style={{
+        css={{
           position: "absolute",
           bottom: "1rem",
           right: "1rem",
@@ -35,7 +35,6 @@ const ImagePreview = ({ imageUrl, altText = "이미지" }: ImagePreviewProps) =>
         <IcImageZoom width={50} height={50} />
       </button>
 
-      {/* 모달 */}
       <ImageModal
         imageUrl={imageUrl}
         altText={altText}

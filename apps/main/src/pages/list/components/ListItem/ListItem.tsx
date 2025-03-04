@@ -25,7 +25,7 @@ const ListItem = ({ item, isChecked, onCheck }: ListItemProps) => {
         </Text>
         <Label status={item.status} />
       </Flex>
-      <ActionButton status={item.status} />
+      <ActionButton status={item.status} id={item.id} />
     </Flex>
   );
 };
