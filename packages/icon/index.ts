@@ -21,6 +21,8 @@ export { default as IcGrayArrow } from "./src/IcGrayArrow";
 export { default as IcHeaderLogo } from "./src/IcHeaderLogo";
 export { default as IcHeaderLogoMain } from "./src/IcHeaderLogoMain";
 export { default as IcHome } from "./src/IcHome";
+export { default as IcImageClose } from "./src/IcImageClose";
+export { default as IcImageZoom } from "./src/IcImageZoom";
 export { default as IcInputError } from "./src/IcInputError";
 export { default as IcLocal } from "./src/IcLocal";
 export { default as IcLoginLogo } from "./src/IcLoginLogo";
