@@ -7,11 +7,16 @@ const Login = lazy(() => import('@main/pages/login/LoginPage'));
 const List = lazy(() => import('@main/pages/list/ListPage'));
 const ErrorList = lazy(() => import('@main/pages/errorList/ErrorListPage'));
 const FileUpload = lazy(() => import('@main/pages/fileUpload/MainUploadPage'));
+const SignUp = lazy(() => import('@main/pages/signUp/SignUpPage'));
+
 
 export const router = createBrowserRouter([
   {
     element: <AuthLayout />,
-    children: [{ path: '/login', element: <Login /> }],
+    children: [
+      { path: '/login', element: <Login /> },
+      { path: '/signup', element: <SignUp /> }
+    ],
   },
 
   {

@@ -6,11 +6,15 @@ import { createBrowserRouter } from 'react-router-dom';
 const Login = lazy(() => import('@agency/pages/login/LoginPage'));
 const List = lazy(() => import('@agency/pages/list/ListPage'));
 const FileUpload = lazy(() => import('@agency/pages/fileUpload/AgencyUploadPage'));
+const SignUp = lazy(() => import('@agency/pages/signUp/SignUpPage'));
 
 export const router = createBrowserRouter([
   {
     element: <AuthLayout />,
-    children: [{ path: '/login', element: <Login /> }],
+    children: [
+      { path: '/login', element: <Login /> },
+      { path: '/signup', element: <SignUp /> },
+    ],
   },
 
   {

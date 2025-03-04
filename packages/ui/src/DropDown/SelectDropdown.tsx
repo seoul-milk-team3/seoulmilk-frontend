@@ -1,10 +1,12 @@
 import { IcCalendar, IcLocal } from "@seoulmilk/icon";
 import { format, subMonths } from "date-fns";
 import { ko } from "date-fns/locale";
+import useMediaQuery from "@seoulmilk/utils/src/hooks/useMediaQuery";
 import DropdownItem from "@/DropDown/DropdownItem";
 import DropdownList from "@/DropDown/DropdownList";
 import DropdownRoot from "@/DropDown/DropdownRoot";
 import DropdownTrigger from "@/DropDown/DropdownTrigger";
+import { dropdownListStyle } from "@/DropDown/Dropdown.style";
 
 const regions = [
   "서울특별시",
@@ -25,6 +27,16 @@ const regions = [
   "전북특별자치도",
 ];
 
+const emailDomains = [
+  "naver.com",
+  "daum.net",
+  "gmail.com",
+  "yahoo.com",
+  "outlook.com",
+  "hanmail.net",
+  "nate.com",
+];
+
 const generateMonths = () => {
   return Array.from({ length: 12 }, (_, i) =>
     format(subMonths(new Date(), 11 - i), "yyyy.MM", { locale: ko })
@@ -36,21 +48,33 @@ const SelectDropdown = ({
   value,
   onSelect,
 }: {
-  type: "date" | "region";
+  type: "date" | "region" | "email";
   value?: string;
   onSelect: (val: string) => void;
 }) => {
-  const defaultValue = type === "date" ? "날짜" : "지역";
-  const selectedValue = value ?? defaultValue;
+  const isMobile = useMediaQuery("(max-width: 768px)"); // ✅ Hook 사용
 
-  const options = type === "date" ? generateMonths() : regions;
+  const defaultValues = {
+    date: "날짜 선택",
+    region: "지역 선택",
+    email: "선택해주세요",
+  };
+
+  const selectedValue = value ?? defaultValues[type];
+
+  const options =
+    type === "date"
+      ? generateMonths()
+      : type === "region"
+        ? regions
+        : emailDomains;
 
   const icon =
     type === "date" ? (
       <IcCalendar width={24} height={24} />
-    ) : (
+    ) : type === "region" ? (
       <IcLocal width={24} height={24} />
-    );
+    ) : null;
 
   return (
     <DropdownRoot>
@@ -58,9 +82,11 @@ const SelectDropdown = ({
         icon={icon}
         type={type}
         selected={selectedValue}
-        isDefault={selectedValue === defaultValue}
+        isDefault={selectedValue === defaultValues[type]}
+        isMobile={isMobile}
       />
-      <DropdownList>
+      <DropdownList css={dropdownListStyle(type, isMobile)}>
+        {" "}
         {options.map((item) => (
           <DropdownItem key={item} onSelect={() => onSelect(item)}>
             {item}

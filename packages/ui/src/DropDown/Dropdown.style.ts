@@ -7,32 +7,49 @@ export const dropdownRootStyle = css({
   width: "auto",
 });
 
-export const triggerStyle = (type: "date" | "region" | "email") =>
+// ✅ Hook 제거, isMobile을 외부에서 받도록 변경
+export const triggerStyle = (
+  type: "date" | "region" | "email",
+  isMobile: boolean
+) =>
   css({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    border: `1px solid ${theme.colors.grayscale_30}`,
+    border: `1px solid ${
+      type === "email" ? theme.colors.grayscale_20 : theme.colors.grayscale_30
+    }`,
     backgroundColor: theme.colors.grayscale_0,
-    borderRadius: "12px",
+    borderRadius: type === "email" ? "8px" : "12px",
     cursor: "pointer",
-    padding: type === "email" ? "1.6rem 2rem" : "1.2rem 1.4rem",
+    padding: type === "email" ? "1.5rem 2rem" : "1.2rem 1.4rem",
     width:
-      type === "date" ? "15.6rem" : type === "region" ? "19.1rem" : "19rem",
+      type === "email" && isMobile
+        ? "16.1rem"
+        : type === "date"
+          ? "15.6rem"
+          : type === "region"
+            ? "19.1rem"
+            : "19rem",
   });
 
-export const dropdownListStyle = css({
-  position: "absolute",
-  top: "100%",
-  marginTop: "0.8rem",
-  left: 0,
-  zIndex: 3,
-  width: "16.3rem",
-  overflowY: "hidden",
-  borderRadius: "12px",
-  backgroundColor: theme.colors.grayscale_0,
-  boxShadow: "0px 4px 6px rgba(0,0,0,0.1)",
-});
+// ✅ Hook 제거, isMobile을 외부에서 받도록 변경
+export const dropdownListStyle = (
+  type: "date" | "region" | "email",
+  isMobile: boolean
+) =>
+  css({
+    position: "absolute",
+    top: "100%",
+    marginTop: "0.8rem",
+    left: 0,
+    zIndex: 3,
+    width: type === "email" && isMobile ? "16.1rem" : "16.3rem",
+    overflowY: "hidden",
+    borderRadius: "12px",
+    backgroundColor: theme.colors.grayscale_0,
+    boxShadow: "0px 4px 6px rgba(0,0,0,0.1)",
+  });
 
 export const dropdownItemStyle = css({
   display: "flex",

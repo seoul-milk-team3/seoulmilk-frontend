@@ -15,7 +15,6 @@ export const containerStyle = css({
 
 export const contentStyle = css({
   flex: 1,
-  padding: '2rem',
   overflowY: 'auto',
-  backgroundColor: theme.colors.grayscale_0,
+  backgroundColor: theme.colors.grayscale_10,
 });

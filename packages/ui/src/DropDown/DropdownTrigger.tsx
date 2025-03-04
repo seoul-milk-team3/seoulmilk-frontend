@@ -11,6 +11,7 @@ type DropdownTriggerProps = PropsWithChildren & {
   type: "date" | "region" | "email";
   selected: string;
   isDefault?: boolean;
+  isMobile: boolean; // ✅ 모바일 여부 추가
 };
 
 const DropdownTrigger = ({
@@ -18,11 +19,14 @@ const DropdownTrigger = ({
   type,
   selected,
   isDefault = false,
+  isMobile, // ✅ props로 받음
 }: DropdownTriggerProps) => {
   const { isOpen, toggle } = useDropdownContext();
 
   return (
-    <button type="button" onClick={toggle} css={triggerStyle(type)}>
+    <button type="button" onClick={toggle} css={triggerStyle(type, isMobile)}>
+      {" "}
+      {/* ✅ isMobile 전달 */}
       <Flex styles={{ gap: "1rem", align: "center" }}>
         {icon}
         <Text

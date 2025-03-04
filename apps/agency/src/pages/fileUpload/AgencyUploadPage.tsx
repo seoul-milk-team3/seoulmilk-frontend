@@ -1,7 +1,6 @@
-import { pageContainerStyle, uploadContentStyle, uploadBoxStyle } from '@agency/pages/fileUpload/AgencyUploadPage.style';
+import MobileUploadSection from '@agency/components/FileUpload/MobileUploadSection/MobileUploadSection';
 import { Flex } from '@seoulmilk/ui';
 import { UploadSection } from '@seoulmilk/ui';
-import MobileUploadSection from '@agency/components/FileUpload/MobileUploadSection/MobileUploadSection';
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
@@ -10,20 +9,16 @@ const AgencyUploadPage = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
   return (
-    <Flex css={pageContainerStyle}>
-      <Flex css={uploadContentStyle}>
-        <Flex css={uploadBoxStyle}>
-          {isMobile ? (
-            <MobileUploadSection />
-          ) : (
-            <UploadSection
-              onUploadStart={() => setUploadState("uploading")}
-              onUploadSuccess={() => setUploadState("uploaded")}
-              onCheckValidity={() => setUploadState("checking")}
-            />
-          )}
-        </Flex>
-      </Flex>
+    <Flex styles={{ direction: 'column', align: 'center', height: '100%', paddingTop: '9.2rem' }}>
+      {isMobile ? (
+        <MobileUploadSection />
+      ) : (
+        <UploadSection
+          onUploadStart={() => setUploadState('uploading')}
+          onUploadSuccess={() => setUploadState('uploaded')}
+          onCheckValidity={() => setUploadState('checking')}
+        />
+      )}
     </Flex>
   );
 };
