@@ -1,10 +1,12 @@
 import { IcCalendar, IcLocal } from "@seoulmilk/icon";
 import { format, subMonths } from "date-fns";
 import { ko } from "date-fns/locale";
+import useMediaQuery from "@seoulmilk/utils/src/hooks/useMediaQuery"; // ✅ Hook 사용
 import DropdownItem from "@/DropDown/DropdownItem";
 import DropdownList from "@/DropDown/DropdownList";
 import DropdownRoot from "@/DropDown/DropdownRoot";
 import DropdownTrigger from "@/DropDown/DropdownTrigger";
+import { dropdownListStyle } from "@/DropDown/Dropdown.style";
 
 const regions = [
   "서울특별시",
@@ -50,6 +52,8 @@ const SelectDropdown = ({
   value?: string;
   onSelect: (val: string) => void;
 }) => {
+  const isMobile = useMediaQuery("(max-width: 768px)"); // ✅ Hook 사용
+
   const defaultValues = {
     date: "날짜 선택",
     region: "지역 선택",
@@ -79,8 +83,10 @@ const SelectDropdown = ({
         type={type}
         selected={selectedValue}
         isDefault={selectedValue === defaultValues[type]}
+        isMobile={isMobile}
       />
-      <DropdownList>
+      <DropdownList css={dropdownListStyle(type, isMobile)}>
+        {" "}
         {options.map((item) => (
           <DropdownItem key={item} onSelect={() => onSelect(item)}>
             {item}

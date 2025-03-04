@@ -32,7 +32,6 @@ export const inputStyle = css({
   border: "none",
   outline: "none",
   background: "transparent",
-
   ...theme.text.md2_text_regular,
   color: theme.colors.grayscale_80,
 

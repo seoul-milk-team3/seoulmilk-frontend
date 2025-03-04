@@ -1,5 +1,6 @@
 import { Input, Button, Flex, Text } from '@seoulmilk/ui';
 import { SelectDropdown } from '@seoulmilk/ui';
+import useMediaQuery from '@seoulmilk/utils/src/hooks/useMediaQuery';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -28,6 +29,9 @@ const SignupForm = () => {
     mode: 'onChange',
   });
 
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const formWidth = isMobile ? '36.1rem' : '42rem';
+  const emailWidth = isMobile ? '16.1rem' : '19.3rem';
   const [serverError, setServerError] = useState('');
 
   const onSubmit = (data: SignupData) => {
@@ -57,7 +61,7 @@ const SignupForm = () => {
     (!!watch('confirmPassword') && watch('password') !== watch('confirmPassword')); // 비밀번호 일치 체크
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} css={{ width: '42rem', marginTop: '2rem' }}>
+    <form onSubmit={handleSubmit(onSubmit)} css={{ width: formWidth, marginTop: '2rem' }}>
       <Flex styles={{ direction: 'column', gap: '4rem' }}>
         {/* 사업자 등록번호 입력 */}
         <Input
@@ -69,7 +73,7 @@ const SignupForm = () => {
             clearErrors('businessNumber');
           }}
           errorMessage={errors.businessNumber?.message}
-          width="42rem"
+          width={formWidth}
         />
 
         {/* 전화번호 입력 */}
@@ -85,7 +89,7 @@ const SignupForm = () => {
           errorMessage={
             watch('phoneNumber') && !phoneRegex.test(watch('phoneNumber')) ? '전화번호는 숫자 11자리여야 해요.' : ''
           }
-          width="42rem"
+          width={formWidth}
         />
 
         {/* 이메일 입력 */}
@@ -95,7 +99,7 @@ const SignupForm = () => {
             placeholder="이메일"
             value={watch('email') || ''}
             onChange={(e) => setValue('email', e.target.value)}
-            width="19.3rem"
+            width={emailWidth}
           />
           <Text tag="md1-text-semibold" css={{ marginTop: '2rem' }}>
             @
@@ -125,7 +129,7 @@ const SignupForm = () => {
               ? '비밀번호는 영문, 숫자를 포함하여 8자 이상이어야 해요.'
               : ''
           }
-          width="42rem"
+          width={formWidth}
         />
 
         {/* 비밀번호 확인 */}
@@ -140,11 +144,16 @@ const SignupForm = () => {
               ? '비밀번호가 일치하지 않습니다.'
               : ''
           }
-          width="42rem"
+          width={formWidth}
         />
 
         {/* 회원가입 버튼 */}
-        <Button type="submit" variant="secondary" disabled={isDisabled} css={{ width: '100%', marginTop: '4rem' }}>
+        <Button
+          type="submit"
+          variant="secondary"
+          padding={isMobile ? '1.35rem 0rem' : '1.7rem 16.65rem'}
+          disabled={isDisabled}
+          css={{ width: '100%', marginTop: '4rem' }}>
           회원가입
         </Button>
       </Flex>

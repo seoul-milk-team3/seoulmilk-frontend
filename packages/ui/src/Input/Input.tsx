@@ -33,12 +33,13 @@ const Input = ({
   type = "text",
   errorMessage,
   variant = "pc",
+  ...props
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
 
   return (
-    <Flex styles={{ direction: "column", gap: "1rem" }}>
+    <Flex styles={{ direction: "column", gap: "1rem" }} {...props}>
       <Text tag="md1-text-semibold">{title}</Text>
       {description && (
         <Text tag="md2-text-regular" css={descriptionStyle}>
