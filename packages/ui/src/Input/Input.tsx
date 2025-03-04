@@ -38,7 +38,7 @@ const Input = ({
   const isPassword = type === "password";
 
   return (
-    <Flex styles={{ direction: "column", gap: "0.8rem" }}>
+    <Flex styles={{ direction: "column", gap: "1rem" }}>
       <Text tag="md1-text-semibold">{title}</Text>
       {description && (
         <Text tag="md2-text-regular" css={descriptionStyle}>

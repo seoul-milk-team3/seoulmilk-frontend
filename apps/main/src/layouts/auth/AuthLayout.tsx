@@ -16,6 +16,6 @@ const authContainerStyle = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  height: '100vh',
+  height: '100%',
   backgroundColor: theme.colors.grayscale_5,
 });

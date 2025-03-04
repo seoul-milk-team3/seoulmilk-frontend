@@ -2,6 +2,7 @@ import { IcLoginLogo } from '@seoulmilk/icon';
 import { Input, Button, Flex, Text } from '@seoulmilk/ui';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { dividerStyle, textColor } from './LoginPage.style';
 
 const mockUser = {
@@ -44,7 +45,7 @@ const Login = () => {
   const isDisabled = !watch('id') || !watch('password');
 
   return (
-    <Flex styles={{ direction: 'column', align: 'center' }}>
+    <Flex styles={{ direction: 'column', align: 'center', paddingTop: '9.6rem', height: '100vh' }}>
       <IcLoginLogo width={180} height={64} />
 
       <form onSubmit={handleSubmit(onSubmit)} css={{ width: '42rem', marginTop: '3.6rem' }}>
@@ -83,9 +84,11 @@ const Login = () => {
       </form>
 
       <Flex styles={{ gap: '1.6rem', marginTop: '2rem' }}>
-        <Text tag="md2-text-regular" css={textColor}>
-          회원가입
-        </Text>
+        <Link to="/signup">
+          <Text tag="md2-text-regular" css={textColor}>
+            회원가입
+          </Text>
+        </Link>
         <span css={dividerStyle} />
         <Text tag="md2-text-regular" css={textColor}>
           비밀번호 찾기

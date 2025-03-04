@@ -3,21 +3,18 @@ import { SelectDropdown } from '@seoulmilk/ui';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-const mockUsers = ['123456', '654321']; // 서버 예시 데이터 (등록된 사번)
-
-interface SignupFormProps {
-  type: 'admin' | 'user';
-}
+const mockBusinessNumbers = ['1234567890', '0987654321']; // 서버 예시 데이터 (등록된 사업자 번호)
 
 interface SignupData {
-  id: string;
+  businessNumber: string;
   email: string;
   emailDomain: string;
+  phoneNumber: string;
   password: string;
   confirmPassword: string;
 }
 
-const SignupForm = ({ type }: SignupFormProps) => {
+const SignupForm = () => {
   const {
     register,
     handleSubmit,
@@ -33,46 +30,61 @@ const SignupForm = ({ type }: SignupFormProps) => {
 
   const [serverError, setServerError] = useState('');
 
-  // 탭이 변경될 때 폼을 초기화 (관리자 ↔ 사용자)
-  useEffect(() => {
-    reset();
-  }, [type, reset]);
-
   const onSubmit = (data: SignupData) => {
     setServerError(''); // 서버 에러 초기화
 
-    if (!mockUsers.includes(data.id)) {
-      setError('id', { message: '등록되지 않은 사번이에요.' });
+    if (!mockBusinessNumbers.includes(data.businessNumber)) {
+      setError('businessNumber', { message: '등록되지 않은 사업자 등록번호에요.' });
       return;
     }
 
-    //alert('회원가입 성공!');
+    alert('회원가입 성공!');
   };
 
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  const phoneRegex = /^[0-9]{11}$/; // 숫자 11자리만 허용
+
   const isDisabled =
-    !watch('id')?.trim() || // undefined 또는 빈 문자열이면 false
+    !watch('businessNumber')?.trim() ||
     !watch('email')?.trim() ||
     !watch('emailDomain')?.trim() ||
+    !watch('phoneNumber')?.trim() ||
     !watch('password')?.trim() ||
     !watch('confirmPassword')?.trim() ||
-    Object.keys(errors).length > 0 || // 오류가 있을 경우 버튼 비활성화
+    Object.keys(errors).length > 0 ||
+    (!!watch('phoneNumber') && !phoneRegex.test(watch('phoneNumber') ?? '')) || // 전화번호 형식 체크
     (!!watch('password') && !passwordRegex.test(watch('password') ?? '')) || // 비밀번호 형식 체크
     (!!watch('confirmPassword') && watch('password') !== watch('confirmPassword')); // 비밀번호 일치 체크
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} css={{ width: '42rem', marginTop: '2rem' }}>
       <Flex styles={{ direction: 'column', gap: '4rem' }}>
-        {/* 사번 입력 */}
+        {/* 사업자 등록번호 입력 */}
         <Input
-          title="사번"
-          placeholder="사번을 입력해주세요."
-          value={watch('id') || ''}
+          title="사업자 등록번호"
+          placeholder="사업자 등록번호를 입력해주세요."
+          value={watch('businessNumber') || ''}
           onChange={(e) => {
-            setValue('id', e.target.value);
-            clearErrors('id');
+            setValue('businessNumber', e.target.value);
+            clearErrors('businessNumber');
           }}
-          errorMessage={errors.id?.message}
+          errorMessage={errors.businessNumber?.message}
+          width="42rem"
+        />
+
+        {/* 전화번호 입력 */}
+        <Input
+          title="전화번호"
+          placeholder="전화번호를 입력해주세요."
+          value={watch('phoneNumber') || ''}
+          onChange={(e) => {
+            const onlyNumbers = e.target.value.replace(/\D/g, ''); // 숫자만 허용
+            setValue('phoneNumber', onlyNumbers);
+            clearErrors('phoneNumber');
+          }}
+          errorMessage={
+            watch('phoneNumber') && !phoneRegex.test(watch('phoneNumber')) ? '전화번호는 숫자 11자리여야 해요.' : ''
+          }
           width="42rem"
         />
 
