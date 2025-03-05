@@ -18,7 +18,7 @@ import { Button, Flex, Text } from "@seoulmilk/ui";
 import { FileUploadIcon, Camera, Image, DeleteX } from "@seoulmilk/icon";
 import { colors } from "@seoulmilk/styles";
 import Modal from "./Modal/Modal";
-import MobileCheckDone from "../MobileCheckDone/MobileCheckDone";
+import MobileErrorBox from "../../ErrorCheck/MobileErrorBox/MobileErrorBox"
 
 const MobileSection = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -26,8 +26,9 @@ const MobileSection = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
-  const [isCheckDone, setIsCheckDone] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<string | null>(null);
   const [isFrontCamera, setIsFrontCamera] = useState(true);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]); // ⬅️ 업로드된 이미지 URL 저장
 
   // 파일 추가 핸들러 (10개 제한)
   const onDropHandler = (acceptedFiles: File[]) => {
@@ -78,10 +79,24 @@ const MobileSection = () => {
     onDrop: onDropHandler,
   });
 
-  if (isCheckDone) {
-    return <MobileCheckDone />;
-  }
+  const handleUpload = async () => {
+    if (files.length === 0) {
+      alert("파일을 업로드해주세요.");
+      return;
+    }
+  
+    // 서버 없이 파일을 업로드한 것처럼 로컬에서 처리
+    const uploadedUrls = files.map((file) => URL.createObjectURL(file));
+  
+    setUploadedImages(uploadedUrls); // 업로드된 파일을 미리보기용 URL로 저장
+    setAnalysisResult("success"); // 분석이 완료된 것처럼 처리
+  
+  };
 
+  // 분석 결과가 있으면 MobileCheckDone으로 이동
+  if (analysisResult !== null) {
+    return <MobileErrorBox images={uploadedImages} />;
+  }
   return ( <> {/* 파일 업로드 & 카메라 선택 모달 */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <Flex styles={{ direction: "column", align: "center", width: "100%" }}>
@@ -119,6 +134,7 @@ const MobileSection = () => {
           <CameraButton onClick={capture}>촬영하기</CameraButton>
         </Flex>
       </Modal>
+      
     <Container>
       
       <Text tag="md1-text-bold" css={{ textAlign: "left", marginBottom: "1rem", width: "100%" }}>
@@ -158,7 +174,7 @@ const MobileSection = () => {
             <ActionButtons css={{ position: "absolute", bottom: "2rem", left: "50%", transform: "translateX(-50%)" }}>
   <Flex styles={{ gap: "2rem", width: "100%", justify: "center" }}>
     <UploadButton onClick={() => setIsModalOpen(true)}>파일 추가</UploadButton>
-    <ConfirmButton onClick={() => setIsCheckDone(true)}>완료</ConfirmButton>
+    <ConfirmButton onClick={handleUpload}>확인</ConfirmButton>
   </Flex>
 </ActionButtons>
 
@@ -175,7 +191,8 @@ const MobileSection = () => {
       </UploadBox>
 
       <Text tag="xs-text-medium" css={{ textAlign: "left", marginTop: "1rem", width: "100%", color: colors.grayscale_40 }}>
-        지원형식 : png, jpeg, jpg, pdf (최대 : 1mb)
+      지원형식 : png, jpeg, jpg, pdf (최대 : 1 mb) <br />
+* 파일 첨부는 최대 10개까지 가능해요.
       </Text>
 
       
