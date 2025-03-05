@@ -1,0 +1,33 @@
+import {
+  IcNaver,
+  IcBankSalad,
+  IcKakaoBank,
+  IcKakaoTalk,
+  IcWoori,
+  IcNh,
+  IcSamsungPass,
+  IcDream,
+  IcShinhan,
+  IcKb,
+  IcHana,
+  IcPayco,
+  IcPass,
+  IcToss,
+} from '@seoulmilk/icon';
+
+export const authData = [
+  { id: 'naver', name: '네이버', icon: <IcNaver width={72} height={72} /> },
+  { id: 'banksalad', name: '뱅크샐러드', icon: <IcBankSalad width={72} height={72} /> },
+  { id: 'kakaoBank', name: '카카오뱅크', icon: <IcKakaoBank width={72} height={72} /> },
+  { id: 'woori', name: '우리인증서', icon: <IcWoori width={72} height={72} /> },
+  { id: 'kakaoTalk', name: '카카오톡', icon: <IcKakaoTalk width={72} height={72} /> },
+  { id: 'nh', name: 'NH 인증서', icon: <IcNh width={72} height={72} /> },
+  { id: 'samsungPass', name: '삼성패스', icon: <IcSamsungPass width={72} height={72} /> },
+  { id: 'dreamID', name: '드림인증', icon: <IcDream width={72} height={72} /> },
+  { id: 'shinhan', name: '신한인증서', icon: <IcShinhan width={72} height={72} /> },
+  { id: 'kb', name: '국민인증서', icon: <IcKb width={72} height={72} /> },
+  { id: 'hana', name: '하나인증서', icon: <IcHana width={72} height={72} /> },
+  { id: 'payco', name: '페이코', icon: <IcPayco width={72} height={72} /> },
+  { id: 'pass', name: '통신사PASS', icon: <IcPass width={72} height={72} /> },
+  { id: 'toss', name: '토스', icon: <IcToss width={72} height={72} /> },
+];

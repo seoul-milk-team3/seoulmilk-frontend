@@ -9,7 +9,7 @@ const ActionButton = ({ status, id }: { status: '정상' | '비정상' | '미입
 
   const handleClick = () => {
     if (status === '정상') {
-      navigate(`/detail/${id}`);
+      navigate(`/list/${id}`);
     }
   };
 
