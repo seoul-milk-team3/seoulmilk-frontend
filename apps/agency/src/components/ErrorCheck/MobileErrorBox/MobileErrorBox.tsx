@@ -40,7 +40,7 @@ const ErrorBox = ({ images = [] }: ErrorBoxProps) => {
   // 이미지가 없을 경우
   if (images.length === 0) {
     return (
-      <Flex css={containerStyle} flexDirection="column" alignItems="center" justifyContent="center">
+      <Flex css={containerStyle} direction="column" align="center" justify="center">
         <Text tag="md1-text-bold" css={{ color: "#E00000", textAlign: "center" }}>
           업로드된 이미지가 없습니다.
         </Text>
@@ -49,9 +49,9 @@ const ErrorBox = ({ images = [] }: ErrorBoxProps) => {
   }
 
   return (
-    <Flex css={containerStyle} flexDirection="column" alignItems="center">
+    <Flex css={containerStyle} direction="column" align="center">
       {/* 이미지 컨테이너 */}
-      <Flex tag="div" css={imageContainerStyle} flexDirection="column" alignItems="center">
+      <Flex tag="div" css={imageContainerStyle} direction="column" align="center">
         {/* 상단 (현재 이미지 인덱스 표시) */}
         <Text tag="sm-text-semibold" css={{ position: "absolute", top: "10px", left: "0px" }}>
           {`(${currentIndex + 1} / ${images.length})`}
