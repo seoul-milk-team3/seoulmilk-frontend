@@ -8,7 +8,7 @@ export const dropdownRootStyle = css({
 });
 
 export const triggerStyle = (
-  type: "date" | "region" | "email" | "status",
+  type: "date" | "region" | "email" | "status" | "telecom",
   isMobile: boolean
 ) =>
   css({
@@ -19,9 +19,14 @@ export const triggerStyle = (
       type === "email" ? theme.colors.grayscale_20 : theme.colors.grayscale_30
     }`,
     backgroundColor: theme.colors.grayscale_0,
-    borderRadius: type === "email" ? "8px" : "12px",
+    borderRadius: type === "email" || type === "telecom" ? "8px" : "12px",
     cursor: "pointer",
-    padding: type === "email" ? "1.5rem 2rem" : "1.2rem 1.4rem",
+    padding:
+      type === "email"
+        ? "1.5rem 2rem"
+        : type === "telecom"
+          ? "1.6rem 2rem"
+          : "1.2rem 1.4rem",
     width:
       type === "email" && isMobile
         ? "16.1rem"
@@ -31,11 +36,13 @@ export const triggerStyle = (
             ? "19.1rem"
             : type === "status"
               ? "10.9rem"
-              : "19rem",
+              : type === "telecom"
+                ? "42rem"
+                : "19rem",
   });
 
 export const dropdownListStyle = (
-  type: "date" | "region" | "email" | "status",
+  type: "date" | "region" | "email" | "status" | "telecom",
   isMobile: boolean
 ) =>
   css({

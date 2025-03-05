@@ -1,11 +1,12 @@
 import { dataList } from '@main/constants/listData';
 import { StoreItem } from '@main/types';
 import { getChosung } from '@main/utils';
+import { IcDownload } from '@seoulmilk/icon';
 import { Flex, Text, Pagination } from '@seoulmilk/ui';
 import { CheckBox } from '@seoulmilk/ui';
 import { useEffect, useState } from 'react';
 import ListItem from '../ListItem/ListItem';
-import { textStyle, text1Style, text2Style } from './ListContainer.style';
+import { textStyle, text1Style, text2Style, btnTextStyle, btnStyle } from './ListContainer.style';
 
 interface ListContainerProps {
   filters: {
@@ -79,17 +80,25 @@ const ListContainer = ({ filters }: ListContainerProps) => {
   return (
     <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
       {/* 리스트 헤더  */}
-      <Flex styles={{ align: 'center', height: '5.2rem', padding: '1.4rem 2.6rem' }}>
-        <CheckBox isChecked={isAllChecked} onChange={handleSelectAll} css={{ marginRight: '13rem' }} />
-        <Text tag="md2-text-medium" css={text1Style}>
-          일자
-        </Text>
-        <Text tag="md2-text-medium" css={text2Style}>
-          공급자명
-        </Text>
-        <Text tag="md2-text-medium" css={textStyle}>
-          처리결과
-        </Text>
+      <Flex styles={{ justify: 'space-between', width: '100%', align: 'center' }}>
+        <Flex styles={{ align: 'center', height: '5.2rem', padding: '1.4rem 2.6rem' }}>
+          <CheckBox isChecked={isAllChecked} onChange={handleSelectAll} css={{ marginRight: '13rem' }} />
+          <Text tag="md2-text-medium" css={text1Style}>
+            일자
+          </Text>
+          <Text tag="md2-text-medium" css={text2Style}>
+            공급자명
+          </Text>
+          <Text tag="md2-text-medium" css={textStyle}>
+            처리결과
+          </Text>
+        </Flex>
+        <Flex tag="button" styles={{ align: 'center', gap: '1rem', padding: '1.2rem 2.4rem' }} css={btnStyle}>
+          <IcDownload width={24} height={24} />
+          <Text tag="md2-text-medium" css={btnTextStyle}>
+            엑셀 다운로드
+          </Text>
+        </Flex>
       </Flex>
 
       {/* 리스트 아이템 */}

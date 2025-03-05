@@ -8,7 +8,7 @@ import { theme } from "@seoulmilk/styles";
 
 type DropdownTriggerProps = PropsWithChildren & {
   icon?: React.ReactNode;
-  type: "date" | "region" | "email" | "status";
+  type: "date" | "region" | "email" | "status" | "telecom";
   selected: string;
   isDefault?: boolean;
   isMobile: boolean;

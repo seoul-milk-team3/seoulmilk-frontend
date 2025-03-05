@@ -8,13 +8,7 @@ type DropdownListProps = ComponentPropsWithoutRef<"ul">;
 const DropdownList = ({ children, ...props }: DropdownListProps) => {
   const { isOpen } = useDropdownContext();
 
-  return (
-    isOpen && (
-      <ul css={dropdownListStyle} {...props}>
-        {children}
-      </ul>
-    )
-  );
+  return isOpen && <ul {...props}>{children}</ul>;
 };
 
 export default DropdownList;

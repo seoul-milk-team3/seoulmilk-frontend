@@ -1,4 +1,10 @@
-import { IcError, IcHome, IcNotice, IcSearch } from "@seoulmilk/icon";
+import {
+  IcError,
+  IcHome,
+  IcNotice,
+  IcSearch,
+  IcConfrim,
+} from "@seoulmilk/icon";
 import { useLocation } from "react-router-dom";
 import SidebarItem from "@/Sidebar/SidebarItem/SidebarItem";
 import { sidebarContainerStyle, menuListStyle } from "@/Sidebar/Sidebar.style";
@@ -11,7 +17,8 @@ const menuConfig: Record<
 > = {
   main: [
     { to: "/", icon: <IcHome />, label: "홈" },
-    { to: "/list", icon: <IcSearch />, label: "내 업무보기" },
+    { to: "/confirm-list", icon: <IcConfrim />, label: "진위여부 확인" },
+    { to: "/list", icon: <IcSearch />, label: "자료 조회" },
     { to: "/notices", icon: <IcNotice />, label: "공지사항" },
   ],
   agency: [
@@ -42,7 +49,7 @@ const Sidebar = ({ variant }: { variant: SidebarVariant }) => {
             to={to}
             icon={icon}
             label={label}
-            isActive={pathname === to}
+            isActive={to === "/" ? pathname === to : pathname.startsWith(to)}
           />
         ))}
       </ul>

@@ -1,7 +1,9 @@
 import { css } from "@emotion/react";
 import { colors } from "@seoulmilk/styles";
 
-export const fileCheckContainerStyle = (variant: "primary" | "secondary") => css`
+export const fileCheckContainerStyle = (
+  variant: "primary" | "secondary"
+) => css`
   width: 92.4rem;
   height: 57.6rem;
   padding: 2rem;
@@ -12,7 +14,6 @@ export const fileCheckContainerStyle = (variant: "primary" | "secondary") => css
   align-items: center;
   justify-content: center;
   gap: 9rem;
-  background-color: ${colors.grayscale_0};
 
   ${variant === "primary" &&
   `
@@ -23,11 +24,23 @@ export const spinnerStyle = css`
   width: 9.8rem;
   height: 9.8rem;
   border-radius: 50%;
-  background: conic-gradient(from 180deg at 50% 50%, #33AD79 0deg, rgba(217, 217, 217, 0) 360deg);
-  
-  mask-image: radial-gradient(circle, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 1) 55%);
-  -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 1) 55%);
-  
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    #33ad79 0deg,
+    rgba(217, 217, 217, 0) 360deg
+  );
+
+  mask-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 55%,
+    rgba(0, 0, 0, 1) 55%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 55%,
+    rgba(0, 0, 0, 1) 55%
+  );
+
   animation: spin 1s linear infinite;
 
   @keyframes spin {
