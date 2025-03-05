@@ -8,8 +8,19 @@ export const Container = styled.div`
   padding: 2rem;
   width: 100%;
   padding-left: 0rem;
-  transform: translateX(-4%);
   backgroun:none;
+  padding: 20px;
+  padding-left: 0px;
+
+`;
+
+export const HeaderWrapper = styled.div`
+  position:relative;
+  top: 0rem;
+  left: 0;
+  padding: 1rem 1rem;
+  width: 100%;
+  
 `;
 
 export const Card = styled.div`
@@ -25,11 +36,12 @@ export const Card = styled.div`
   border: 2px dashed ${colors.grayscale_30};
   border-radius: 8px;
   padding: 1.5rem;
+  padding-top: 0rem;
   text-align: center;
   cursor: pointer;
-  margin-top: 1rem;
   gap: 3rem;
   overflow: hidden;
+  
 `;
 
 

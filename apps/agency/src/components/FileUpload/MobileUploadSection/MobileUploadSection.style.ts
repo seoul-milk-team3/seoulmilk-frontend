@@ -7,11 +7,14 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  padding-left: 0rem;
   width: 100%;
-  backgroud:none;
-  transform: translateX(-4%);
+  max-width: 100%;
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+  background: none;
+  position: relative; /* 혹시 모를 오버플로우 방지 */
 `;
+
+
 
 export const UploadIcon = styled.div`
   margin-bottom: 1rem;
