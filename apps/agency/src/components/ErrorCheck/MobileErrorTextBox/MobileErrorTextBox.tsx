@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { css } from "@emotion/react";
 import { Button, Flex, Text } from "@seoulmilk/ui";
-import { containerStyle, labelStyle, inputStyle, placeholderStyle } from "./MobileErrorTextBox.style";
+import { containerStyle, labelStyle, inputStyle } from "./MobileErrorTextBox.style";
 
 export interface ErrorTextBoxProps {
   label: string;

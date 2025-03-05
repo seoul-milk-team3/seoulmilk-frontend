@@ -12,7 +12,7 @@ const meta: Meta<ErrorBoxProps> = {
   },
   argTypes: {
     images: {
-      control: "array",
+      control: "object",
       description: "OCR 인식된 세금계산서 이미지 목록",
       table: { category: "Content" },
     },
