@@ -53,3 +53,4 @@ export { default as Image } from "./src/Image";
 export { default as SeoulmilkLogo } from "./src/SeoulmilkLogo";
 export { default as Telephone } from "./src/Telephone";
 export { default as UserProfile } from "./src/UserProfile";
+export { default as IcSpinner } from "./src/IcSpinner";

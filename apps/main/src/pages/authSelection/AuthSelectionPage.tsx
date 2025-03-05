@@ -1,13 +1,17 @@
 import { authData } from '@main/constants/authData';
 import { theme } from '@seoulmilk/styles';
 import { Flex, Text } from '@seoulmilk/ui';
+import { useParams, useNavigate } from 'react-router-dom';
 import { containerStyle, gridStyle } from './AuthSelectionPage.style';
 import AuthSelectItem from './components/AuthSelectItem/AuthSelectItem';
 
 const AuthSelectionpage = () => {
-  const handleAuthClick = (providerId: string) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const handleAuthClick = () => {
     // API 연동하여 인증 요청 처리
-    //
+    navigate(`/confirm-list/${id}/analysis`);
   };
 
   return (
@@ -23,7 +27,7 @@ const AuthSelectionpage = () => {
               key={provider.id}
               icon={provider.icon}
               name={provider.name}
-              onClick={() => handleAuthClick(provider.id)}
+              onClick={() => handleAuthClick()}
             />
           ))}
         </div>

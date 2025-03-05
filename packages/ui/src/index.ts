@@ -14,3 +14,4 @@ export { default as Input } from "./Input/Input";
 export { default as CheckBox } from "./CheckBox/CheckBox";
 export { default as ImagePreview } from "./Image/ImagePreview/ImagePreview";
 export { default as ImageModal } from "./Image/ImageModal/ImageModal";
+export { default as Spinner } from "./Spinner/Spinner";

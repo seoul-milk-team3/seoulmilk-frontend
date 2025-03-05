@@ -10,6 +10,7 @@ const FileUpload = lazy(() => import('@main/pages/fileUpload/MainUploadPage'));
 const SignUp = lazy(() => import('@main/pages/signUp/SignUpPage'));
 const Detail = lazy(() => import('@main/pages/detail/DetailPage'));
 const AuthSelect = lazy(() => import('@main/pages/authSelection/AuthSelectionPage'));
+const ConfirmAnalysis = lazy(() => import('@main/pages/confrimAnalysis/ConfirmAnalysisPage'));
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
       { path: '/', element: <FileUpload /> },
       { path: '/confirm-list', element: <ConfirmList /> },
       { path: '/confirm-list/:id/auth', element: <AuthSelect /> },
+      { path: '/confirm-list/:id/analysis', element: <ConfirmAnalysis /> },
       { path: '/list', element: <List /> },
       { path: '/list/:id', element: <Detail /> },
     ],
