@@ -14,3 +14,12 @@ export const text2Style = css({
 export const textStyle = css({
   color: theme.colors.grayscale_60,
 });
+
+export const btnTextStyle = css({
+  color: theme.colors.green_50,
+});
+
+export const btnStyle = css({
+  backgroundColor: theme.colors.green_5,
+  borderRadius: '12px',
+});
