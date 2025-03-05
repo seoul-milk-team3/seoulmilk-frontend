@@ -37,6 +37,15 @@ const emailDomains = [
   "nate.com",
 ];
 
+const telecom = [
+  "SKT",
+  "KT",
+  "LG U+",
+  "알뜰폰 SKT",
+  "알뜰폰 KT",
+  "알뜰폰  LG U+",
+];
+
 const status = ["전체", "정상", "비정상"];
 
 const generateMonths = () => {
@@ -50,7 +59,7 @@ const SelectDropdown = ({
   value,
   onSelect,
 }: {
-  type: "date" | "region" | "email" | "status";
+  type: "date" | "region" | "email" | "status" | "telecom";
   value?: string;
   onSelect: (val: string) => void;
 }) => {
@@ -61,6 +70,7 @@ const SelectDropdown = ({
     region: "지역",
     email: "선택해주세요",
     status: "전체",
+    telecom: "통신사",
   };
 
   const selectedValue = value ?? defaultValues[type];
@@ -72,7 +82,9 @@ const SelectDropdown = ({
         ? regions
         : type === "status"
           ? status
-          : emailDomains;
+          : type === "telecom"
+            ? telecom
+            : emailDomains;
 
   const icon =
     type === "date" ? (

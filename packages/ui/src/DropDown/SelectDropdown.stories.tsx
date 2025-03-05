@@ -39,3 +39,9 @@ export const StatusDropdown: Story = {
     type: "status",
   },
 };
+
+export const TelecomDropdown: Story = {
+  args: {
+    type: "telecom",
+  },
+};
