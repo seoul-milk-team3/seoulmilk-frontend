@@ -5,12 +5,13 @@ export const checkDoneContainer = css`
   width: 92.4rem;
   height: 57.6rem;
   padding: 2rem;
-  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  position: absolute; 
   border-radius: 2rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top:60px:
   
 `;
 
@@ -55,7 +56,7 @@ export const errorDetailsText = css`
 export const buttonContainer = css`
   display: flex;
   gap: 2rem;
-  margin-bottom: 10rem;
+  margin-bottom: 5rem;
 `;
 
 export const buttonStyle = css`

@@ -22,24 +22,23 @@ interface CheckDoneProps {
 
 const CheckDone = ({ onClose, variant, isNormal, onErrorClick }: CheckDoneProps) => {
   return (
-    <Flex
+    
+      <Flex
       css={[
         checkDoneContainer,
         variant === "secondary" &&
           css`
             border: 3px dashed #d4d4d4;
+  
           `,
       ]}
       styles={{ direction: "column", align: "center" }}
-    >
-      {variant === "secondary" && (
+    >{variant === "secondary" && (
         <div
           css={css`
             position: absolute;
-            top: 0;
-            left: 0;
-            transform: translate(0%, -120%);
-          `}
+            top: -8rem;
+            left: 0rem;`}
         >
           <UploadTopMessage
             title="세금계산서 업로드를 완료했어요"
@@ -47,6 +46,7 @@ const CheckDone = ({ onClose, variant, isNormal, onErrorClick }: CheckDoneProps)
           />
         </div>
       )}
+      
       <Flex css={contentWrapper}>
         <CheckDoneIcon css={{ width: "6.4rem", height: "6.4rem" }} />
         <Text tag="xxl-title-bold" css={titleText}>

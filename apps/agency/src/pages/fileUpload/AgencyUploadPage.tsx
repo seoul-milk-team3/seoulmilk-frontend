@@ -9,7 +9,7 @@ const AgencyUploadPage = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
   return (
-    <Flex styles={{ direction: 'column', align: 'center', height: '100%', paddingTop: '9.2rem' }}>
+    <Flex styles={{ direction: 'column', align: 'center', paddingTop: '12rem',}}>
       {isMobile ? (
         <MobileUploadSection />
       ) : (

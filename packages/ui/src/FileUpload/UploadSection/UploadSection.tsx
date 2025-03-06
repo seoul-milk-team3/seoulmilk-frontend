@@ -110,8 +110,8 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
 
   const topMessage = getTopMessage();
   return (
-    <Flex css={uploadWrapperStyle}>
-    {topMessage && <UploadTopMessage title={topMessage.title} subTitle={topMessage.subTitle} />}
+    <Flex css={uploadWrapperStyle} styles={{ align: "center", position: "relative" }}>
+          
       {isChecking ? (
         <FileCheck onComplete={() => setIsChecking(false)} checkFiles={checkFiles} />
       ) : isErrorBoxVisible ? (
@@ -127,6 +127,8 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
             height: "100%",
           }}
         >
+          <Flex css={{ position: "absolute", top: "-8rem", left: "0rem" }}>
+          {topMessage && <UploadTopMessage title={topMessage.title} subTitle={topMessage.subTitle} />}</Flex>
           <input {...getInputProps()} ref={fileInputRef} style={{ display: "none" }} />
 
           {uploadedFiles.length === 0 ? (
@@ -192,14 +194,23 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
                 </Flex>
               </Flex>
             </>
+          )} {!isErrorBoxVisible && (
+            <Text
+              tag="md1-text-medium"
+              css={{
+                color: colors.grayscale_40,
+                marginTop: "1rem",
+                position: "absolute",
+                bottom: "-2.5rem", // 컨테이너 하단보다 아래로 배치
+                left: "0",
+              }}
+            >
+              지원형식 : png, jpeg, jpg, pdf (최대 : 1 mb) | * 파일 첨부는 최대 10개까지 가능해요.
+            </Text>
           )}
         </Flex>
       )}
-      {!isErrorBoxVisible && (
-        <Text tag="md1-text-medium" css={{ color: colors.grayscale_40, marginTop: "1rem" }}>
-          지원형식 : png, jpeg, jpg, pdf (최대 : 1 mb) | * 파일 첨부는 최대 10개까지 가능해요.
-        </Text>
-      )}
+     
       </Flex>
     
   );

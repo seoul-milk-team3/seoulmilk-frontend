@@ -43,7 +43,7 @@ const ErrorBox = ({ images }: ErrorBoxProps) => {
       {/* 이미지 컨테이너 */}
       <Flex tag="div" css={imageContainerStyle}>
         {/* 상단 (현재 이미지 인덱스 표시) */}
-        <Text tag="lg-subtitle-semibold" css={{ position: "absolute", top: "0", left: "0" }}>{`(${currentIndex + 1}/${images.length})`}</Text>
+        <Text tag="lg-subtitle-semibold" css={{ position: "absolute", top: "-40px", left: "0" }}>{`(${currentIndex + 1}/${images.length})`}</Text>
 
         {/* 이미지 */}
         <Flex tag="div" css={imageWrapperStyle}>

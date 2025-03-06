@@ -4,14 +4,15 @@ import { colors } from "@seoulmilk/styles";
 export const uploadWrapperStyle = css`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.5rem;
-  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 100%; /* 부모 컨테이너를 벗어나지 않도록 설정 */
 
 `;
 
 export const uploadSectionContainerStyle = css`
-  width: 92.4rem;
+  width: 100%; /* 가득 차게 설정 */
+  max-width: 92.4rem; /* 최대 너비 제한 */
   height: 57.6rem;
   padding: 2rem;
   border: 0.3rem dashed ${colors.grayscale_30};
@@ -26,13 +27,18 @@ export const uploadSectionContainerStyle = css`
   gap: 9rem;
 `;
 
+
 export const fileListStyle = css`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); /* 부모 너비에 맞게 조정 */
   gap: 1.2rem;
   padding: 1rem;
-  margin-bottom:4rem;
+  margin-bottom: 4rem;
+  width: 100%; /* 부모 컨테이너를 넘지 않도록 설정 */
+  max-width: 80rem; /* 최대 너비 제한 */
 `;
+
+
 
 export const fileItemStyle = css`
   display: flex;
@@ -42,7 +48,8 @@ export const fileItemStyle = css`
   background: ${colors.grayscale_10};
   border-radius: 1.2rem;
   position: relative;
-  width: 39.4rem;
+  width: 100%; /* 부모 컨테이너 내에서 유동적으로 크기 조정 */
+  max-width: 39.4rem;
   height: 7.6rem;
 `;
 
