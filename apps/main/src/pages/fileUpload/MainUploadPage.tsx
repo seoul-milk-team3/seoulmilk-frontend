@@ -7,7 +7,7 @@ const MainUploadPage = () => {
   const [uploadState, setUploadState] = useState<'idle' | 'uploading' | 'uploaded' | 'checking'>('idle');
 
   return (
-    <Flex styles={{ direction: 'column', align: 'center', height: '100%', paddingTop: '9.2rem' }}>
+    <Flex styles={{ direction: 'column', align: 'center', height: '130%', paddingTop: '12rem'}}>
       <UploadSection
         onUploadStart={() => setUploadState('uploading')}
         onUploadSuccess={() => setUploadState('uploaded')}
