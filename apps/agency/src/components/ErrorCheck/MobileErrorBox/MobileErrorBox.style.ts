@@ -20,17 +20,32 @@ export const imageContainerStyle = css`
   position: relative;
   width: 100%;
   max-width: 100%;
-  height: auto;
+  height: 300px; /* 이미지 영역 높이 설정 */
+  max-height: 300px;
   overflow: hidden;
   flex-shrink: 0;
 
   img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    object-fit: contain;
+    width: 100%;
+    height:80%;
+    object-fit: contain; /* 이미지가 컨테이너 내에 맞게 축소됨 */
   }
 `;
+
+export const imageWrapperStyle = css`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  height: 100%; /* 부모 컨테이너 크기에 맞춤 */
+  max-height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  flex-shrink: 0;
+`;
+
 
 export const inputContainerStyle = css`
   display: grid;
@@ -61,21 +76,6 @@ export const buttonContainerStyle = css`
   }
 `;
 
-export const imageWrapperStyle = css`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 100%;
-  height:auto;
-  margin-top: 30px;
-  margin-bottom: 25px;
-  overflow: hidden;
-  box-sizing: border-box;
-  flex-shrink: 0;
-  
-`;
 
 export const pageIndicatorStyle = css`
   position: absolute;
