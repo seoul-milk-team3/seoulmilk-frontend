@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { HeaderDropdownIcon } from "@seoulmilk/icon";
 import Flex from "@/Flex/Flex";
 import Text from "@/Text/Text";
+import Modal from "@/Modal/Modal"; // Modal 컴포넌트 import
 import {
   dropdownMenuStyle,
   dropdownItemStyle,
@@ -13,9 +14,9 @@ interface HeaderDropdownProps {
 
 const HeaderDropdown = ({ variant = "agency" }: HeaderDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false); // 로그아웃 모달 상태 추가
   const dropdownRef = useRef<HTMLDivElement>(null);
-  
-  // variant 값에 따라 아이콘 스타일 변경
+
   const iconFilter = variant === "agency" ? "none" : "invert(1)";
 
   useEffect(() => {
@@ -33,6 +34,19 @@ const HeaderDropdown = ({ variant = "agency" }: HeaderDropdownProps) => {
     };
   }, []);
 
+  const handleLogoutClick = () => {
+    setIsLogoutModalOpen(true); // 로그아웃 버튼 클릭 시 모달 표시
+  };
+
+  const handleCancelLogout = () => {
+    setIsLogoutModalOpen(false); // 취소 버튼 클릭 시 모달 닫기
+  };
+
+  const handleConfirmLogout = () => {
+    setIsLogoutModalOpen(false);
+    console.log("로그아웃 실행"); // 실제 로그아웃 로직 추가
+  };
+
   return (
     <div ref={dropdownRef} style={{ position: "relative" }}>
       <HeaderDropdownIcon
@@ -40,19 +54,39 @@ const HeaderDropdown = ({ variant = "agency" }: HeaderDropdownProps) => {
           width: "2.4rem",
           height: "2.4rem",
           cursor: "pointer",
-          filter: iconFilter, // 여기서 variant에 따라 색상 변경
+          filter: iconFilter,
         }}
         onClick={() => setIsOpen((prev) => !prev)}
       />
       {isOpen && (
         <Flex css={dropdownMenuStyle} data-variant={variant}>
-          <Text tag="md2-text-medium" css={dropdownItemStyle} data-variant={variant}>
+          <Text
+            tag="md2-text-medium"
+            css={dropdownItemStyle}
+            data-variant={variant}
+          >
             프로필 수정
           </Text>
-          <Text tag="md2-text-medium" css={dropdownItemStyle} data-variant={variant}>
+          <Text
+            tag="md2-text-medium"
+            css={dropdownItemStyle}
+            data-variant={variant}
+            onClick={handleLogoutClick} // 로그아웃 클릭 시 모달 열기
+          >
             로그아웃
           </Text>
         </Flex>
+      )}
+
+      {isLogoutModalOpen && (
+        <Modal
+          title="로그아웃"
+          message="로그아웃 하시겠습니까?"
+          leftButtonText="취소"
+          rightButtonText="로그아웃"
+          onLeftButtonClick={handleCancelLogout}
+          onRightButtonClick={handleConfirmLogout}
+        />
       )}
     </div>
   );

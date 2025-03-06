@@ -45,7 +45,7 @@ const Header = ({ variant = "main", ...props }: HeaderProps) => {
         >
           a12123
         </Text>
-        <HeaderDropdown />
+        <HeaderDropdown  />
 
         <HeaderAlarm
           css={{
