@@ -2,16 +2,16 @@ import { css } from "@emotion/react";
 
 export const containerStyle = css`
   display: flex;
-  align-items: center;
-  width: 533px;
-height: 56px;
+  align-items: flex-start;
+  max-width: 533px;
+  max-height: 56px;
 gap: 21px;
 
 `;
 
 export const labelStyle = css`
   min-width: 80px;
-  text-align: right;
+  text-align: left;
   width: 168px;
 height: 40px;
 gap: 10px;
@@ -23,7 +23,7 @@ border-radius: 8px;
 `;
 
 export const inputStyle = css`
-  width: 344px;
+  width: 280px;
   height: 56px;
   padding: 16px 19px;
   border-radius: 8px;

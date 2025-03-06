@@ -5,14 +5,12 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
   width: 100%;
-  padding-left: 0rem;
-  backgroun:none;
-  padding: 20px;
-  padding-left: 0px;
-
+  background: none;
+  
+  padding: 5rem 20px 20px 2rem; /* padding-top 수정 */
 `;
+
 
 export const HeaderWrapper = styled.div`
   position:relative;

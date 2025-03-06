@@ -15,9 +15,11 @@ import { Text } from "@seoulmilk/ui"; // UI 텍스트
 const MobileCheckDone = () => {
   return (
     <Container>
-<Text tag="md1-text-bold" css={{ textAlign: "left", marginBottom: "1rem", width: "100%" }}>세금계산서 업로드를 완료했어요</Text>
-        <Text tag="xs-text-medium" css={{ textAlign: "left", width: "100%", color: "#6B7280", marginBottom: "2rem" }}>
-업로드한 세금계산서의 진위 여부 판별을 기다려주세요.</Text>
+            <div style={{ position: "relative", display: "inline-block" }}>
+
+<Text tag="md1-text-bold" css={{ textAlign: "left", width: "100%" ,marginBottom: "0.5rem" }}>세금계산서 업로드를 완료했어요</Text>
+        <Text tag="xs-text-medium" css={{ textAlign: "left", width: "100%", color: "#6B7280", marginBottom: "1rem" }}>
+업로드한 세금계산서의 진위 여부 판별을 기다려주세요.</Text></div>
       <Card>
         <SuccessIcon>
           <CheckDoneIcon width="48px" height="48px" color="#008E3D" />

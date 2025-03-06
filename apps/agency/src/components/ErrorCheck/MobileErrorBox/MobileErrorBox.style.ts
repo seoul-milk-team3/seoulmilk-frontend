@@ -68,7 +68,7 @@ export const imageWrapperStyle = css`
   align-items: center;
   width: 100%;
   max-width: 100%;
-  height: 188px;
+  height:auto;
   margin-top: 30px;
   margin-bottom: 25px;
   overflow: hidden;

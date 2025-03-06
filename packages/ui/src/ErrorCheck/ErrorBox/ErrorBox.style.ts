@@ -6,73 +6,58 @@ export const containerStyle = css`
   align-items: center;
   gap: 24px;
   width: 100%;
+  min-height: 100vh; /* 전체 화면 높이 확보 */
+  paddint-top: 100px;
 `;
 
 export const imageContainerStyle = css`
   display: flex;
-  justify-content: center;
-  position:relative;
-  width: 696px;
-  height: 443px;
-  gap: 24px;
-
-
-  img {
-    max-width: 500px;
-    height: auto;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-  }
+  flex-direction: column;
+  align-items: center;
+  max-width: 696px;
+  max-height: 443px;
+  gap: 16px;
+  position: relative; /* absolute 제거 */
 `;
 
 export const inputContainerStyle = css`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 1110px;
-height: 228px;
-top: 621px;
-left: 281px;
-gap: 20px;
-
+  min-height: 228px;
+  gap: 20px;
+  padding-top:6rem;
 `;
+
 
 export const buttonContainerStyle = css`
   display: flex;
   justify-content: center;
-  width: 100%;
-  height: 64px;
-  top: 897px;
-  left: 471px;
+  min-height: 64px;
   gap: 12px;
-
+  align-items: flex-start;
+  margin-top:30px;
 `;
 
 export const imageWrapperStyle = css`
-position: absolute;
-
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 696px;
-  height: 363px;
-  padding-top: 24px;
+  align-items: flex-start;
+
+  width: 100%;
+  max-width: 696px;
+  height: auto;
 `;
 
 export const pageIndicatorStyle = css`
-  position: absolute;
-  top: 0;
-  left: 0;
   color: black;
   padding: 4px 8px;
-  border-radius: 0 0 5px 5px;
   font-size: 14px;
+  align-self: flex-start;
 `;
 
-
 export const paginationStyle = css`
-  position: absolute;
-  bottom: 50px;
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  gap: 8px;
 `;

@@ -6,8 +6,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 5rem;
   width: 100%;
+  height:100%;
   max-width: 100%;
   overflow-x: hidden; /* 가로 스크롤 방지 */
   background: none;

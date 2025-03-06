@@ -31,6 +31,7 @@
     "@emotion/react": "^11.13.3"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.13.5",
     "tsx": "^4.19.3"
   }
 }
