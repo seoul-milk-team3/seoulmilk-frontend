@@ -30,13 +30,16 @@ export const uploadSectionContainerStyle = css`
 
 export const fileListStyle = css`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); /* 부모 너비에 맞게 조정 */
+  grid-template-columns: repeat(2, 1fr); /* 한 줄에 2개씩 배치 */
   gap: 1.2rem;
+  flex-wrap: wrap;
   padding: 1rem;
   margin-bottom: 4rem;
-  width: 100%; /* 부모 컨테이너를 넘지 않도록 설정 */
-  max-width: 80rem; /* 최대 너비 제한 */
+  width: 100%;
+  max-width: 80rem;
+  justify-content: center; /* 중앙 정렬 */
 `;
+
 
 
 
@@ -51,6 +54,7 @@ export const fileItemStyle = css`
   width: 100%; /* 부모 컨테이너 내에서 유동적으로 크기 조정 */
   max-width: 39.4rem;
   height: 7.6rem;
+  width: "calc(50% - 0.5rem)" 
 `;
 
 export const filePreviewStyle = css`
