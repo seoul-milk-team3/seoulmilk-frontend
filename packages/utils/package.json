@@ -6,8 +6,5 @@
   "license": "ISC",
   "devDependencies": {
     "@seoulmilk/tsconfig": "workspace:^"
-  },
-  "dependencies": {
-    "@tanstack/react-query": "^5.66.9"
   }
 }

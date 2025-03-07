@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@seoulmilk/icon": "workspace:^",
+    "@seoulmilk/api": "workspace:^",
     "@seoulmilk/styles": "workspace:^",
     "@seoulmilk/tsconfig": "workspace:^",
     "@seoulmilk/utils": "workspace:^",
