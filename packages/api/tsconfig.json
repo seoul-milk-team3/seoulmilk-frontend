@@ -1,0 +1,14 @@
+{
+  "extends": "@seoulmilk/tsconfig/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+
+    "types": ["vite/client"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "dist"]
+}

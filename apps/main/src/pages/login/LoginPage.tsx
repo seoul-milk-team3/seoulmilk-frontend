@@ -1,19 +1,11 @@
+import { useLoginMutation } from '@seoulmilk/api';
+import { PostLoginRequestBody } from '@seoulmilk/api/src/login/types';
 import { IcLoginLogo } from '@seoulmilk/icon';
 import { Input, Button, Flex, Text } from '@seoulmilk/ui';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { dividerStyle, textColor } from './LoginPage.style';
-
-const mockUser = {
-  id: 'qwer-1122-29393',
-  password: 'kkkk20238934',
-};
-
-interface LoginForm {
-  id: string;
-  password: string;
-}
 
 const Login = () => {
   const {
@@ -24,25 +16,17 @@ const Login = () => {
     clearErrors,
     setValue,
     watch,
-  } = useForm<LoginForm>({
+  } = useForm<PostLoginRequestBody>({
     mode: 'onChange',
   });
 
-  const [serverError, setServerError] = useState('');
+  const { mutate } = useLoginMutation(setError);
 
-  const onSubmit = (data: LoginForm) => {
-    setServerError('');
-
-    if (data.id !== mockUser.id || data.password !== mockUser.password) {
-      setError('id', { message: '입력하신 사번번호를 찾을 수 없어요. 다시 한 번 확인해주세요!' });
-      setError('password', { message: '비밀번호가 올바르지 않아요. 다시 확인해주세요.' });
-      setServerError('아이디 또는 비밀번호가 올바르지 않습니다.');
-      return;
-    }
+  const onSubmit = (data: PostLoginRequestBody) => {
+    mutate(data);
   };
 
-  //입력값이 하나라도 없으면 버튼 비활성화
-  const isDisabled = !watch('id') || !watch('password');
+  const isDisabled = !watch('employeeId') || !watch('password');
 
   return (
     <Flex styles={{ direction: 'column', align: 'center', paddingTop: '9.6rem', height: '100vh' }}>
@@ -52,21 +36,24 @@ const Login = () => {
         <Flex styles={{ direction: 'column', gap: '1.2rem' }}>
           <Input
             placeholder="사번"
-            value={watch('id') || ''}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setValue('id', e.target.value);
-              clearErrors('id'); // 입력값 변경 시 에러 제거
+            type="text"
+            {...register('employeeId', { required: '사번을 입력해주세요.' })}
+            value={watch('employeeId') || ''}
+            onChange={(e) => {
+              setValue('employeeId', e.target.value);
+              clearErrors('employeeId');
             }}
-            errorMessage={errors.id?.message}
+            errorMessage={errors.employeeId?.message}
             width="42rem"
           />
           <Input
             type="password"
             placeholder="비밀번호"
+            {...register('password', { required: '비밀번호를 입력해주세요.' })}
             value={watch('password') || ''}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(e) => {
               setValue('password', e.target.value);
-              clearErrors('password'); // 입력값 변경 시 에러 제거
+              clearErrors('password');
             }}
             errorMessage={errors.password?.message}
             width="42rem"

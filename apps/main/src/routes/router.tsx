@@ -2,6 +2,7 @@ import AuthLayout from '@main/layouts/auth/AuthLayout';
 import MainLayout from '@main/layouts/main/MainLayout';
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
 
 const Login = lazy(() => import('@main/pages/login/LoginPage'));
 const List = lazy(() => import('@main/pages/list/ListPage'));
@@ -22,15 +23,20 @@ export const router = createBrowserRouter([
   },
 
   {
-    element: <MainLayout />,
+    element: <PrivateRoute />, // 로그인하지 않으면 /login으로 이동
     children: [
-      { path: '/', element: <FileUpload /> },
-      { path: '/confirm-list', element: <ConfirmList /> },
-      { path: '/confirm-list/:id/auth', element: <AuthSelect /> },
-      { path: '/confirm-list/:id/analysis', element: <ConfirmAnalysis /> },
-      { path: '/list', element: <List /> },
-      { path: '/list/:id/detail', element: <Detail /> },
-      { path: '/list/:id/error', element: <ErrorCheck /> },
+      {
+        element: <MainLayout />,
+        children: [
+          { path: '/', element: <FileUpload /> },
+          { path: '/confirm-list', element: <ConfirmList /> },
+          { path: '/confirm-list/:id/auth', element: <AuthSelect /> },
+          { path: '/confirm-list/:id/analysis', element: <ConfirmAnalysis /> },
+          { path: '/list', element: <List /> },
+          { path: '/list/:id/detail', element: <Detail /> },
+          { path: '/list/:id/error', element: <ErrorCheck /> },
+        ],
+      },
     ],
   },
 ]);

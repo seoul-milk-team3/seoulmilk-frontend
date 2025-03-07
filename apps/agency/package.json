@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.14.0",
     "@seoulmilk/icon": "workspace:^",
     "@seoulmilk/styles": "workspace:^",
+    "@seoulmilk/api": "workspace:^",
     "@seoulmilk/tsconfig": "workspace:^",
     "@seoulmilk/ui": "workspace:^",
     "@seoulmilk/utils": "workspace:^",
