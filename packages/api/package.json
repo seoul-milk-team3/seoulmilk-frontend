@@ -12,7 +12,7 @@
   "dependencies": {
     "@seoulmilk/tsconfig": "workspace:^",
     "@seoulmilk/utils": "workspace:^",
-    "@tanstack/react-query": "^5.66.9"
+    "@tanstack/react-query": "^5.67.1"
   },
   "devDependencies": {
     "vite": "^6.1.0"

@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState,useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import {
   uploadWrapperStyle,
@@ -15,14 +15,13 @@ import UploadTopMessage from "../UploadTopMessage/UploadTopMessage";
 import { FileUploadIcon, DeleteX } from "@seoulmilk/icon";
 import { colors } from "@seoulmilk/styles";
 import FileCheck from "../../FileCheck/FileCheck";
-import ErrorBox from "@/ErrorCheck/ErrorBox/ErrorBox";
-import { useOcrTaxInvoices, useSaveTaxInvoices } from "@seoulmilk/api/src/fileupload/taxInvoice";
+import { useTaxInvoiceOCRMutation } from "@seoulmilk/api";
 
 const MAX_FILES = 10;
 
 interface UploadSectionProps {
   onUploadStart?: () => void;
-  onUploadSuccess?: () => void;
+  onUploadSuccess?: (data: any) => void;
   onCheckValidity?: () => void;
 }
 
@@ -30,26 +29,33 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isChecking, setIsChecking] = useState(false);
-  const [isErrorBoxVisible, setIsErrorBoxVisible] = useState(false);
-  const [ocrResults, setOcrResults] = useState<any[]>([]); // Store OCR extracted data
-  const { mutate: analyzeOcr, isPending } = useOcrTaxInvoices();
-  const { mutate: saveTaxInvoices } = useSaveTaxInvoices();
+  const [ocrResults, setOcrResults] = useState<any>(null); // OCR 분석된 데이터 저장
+
+  // ✅ OCR 분석 Mutation 훅
+  const { mutate: analyzeTaxInvoice, isPending } = useTaxInvoiceOCRMutation();
 
   const getTopMessage = () => ({
     title: "세금계산서를 업로드해주세요",
-    subTitle: isChecking ? "업로드한 세금계산서의 내용을 확인해주세요." : "진위여부를 확인 할 세금계산서를 업로드해주세요",
+    subTitle: isChecking ? "OCR 분석 중..." : "진위여부를 확인할 세금계산서를 업로드해주세요.",
   });
+  
+  const uploadedFilesRef = useRef<File[]>([]);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       setUploadedFiles((prev) => {
         const newFiles = [...prev, ...acceptedFiles];
+        uploadedFilesRef.current = newFiles; // ✅ useRef로 최신 상태 유지
+        console.log("📂 파일 드롭 후 최신 파일 목록:", uploadedFilesRef.current);
         return newFiles.slice(0, MAX_FILES);
       });
       onUploadStart?.();
     },
     [onUploadStart]
   );
+useEffect(() => {
+  uploadedFilesRef.current = uploadedFiles;
+}, [uploadedFiles]);
 
   const { getInputProps } = useDropzone({
     onDrop,
@@ -64,43 +70,64 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
   const handleRemoveFile = (index: number) => {
     setUploadedFiles((prev) => prev.filter((_, i) => i !== index));
   };
-
+  console.log("📝 현재 업로드된 파일 목록:", uploadedFiles);
+  uploadedFiles.forEach((file, index) => {
+    console.log(`📂 ${index + 1}번째 파일:`, file);
+  });
+  uploadedFiles.forEach((file) => {
+    console.log("📂 FormData에 추가하는 파일:", file, typeof file);
+  });
+  
   const checkFiles = async () => {
-    if (uploadedFiles.length === 0) return;
-    setIsChecking(true);
-    onCheckValidity?.();
+    if (uploadedFilesRef.current.length === 0 || isChecking) {
+      console.error("🚨 업로드된 파일이 없습니다. 최신 상태:", uploadedFilesRef.current);
+      return;
+    }
   
-    console.log("🔍 OCR 분석 시작! 업로드된 파일 목록:", uploadedFiles); // ✅ 파일 목록 출력
+    console.log("📂 최종 업로드된 파일 목록:", uploadedFilesRef.current);
   
-    analyzeOcr(uploadedFiles, {
+    const formData = new FormData();
+    uploadedFilesRef.current.forEach((file) => {
+      formData.append("files", file); // ✅ 'files[]' → 'files' 로 변경
+    });
+  
+    console.log("📤 최종 FormData 확인:");
+const formDataEntries = [...formData.entries()];
+formDataEntries.forEach(([key, value]) => {
+  console.log(`🔹 Key: ${key}, Value:`, value);
+});
+
+if (formDataEntries.length === 0) {
+  console.error("🚨 FormData가 비어 있습니다!");
+  return;
+}
+
+    analyzeTaxInvoice(formData, {
       onSuccess: (data) => {
-        console.log("✅ OCR 분석 결과:", data); // ✅ 서버에서 받은 결과 출력
-        setOcrResults(data.requests);
-        setIsChecking(false);
-        setIsErrorBoxVisible(true);
+        console.log("✅ OCR 분석 성공:", data);
+      
+        if (!data || Object.keys(data).length === 0) {
+          console.warn("🚨 OCR 분석이 성공했지만, 응답이 비어 있습니다.");
+        }
+      
+        setOcrResults(data);
       },
       onError: (error) => {
-        console.error("❌ OCR 분석 실패:", error); // ✅ 에러 출력
-        setIsChecking(false);
-        setIsErrorBoxVisible(true);
+        console.error("❌ OCR 분석 실패:", error);
       },
     });
   };
   
 
-  const handleConfirm = () => {
-    saveTaxInvoices(
-      { requestList: ocrResults, files: uploadedFiles },
-      {
-        onSuccess: () => {
-          setUploadedFiles([]);
-          setIsErrorBoxVisible(false);
-          onUploadSuccess?.();
-        },
-      }
-    );
-  };
+  useEffect(() => {
+    console.log("📌 OCR 분석 결과 상태 업데이트됨:", ocrResults);
+  
+    if (!ocrResults || Object.keys(ocrResults).length === 0) {
+      console.warn("⚠️ OCR 결과 데이터가 없습니다.");
+    }
+  }, [ocrResults]);
 
+  
 
   const topMessage = getTopMessage();
 
@@ -108,20 +135,6 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
     <Flex css={uploadWrapperStyle} styles={{ align: "center", position: "relative" }}>
       {isChecking ? (
         <FileCheck onComplete={() => setIsChecking(false)} checkFiles={checkFiles} />
-      ) : isErrorBoxVisible ? (
-        <Flex
-          css={uploadSectionContainerStyle}
-          styles={{
-            direction: "column",
-            justify: "flex-start",
-            align: "center",
-            position: "relative",
-            height: "100%",
-          }}
-        >
-          
-          <ErrorBox images={uploadedFiles.map((file) => URL.createObjectURL(file))} ocrResults={ocrResults} onConfirm={handleConfirm} />
-        </Flex>
       ) : (
         <Flex
           css={uploadSectionContainerStyle}
@@ -134,9 +147,7 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
           }}
         >
           <Flex css={{ position: "absolute", top: "-8rem", left: "0rem" }}>
-            
-              <UploadTopMessage title={topMessage.title} subTitle={topMessage.subTitle} />
-            
+            <UploadTopMessage title={topMessage.title} subTitle={topMessage.subTitle} />
           </Flex>
           <input {...getInputProps()} ref={fileInputRef} style={{ display: "none" }} />
 
@@ -204,24 +215,18 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
                     파일 추가
                   </Button>
                   <Button variant="secondary" onClick={checkFiles} disabled={uploadedFiles.length === 0 || isPending}>
-                {isPending ? "확인 중..." : "진위여부 확인"}
-              </Button>
+                    {isPending ? "확인 중..." : "진위여부 확인"}
+                  </Button>
                 </Flex>
               </Flex>
             </>
-)} {!isErrorBoxVisible && (
-            <Text
-              tag="md1-text-medium"
-              css={{
-                color: colors.grayscale_40,
-                marginTop: "1rem",
-                position: "absolute",
-                bottom: "-2.5rem", // 컨테이너 하단보다 아래로 배치
-                left: "0",
-              }}
-            >
-              지원형식 : png, jpeg, jpg, pdf (최대 : 1 mb) | * 파일 첨부는 최대 10개까지 가능해요.
-            </Text>
+          )}
+
+          {ocrResults && (
+            <Flex styles={{ direction: "column", marginTop: "2rem" }}>
+              <Text tag="md1-text-medium">OCR 분석 결과:</Text>
+              <Text tag="md1-text-medium">{JSON.stringify(ocrResults, null, 2)}</Text>
+            </Flex>
           )}
         </Flex>
       )}
