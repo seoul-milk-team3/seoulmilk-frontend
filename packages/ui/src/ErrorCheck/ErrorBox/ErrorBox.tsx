@@ -36,6 +36,7 @@ const ErrorBox = ({ images }: ErrorBoxProps) => {
 
   if (isCompleted) {
     return <CheckDone variant="secondary" onClose={() => setIsCompleted(false)} isNormal />;
+
   }
 
   return (
@@ -48,6 +49,7 @@ const ErrorBox = ({ images }: ErrorBoxProps) => {
     </Flex>
       {/* 이미지 컨테이너 */}
       <Flex tag="div" css={imageContainerStyle}>
+
         {/* 상단 인덱스 표시 */}
         <Text
           tag="md2-text-semibold"
@@ -69,9 +71,13 @@ const ErrorBox = ({ images }: ErrorBoxProps) => {
           {`${currentIndex + 1}/${images.length}`}
         </Text>
 
+
         {/* 이미지 */}
         <Flex tag="div" css={imageWrapperStyle}>
-          <img src={images[currentIndex]} alt={`OCR 인식된 세금계산서 ${currentIndex + 1}`} />
+          <img
+            src={images[currentIndex]}
+            alt={`OCR 인식된 세금계산서 ${currentIndex + 1}`}
+          />
         </Flex>
 
         {/* 페이지네이션 */}
@@ -94,16 +100,20 @@ const ErrorBox = ({ images }: ErrorBoxProps) => {
 
       {/* 입력 폼 컨테이너 */}
       <Flex tag="div" css={inputContainerStyle}>
-        <ErrorTextBox label="공급자 사업자등록번호" value="214-82-00250" />
-        <ErrorTextBox label="공급자 등록번호" value="216-82-00028" />
-        <ErrorTextBox label="승인번호" value="20220630-41000115-a3lgrxs" />
-        <ErrorTextBox label="작성일자" value="2022/06/30" />
-        <ErrorTextBox label="공급가액" value="5,400,000" />
+        <ErrorTextBox label="공급자 사업자등록번호" value="305-32-72619" />
+        <ErrorTextBox label="공급자 등록번호" value="314-26-93539" />
+        <ErrorTextBox label="승인번호" value="20240630-10240709-16746809" />
+        <ErrorTextBox label="작성일자" value="2024/06/30" />
+        <ErrorTextBox label="공급가액" value="3,788,960" />
       </Flex>
 
       {/* 버튼 컨테이너 */}
       <Flex tag="div" css={buttonContainerStyle}>
-        <Button variant="primary" onClick={handlePrev} disabled={currentIndex === 0}>
+        <Button
+          variant="primary"
+          onClick={handlePrev}
+          disabled={currentIndex === 0}
+        >
           이전 파일
         </Button>
         <Button variant="secondary" onClick={handleNext}>
