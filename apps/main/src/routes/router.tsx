@@ -23,20 +23,15 @@ export const router = createBrowserRouter([
   },
 
   {
-    element: <PrivateRoute />, // 로그인하지 않으면 /login으로 이동
+    element: <MainLayout />,
     children: [
-      {
-        element: <MainLayout />,
-        children: [
-          { path: '/', element: <FileUpload /> },
-          { path: '/confirm-list', element: <ConfirmList /> },
-          { path: '/confirm-list/:id/auth', element: <AuthSelect /> },
-          { path: '/confirm-list/:id/analysis', element: <ConfirmAnalysis /> },
-          { path: '/list', element: <List /> },
-          { path: '/list/:id/detail', element: <Detail /> },
-          { path: '/list/:id/error', element: <ErrorCheck /> },
-        ],
-      },
+      { path: '/', element: <FileUpload /> },
+      { path: '/confirm-list', element: <ConfirmList /> },
+      { path: '/confirm-list/:id/auth', element: <AuthSelect /> },
+      { path: '/confirm-list/:id/analysis', element: <ConfirmAnalysis /> },
+      { path: '/list', element: <List /> },
+      { path: '/list/:id/detail', element: <Detail /> },
+      { path: '/list/:id/error', element: <ErrorCheck /> },
     ],
   },
 ]);
