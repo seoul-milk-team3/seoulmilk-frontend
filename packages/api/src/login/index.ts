@@ -12,7 +12,7 @@ export const postLogin = async ({
   const response = await axiosInstance.post<
     PostLoginRequestBody,
     AxiosResponse<PostLoginResponse>
-  >("/auth/login", { employeeId, password });
+  >("/auth/login/office", { employeeId, password });
 
   console.log("🔹 Login Response:", response);
 
