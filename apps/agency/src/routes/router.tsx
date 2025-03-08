@@ -19,10 +19,15 @@ export const router = createBrowserRouter([
   },
 
   {
-    element: <MainLayout />,
+    element: <PrivateRoute />, // 로그인하지 않으면 /login으로 이동
     children: [
-      { path: '/', element: <FileUpload /> },
-      { path: '/list', element: <List /> },
+      {
+        element: <MainLayout />,
+        children: [
+          { path: '/', element: <FileUpload /> },
+          { path: '/list', element: <List /> },
+        ],
+      },
     ],
   },
 ]);

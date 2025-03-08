@@ -21,17 +21,21 @@ export const router = createBrowserRouter([
       { path: '/signup', element: <SignUp /> },
     ],
   },
-
   {
-    element: <MainLayout />,
+    element: <PrivateRoute />,
     children: [
-      { path: '/', element: <FileUpload /> },
-      { path: '/confirm-list', element: <ConfirmList /> },
-      { path: '/confirm-list/:id/auth', element: <AuthSelect /> },
-      { path: '/confirm-list/:id/analysis', element: <ConfirmAnalysis /> },
-      { path: '/list', element: <List /> },
-      { path: '/list/:id/detail', element: <Detail /> },
-      { path: '/list/:id/error', element: <ErrorCheck /> },
+      {
+        element: <MainLayout />,
+        children: [
+          { path: '/', element: <FileUpload /> },
+          { path: '/confirm-list', element: <ConfirmList /> },
+          { path: '/confirm-list/:id/auth', element: <AuthSelect /> },
+          { path: '/confirm-list/:id/analysis', element: <ConfirmAnalysis /> },
+          { path: '/list', element: <List /> },
+          { path: '/list/:id/detail', element: <Detail /> },
+          { path: '/list/:id/error', element: <ErrorCheck /> },
+        ],
+      },
     ],
   },
 ]);
