@@ -13,9 +13,9 @@ import {
 } from "./ErrorBox.style";
 import Text from "@/Text/Text";
 import CheckDone from "@/CheckDone/CheckDone";
-
+import UploadTopMessage from "@/FileUpload/UploadTopMessage/UploadTopMessage";
 export interface ErrorBoxProps {
-  images: string[]; // 여러 개의 이미지 배열을 받음
+  images: string[];
 }
 
 const ErrorBox = ({ images }: ErrorBoxProps) => {
@@ -35,24 +35,42 @@ const ErrorBox = ({ images }: ErrorBoxProps) => {
   };
 
   if (isCompleted) {
-    return (
-      <CheckDone
-        variant="secondary"
-        onClose={() => setIsCompleted(false)}
-        isNormal={true}
-      />
-    );
+    return <CheckDone variant="secondary" onClose={() => setIsCompleted(false)} isNormal />;
+
   }
 
   return (
-    <Flex css={containerStyle}>
+    <Flex css={{ position: "relative", minHeight: "200px" }}> {/* position: relative 추가 */}
+    <Flex css={{ position: "absolute", top: "-150px", left: "-20px" }}> {/* top 값을 조정 */}
+      <UploadTopMessage
+        title="올바르게 입력되었는지 확인해주세요"
+        subTitle="직접 수정하여 확인이 가능해요"
+      />
+    </Flex>
       {/* 이미지 컨테이너 */}
       <Flex tag="div" css={imageContainerStyle}>
-        {/* 상단 (현재 이미지 인덱스 표시) */}
+
+        {/* 상단 인덱스 표시 */}
         <Text
-          tag="lg-subtitle-semibold"
-          css={{ position: "absolute", top: "-40px", left: "0" }}
-        >{`(${currentIndex + 1}/${images.length})`}</Text>
+          tag="md2-text-semibold"
+          css={{
+            color: "#525252",
+            position: "absolute",
+            top: "-40px",
+            left: "0",
+            width: "71px",
+            height: "40px",
+            borderRadius: "22.5px",
+            padding: "8px 20px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#f0f0f0",
+          }}
+        >
+          {`${currentIndex + 1}/${images.length}`}
+        </Text>
+
 
         {/* 이미지 */}
         <Flex tag="div" css={imageWrapperStyle}>
@@ -62,7 +80,7 @@ const ErrorBox = ({ images }: ErrorBoxProps) => {
           />
         </Flex>
 
-        {/* 하단 페이지네이션 (동그라미) */}
+        {/* 페이지네이션 */}
         <Flex tag="div" css={paginationStyle}>
           {images.map((_, index) => (
             <span
