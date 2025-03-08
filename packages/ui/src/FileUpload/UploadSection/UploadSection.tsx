@@ -16,6 +16,7 @@ import { FileUploadIcon, DeleteX } from "@seoulmilk/icon";
 import { colors } from "@seoulmilk/styles";
 import FileCheck from "../../FileCheck/FileCheck";
 import ErrorBox from "@/ErrorCheck/ErrorBox/ErrorBox";
+import { useOcrTaxInvoices, useSaveTaxInvoices } from "@seoulmilk/api/src/fileupload/taxInvoice";
 
 const MAX_FILES = 10;
 
@@ -29,22 +30,15 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isChecking, setIsChecking] = useState(false);
-  const [isDone, setIsDone] = useState(false);
   const [isErrorBoxVisible, setIsErrorBoxVisible] = useState(false);
+  const [ocrResults, setOcrResults] = useState<any[]>([]); // Store OCR extracted data
+  const { mutate: analyzeOcr, isPending } = useOcrTaxInvoices();
+  const { mutate: saveTaxInvoices } = useSaveTaxInvoices();
 
-  const getTopMessage = () => {
-    if (isChecking) {
-      return {
-        title: "세금계산서를 업로드해주세요",
-        subTitle: "업로드한 세금계산서의 내용을 한번 더 확인해주세요.",
-      };
-    } else {
-      return {
-        title: "세금계산서를 업로드해주세요",
-        subTitle: "진위여부를 확인 할 세금계산서를 업로드해주세요",
-      };
-    }
-  };
+  const getTopMessage = () => ({
+    title: "세금계산서를 업로드해주세요",
+    subTitle: isChecking ? "업로드한 세금계산서의 내용을 확인해주세요." : "진위여부를 확인 할 세금계산서를 업로드해주세요",
+  });
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -64,9 +58,7 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
   });
 
   const handleButtonClick = () => {
-    if (uploadedFiles.length < MAX_FILES) {
-      fileInputRef.current?.click();
-    }
+    if (uploadedFiles.length < MAX_FILES) fileInputRef.current?.click();
   };
 
   const handleRemoveFile = (index: number) => {
@@ -77,25 +69,38 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
     if (uploadedFiles.length === 0) return;
     setIsChecking(true);
     onCheckValidity?.();
+  
+    console.log("🔍 OCR 분석 시작! 업로드된 파일 목록:", uploadedFiles); // ✅ 파일 목록 출력
+  
+    analyzeOcr(uploadedFiles, {
+      onSuccess: (data) => {
+        console.log("✅ OCR 분석 결과:", data); // ✅ 서버에서 받은 결과 출력
+        setOcrResults(data.requests);
+        setIsChecking(false);
+        setIsErrorBoxVisible(true);
+      },
+      onError: (error) => {
+        console.error("❌ OCR 분석 실패:", error); // ✅ 에러 출력
+        setIsChecking(false);
+        setIsErrorBoxVisible(true);
+      },
+    });
+  };
+  
 
-    try {
-      const response = await fetch("/api/file-check", { method: "POST", body: new FormData() });
-      if (!response.ok) throw new Error("파일 검사 요청 실패");
-      onUploadSuccess?.();
-    } catch (error) {
-      console.error("파일 검사 오류:", error);
-    } finally {
-      setIsChecking(false);
-      setIsDone(true);
-      setIsErrorBoxVisible(true);
-    }
+  const handleConfirm = () => {
+    saveTaxInvoices(
+      { requestList: ocrResults, files: uploadedFiles },
+      {
+        onSuccess: () => {
+          setUploadedFiles([]);
+          setIsErrorBoxVisible(false);
+          onUploadSuccess?.();
+        },
+      }
+    );
   };
 
-  const handleCloseCheckDone = () => {
-    setUploadedFiles([]);
-    setIsDone(false);
-    setIsErrorBoxVisible(false);
-  };
 
   const topMessage = getTopMessage();
 
@@ -115,7 +120,7 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
           }}
         >
           
-          <ErrorBox images={uploadedFiles.map((file) => URL.createObjectURL(file))} />
+          <ErrorBox images={uploadedFiles.map((file) => URL.createObjectURL(file))} ocrResults={ocrResults} onConfirm={handleConfirm} />
         </Flex>
       ) : (
         <Flex
@@ -198,9 +203,9 @@ const UploadSection = ({ onUploadStart, onUploadSuccess, onCheckValidity }: Uplo
                   <Button variant="primary" onClick={handleButtonClick}>
                     파일 추가
                   </Button>
-                  <Button variant="secondary" onClick={checkFiles} disabled={uploadedFiles.length === 0}>
-                    진위여부 확인
-                  </Button>
+                  <Button variant="secondary" onClick={checkFiles} disabled={uploadedFiles.length === 0 || isPending}>
+                {isPending ? "확인 중..." : "진위여부 확인"}
+              </Button>
                 </Flex>
               </Flex>
             </>
