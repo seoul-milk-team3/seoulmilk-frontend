@@ -1,82 +1,151 @@
 import { css } from "@emotion/react";
-import { colors } from "@seoulmilk/styles";
-
-export const containerStyle = css`
-  width: 100%;
-  max-width: 92.4rem;
-  height: 57.6rem; /* 컨테이너 높이 설정 */
-  padding: 2rem;
-  border-radius: 2rem;
-  text-align: center;
-  cursor: pointer;
-
+export const ContainerStyle = css`
   display: flex;
-  flex-direction: row; /* 좌우 배치 적용 */
+  justify-content: center;
   align-items: center;
-  justify-content: space-between; /* 좌우 정렬 */
-  gap: 4rem;
-  position: relative;
+  gap: 2rem;
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
-`;
+  position: fixed;
+  background: #FAFAFA;
 
+`;
+// ErrorBox.style.ts
 export const imageContainerStyle = css`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 40%; /* 왼쪽 절반 차지 */
-  max-width: 92.4rem;
-  max-height: 443px;
-  gap: 16px;
+  justify-content: center; 
+  align-items: center; 
+  border-radius: 8px;
+  width: 60%;
+  max-width: 60%; 
+  min-width: 60%; 
+  height: 100%; 
+  max-height:100%;
+  min-height:100%;
   position: relative;
 `;
-
-export const inputContainerStyle = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  width: 60%; /* 오른쪽 절반 차지 */
-  max-height: 100%; /* 컨테이너 높이 안에서 유지 */
-  max-width: 60%; /* 최대 너비 제한 */
-  gap: 36px;
-  overflow-y: auto; /* 필요 시 스크롤 가능 */
-  word-wrap: break-word;
+export const imageBox = css`
+  display: flex; 
+  width: 620px; 
+  height: 436px; 
+  border-radius: 24px;
+  position: absolute; 
+  top: px;
+  right: 50px; 
 `;
+
+export const imageStyle = css`
+  max-width: 100%; 
+  max-height: 100%; 
+  object-fit: contain;
+  position: absolute; 
+`;
+
+
+
+
+export const errorBoxWrapperStyle = css`
+  display: flex;
+
+  box-shadow: 4px 0px 12px 0px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  background: #fff;
+  padding: 5rem;
+  padding-top: 3rem;
+  height: 100%;
+  width: 40%;
+  min-width: 40%;
+  min-height: 100%;
+  max-width: 40%;
+  position: relative;
+  overflow: hidden;
+  margin-right: auto; 
+  gap: 1.5rem;
+`;
+
+
+export const fieldContainerStyle = css`
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-top: rem; 
+  width: 400px;
+  max-height: 65vh; 
+  height: auto; 
+`;
+
+
 
 export const buttonContainerStyle = css`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  width: 100%; /* 버튼 크기 동일하게 조정 */
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top:3rem;
-  padding-top:3rem;
+  padding: 0 0rem; 
+  gap: 1rem; 
+  margin-top: 1.5rem; 
+  width: 400px;
 `;
 
 
-export const imageWrapperStyle = css`
+
+export const containerStyle = css`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+export const labelStyle = css`
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+`;
+
+export const inputStyle = css`
   width: 100%;
-  max-width: 696px;
-  height: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  &:focus {
+    border-color: #007aff;
+    outline: none;
+  }
 `;
 
-export const pageIndicatorStyle = css`
-  color: black;
-  padding: 4px 8px;
-  font-size: 14px;
-  align-self: flex-start;
+export const buttonWrapperStyle = css`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
 `;
 
-export const paginationStyle = css`
+
+export const bigImageIconStyle = css`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+`;
+
+export const overlayStyle = css`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); 
   display: flex;
   justify-content: center;
-  margin-top: 10px;
-  gap: 8px;
+  align-items: center;
+  z-index: 20; 
 `;
+
+export const enlargedImageStyle = css`
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+  border-radius: 10px; 
+  `;
+

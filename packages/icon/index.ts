@@ -1,3 +1,4 @@
+export { default as BigImage } from "./src/BigImage";
 export { default as Camera } from "./src/Camera";
 export { default as CameraGray } from "./src/CameraGray";
 export { default as CheckDoneIcon } from "./src/CheckDoneIcon";
@@ -51,6 +52,7 @@ export { default as IcShinhan } from "./src/IcShinhan";
 export { default as IcToss } from "./src/IcToss";
 export { default as IcWoori } from "./src/IcWoori";
 export { default as Image } from "./src/Image";
+export { default as Loading } from "./src/Loading";
 export { default as SeoulmilkLogo } from "./src/SeoulmilkLogo";
 export { default as Telephone } from "./src/Telephone";
 export { default as UserProfile } from "./src/UserProfile";
