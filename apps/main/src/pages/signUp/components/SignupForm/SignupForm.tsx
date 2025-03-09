@@ -1,87 +1,111 @@
+import { useSignupMutation } from '@seoulmilk/api';
 import { Input, Button, Flex, Text } from '@seoulmilk/ui';
 import { SelectDropdown } from '@seoulmilk/ui';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-const mockUsers = ['123456', '654321']; // 서버 예시 데이터 (등록된 사번)
-
-interface SignupFormProps {
-  type: 'admin' | 'user';
-}
-
 interface SignupData {
-  id: string;
+  name: string;
+  employeeId: string;
   email: string;
   emailDomain: string;
+  phoneNo: string;
+  birthday: string;
+  telecom: 'SKT' | 'KT' | 'LG';
   password: string;
   confirmPassword: string;
+  role: 'ADMIN' | 'OFFICE';
 }
 
-const SignupForm = ({ type }: SignupFormProps) => {
+const SignupForm = ({ type }: { type: 'admin' | 'user' }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
-    clearErrors,
     setValue,
-    reset,
     watch,
-  } = useForm<SignupData>({
-    mode: 'onChange',
-  });
+    clearErrors,
+    reset,
+  } = useForm<SignupData>({ mode: 'onChange' });
 
-  const [serverError, setServerError] = useState('');
+  const { mutate } = useSignupMutation();
 
-  // 탭이 변경될 때 폼을 초기화 (관리자 ↔ 사용자)
   useEffect(() => {
     reset();
-  }, [type, reset]);
+    setValue('role', type === 'admin' ? 'ADMIN' : 'OFFICE'); // role 값을 명확하게 설정
+    console.log('룰', type);
+  }, [type, reset, setValue]);
 
   const onSubmit = (data: SignupData) => {
-    setServerError(''); // 서버 에러 초기화
+    mutate({
+      name: data.name,
+      employeeId: data.employeeId,
+      password: data.password,
+      email: `${data.email}@${data.emailDomain}`,
+      phoneNo: data.phoneNo,
+      birthday: data.birthday,
+      telecom: data.telecom,
+      role: type === 'admin' ? 'ADMIN' : 'OFFICE',
+    });
 
-    if (!mockUsers.includes(data.id)) {
-      setError('id', { message: '등록되지 않은 사번이에요.' });
-      return;
-    }
-
-    //alert('회원가입 성공!');
+    console.log('데이터', data);
   };
 
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
   const isDisabled =
-    !watch('id')?.trim() || // undefined 또는 빈 문자열이면 false
+    !watch('name')?.trim() ||
+    !watch('employeeId')?.trim() ||
     !watch('email')?.trim() ||
     !watch('emailDomain')?.trim() ||
+    watch('phoneNo')?.length !== 11 ||
+    watch('birthday')?.length !== 8 ||
+    !watch('telecom') ||
     !watch('password')?.trim() ||
     !watch('confirmPassword')?.trim() ||
-    Object.keys(errors).length > 0 || // 오류가 있을 경우 버튼 비활성화
-    (!!watch('password') && !passwordRegex.test(watch('password') ?? '')) || // 비밀번호 형식 체크
-    (!!watch('confirmPassword') && watch('password') !== watch('confirmPassword')); // 비밀번호 일치 체크
+    Object.keys(errors).length > 0 ||
+    (!!watch('password') && watch('password').length >= 8 && !passwordRegex.test(watch('password') ?? '')) ||
+    (!!watch('confirmPassword') &&
+      watch('confirmPassword').length >= 8 &&
+      watch('password') !== watch('confirmPassword'));
+
+  const isValidTelecom = (value: string): value is 'SKT' | 'KT' | 'LG' => {
+    return ['SKT', 'KT', 'LG'].includes(value);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} css={{ width: '42rem', marginTop: '2rem' }}>
       <Flex styles={{ direction: 'column', gap: '4rem' }}>
-        {/* 사번 입력 */}
+        {/* 이름 */}
         <Input
-          title="사번"
-          placeholder="사번을 입력해주세요."
-          value={watch('id') || ''}
+          title="이름"
+          value={watch('name') || ''}
+          placeholder="이름을 입력해주세요."
           onChange={(e) => {
-            setValue('id', e.target.value);
-            clearErrors('id');
+            setValue('name', e.target.value);
+            clearErrors('name');
           }}
-          errorMessage={errors.id?.message}
           width="42rem"
         />
 
-        {/* 이메일 입력 */}
+        {/* 사번 */}
+        <Input
+          title="사번"
+          value={watch('employeeId') || ''}
+          placeholder="사번을 입력해주세요."
+          onChange={(e) => {
+            setValue('employeeId', e.target.value);
+            clearErrors('employeeId');
+          }}
+          width="42rem"
+        />
+
+        {/* 이메일 */}
         <Flex styles={{ gap: '1rem', align: 'center' }}>
           <Input
             title="이메일"
-            placeholder="이메일"
             value={watch('email') || ''}
+            placeholder="이메일"
             onChange={(e) => setValue('email', e.target.value)}
             width="19.3rem"
           />
@@ -92,24 +116,62 @@ const SignupForm = ({ type }: SignupFormProps) => {
             <SelectDropdown
               type="email"
               value={watch('emailDomain')}
-              onSelect={(domain) => setValue('emailDomain', domain)}
+              onSelect={(domain: string) => setValue('emailDomain', domain)}
             />
           </Flex>
         </Flex>
 
-        {/* 비밀번호 입력 */}
+        {/* 전화번호 (숫자만 입력 가능) */}
+        <Input
+          title="전화번호"
+          value={watch('phoneNo') || ''}
+          placeholder="전화번호를 입력해주세요. {01012341234}"
+          onChange={(e) => {
+            const numericValue = e.target.value.replace(/\D/g, '').slice(0, 11); // 숫자만 허용, 11자 제한
+            setValue('phoneNo', numericValue);
+          }}
+          width="42rem"
+        />
+
+        {/* 생년월일 (숫자만 입력 가능) */}
+        <Input
+          title="생년월일"
+          value={watch('birthday') || ''}
+          placeholder="생년월일을 입력해주세요. {YYYYMMDD}"
+          onChange={(e) => {
+            const numericValue = e.target.value.replace(/\D/g, '').slice(0, 8); // 숫자만 허용, 8자 제한
+            setValue('birthday', numericValue);
+          }}
+          width="42rem"
+        />
+
+        {/* 통신사 선택 */}
+        <Flex styles={{ direction: 'column', gap: '0.8rem' }}>
+          <Text tag="md1-text-semibold">통신사</Text>
+          <SelectDropdown
+            type="telecom"
+            value={watch('telecom')}
+            onSelect={(value) => {
+              if (isValidTelecom(value)) {
+                setValue('telecom', value);
+              }
+            }}
+          />
+        </Flex>
+
+        {/* 비밀번호 */}
         <Input
           title="비밀번호"
-          description="영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요."
           type="password"
-          placeholder="비밀번호"
+          description="영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요."
           value={watch('password') || ''}
+          placeholder="비밀번호"
           onChange={(e) => {
             setValue('password', e.target.value);
             clearErrors('password');
           }}
           errorMessage={
-            watch('password') && !passwordRegex.test(watch('password'))
+            watch('password')?.length >= 8 && !passwordRegex.test(watch('password'))
               ? '비밀번호는 영문, 숫자를 포함하여 8자 이상이어야 해요.'
               : ''
           }
@@ -120,11 +182,11 @@ const SignupForm = ({ type }: SignupFormProps) => {
         <Input
           title="비밀번호 확인"
           type="password"
-          placeholder="비밀번호 확인"
           value={watch('confirmPassword') || ''}
+          placeholder="비밀번호 확인"
           onChange={(e) => setValue('confirmPassword', e.target.value)}
           errorMessage={
-            watch('confirmPassword') && watch('password') !== watch('confirmPassword')
+            watch('confirmPassword')?.length >= 8 && watch('password') !== watch('confirmPassword')
               ? '비밀번호가 일치하지 않습니다.'
               : ''
           }
