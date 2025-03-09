@@ -15,8 +15,6 @@ const DropdownRoot = ({ children, ...props }: DropdownProps) => {
 
   const ref = useOutsideClick(close);
 
-  console.log("DropdownRoot isOpen:", isOpen);
-
   return (
     <DropdownContext.Provider value={{ open, close, toggle, isOpen }}>
       <div ref={ref} css={dropdownRootStyle} {...props}>
