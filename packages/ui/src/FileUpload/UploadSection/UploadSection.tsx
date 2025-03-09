@@ -155,8 +155,8 @@ if (formDataEntries.length === 0) {
         setIsCompleted(true);
       },
       onError: (error) => {
-        setIsUploading(true);  
-        // setIsCompleted(true);
+        setIsUploading(false);  
+         setIsCompleted(true);
 
         console.error("❌ OCR 분석 실패:", error);
       },

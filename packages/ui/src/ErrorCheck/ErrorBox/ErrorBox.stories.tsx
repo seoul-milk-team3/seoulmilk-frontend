@@ -5,7 +5,10 @@ const meta: Meta<ErrorBoxProps> = {
   title: "Components/ErrorBox",
   component: ErrorBox,
   argTypes: {
-    images: { control: "array" }, // 여러 개의 이미지 URL을 배열로 전달
+    imageUrl: { control: "text" }, // 단일 이미지 URL 입력
+    fields: { control: "object" }, // 필드 데이터 입력 가능하도록 설정
+    onSave: { action: "saved" },
+    onReview: { action: "reviewed" },
   },
 };
 
@@ -14,11 +17,14 @@ type Story = StoryObj<ErrorBoxProps>;
 
 export const Default: Story = {
   args: {
-    images: [
-      "https://via.placeholder.com/150",
-      "https://via.placeholder.com/150/0000FF",
-      "https://via.placeholder.com/150/FF0000",
-      "https://via.placeholder.com/150/00FF00",
-    ], // 샘플 이미지 4개
+    imageUrl: "https://via.placeholder.com/600x400.png?text=Example+Image", // 이미지 URL을 여기 넣습니다.
+    fields: [
+      { label: "사업자번호", value: "123-45-67890", placeholder: "사업자번호 입력" },
+      { label: "공급가액", value: "1,000,000", placeholder: "공급가액 입력" },
+      { label: "세액", value: "100,000", placeholder: "세액 입력" },
+      { label: "사업자번호", value: "123-45-67890", placeholder: "사업자번호 입력" },
+      { label: "공급가액", value: "1,000,000", placeholder: "공급가액 입력" },
+      { label: "세액", value: "100,000", placeholder: "세액 입력" },
+    ],
   },
 };

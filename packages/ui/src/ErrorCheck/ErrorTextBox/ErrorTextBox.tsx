@@ -23,7 +23,7 @@ const ErrorTextBox = ({ label, value = "", placeholder, onChange }: ErrorTextBox
 
   return (
     <div css={containerStyle}>
-      <Text tag="md2-text-semibold" css={labelStyle}>
+      <Text tag="md2-text-medium" css={labelStyle}>
         {label}
       </Text>
       <input

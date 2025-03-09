@@ -1,3 +1,4 @@
+export { default as BigImage } from "./src/BigImage";
 export { default as Camera } from "./src/Camera";
 export { default as CameraGray } from "./src/CameraGray";
 export { default as CheckDoneIcon } from "./src/CheckDoneIcon";

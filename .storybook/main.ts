@@ -3,15 +3,10 @@ import path from "path";
 
 const config: StorybookConfig = {
   stories: [
-    path.resolve(__dirname, "../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx)"),
-    path.resolve(
-      __dirname,
-      "../apps/main/src/stories/**/*.stories.@(js|jsx|ts|tsx)"
-    ),
-    path.resolve(
-      __dirname,
-      "../apps/agency/src/stories/**/*.stories.@(js|jsx|ts|tsx)"
-    ),
+    "./src/**/*.stories.@(js|jsx|ts|tsx)",  
+    "../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx)",
+    "../apps/main/src/stories/**/*.stories.@(js|jsx|ts|tsx)",
+    "../apps/main/src/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [
     "@storybook/addon-onboarding",

@@ -1,158 +1,92 @@
+// errorbox.tsx
 import { useState } from "react";
-import ErrorTextBox from "../ErrorTextBox/ErrorTextBox";
-import Button from "@/Button/Button";
-import Flex from "@/Flex/Flex";
-import {
-  containerStyle,
-  inputContainerStyle,
-  buttonContainerStyle,
-  imageContainerStyle,
-  imageWrapperStyle,
-  pageIndicatorStyle,
-  paginationStyle,
-} from "./ErrorBox.style";
+import { css } from "@emotion/react";
 import Text from "@/Text/Text";
-import CheckDone from "@/CheckDone/CheckDone";
-import UploadTopMessage from "@/FileUpload/UploadTopMessage/UploadTopMessage";
+import Button from "@/Button/Button";
+import {
+  ContainerStyle,
+  imageContainerStyle,
+  errorBoxWrapperStyle,
+  fieldContainerStyle,
+  buttonContainerStyle,
+  imageBox
+} from "./ErrorBox.style";
+import ErrorTextBox from "../ErrorTextBox/ErrorTextBox";
+import { imageStyle } from "@/Image/ImageModal/ImageModal.style";
+import BigImage from "@seoulmilk/icon/src/BigImage"
 
 export interface ErrorBoxProps {
-  images: string[];
-  ocrResults?: { name: string; inferText: string }[]; // ✅ 서버에서 오는 데이터 형식 반영
-  onConfirm: () => void;
+  imageUrl: string;
+  fields?: { label: string; value?: string; placeholder?: string }[];
+  onSave?: () => void;
+  onReview?: () => void;
 }
 
-const ErrorBox = ({ images, ocrResults = [], onConfirm }: ErrorBoxProps) => {
-  console.log("📄 OCR 결과 확인:", ocrResults);
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isCompleted, setIsCompleted] = useState(false);
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
-  };
-
-  const handleNext = () => {
-    if (currentIndex === images.length - 1) {
-      setIsCompleted(true);
-    } else {
-      setCurrentIndex((prev) => prev + 1);
-    }
-  };
-
-  if (isCompleted) {
-    return <CheckDone variant="secondary" onClose={() => setIsCompleted(false)} isNormal />;
-
+const ErrorBox = ({ imageUrl, fields = [], onSave, onReview }: ErrorBoxProps) => {
+  const [isSaved, setIsSaved] = useState(false); // 저장 상태 관리
+const handleSave = () => {
+  if (onSave) {
+    onSave();
   }
+  setIsSaved(true); // 저장 버튼 클릭 시 isSaved 상태를 true로 설정
+};
+const [values, setValues] = useState<Record<string, string>>(
+    fields.reduce((acc, field) => {
+      acc[field.label] = field.value || "";
+      return acc;
+    }, {} as Record<string, string>)
+  );
 
-  // ✅ 기본값 설정 (서버 데이터가 없을 경우)
-  const defaultData = [
-    { name: "공급자 등록번호", inferText: "-" },
-    { name: "작성일자", inferText: "-" },
-    { name: "공급가액", inferText: "-" },
-    { name: "승인번호", inferText: "-" },
-    { name: "공급받는자 등록번호", inferText: "-" },
-    { name: "공급받는자 상호", inferText: "-" },
-    { name: "공급받는자 사업장주소", inferText: "-" },
-    { name: "합계금액", inferText: "-" },
-    { name: "공급자 주소", inferText: "-" },
-    { name: "공급자명", inferText: "-" },
-  ];
-
-  // ✅ 서버 데이터를 기본 데이터에 매핑 (누락된 데이터는 "-" 표시)
-  const mappedData = defaultData.map((defaultItem) => {
-    const foundItem = ocrResults.find((item) => item.name === defaultItem.name);
-    return {
-      name: defaultItem.name,
-      inferText: foundItem ? foundItem.inferText : defaultItem.inferText, // 데이터가 있으면 값 사용, 없으면 "-"
-    };
-  });
+  const handleChange = (label: string, value: string) => {
+    setValues((prev) => ({ ...prev, [label]: value }));
+  };
 
   return (
-    <Flex css={{ position: "relative", minHeight: "200px" }}> {/* position: relative 추가 */}
-    <Flex css={{ position: "absolute", top: "-150px", left: "-20px" }}> {/* top 값을 조정 */}
-      <UploadTopMessage
-        title="올바르게 입력되었는지 확인해주세요"
-        subTitle="직접 수정하여 확인이 가능해요"
-      />
-    </Flex>
-      {/* 이미지 컨테이너 */}
-      <Flex tag="div" css={imageContainerStyle}>
+    <div css={ContainerStyle}>
+      {/* 왼쪽에 이미지 표시 */}
+      <div css={imageContainerStyle}>
+        <div css={imageBox}>
+        <img css={imageStyle}src={imageUrl} alt="세금 계산서 이미지" />
+       </div>
+      </div>
 
-        {/* 상단 인덱스 표시 */}
-        <Text
-          tag="md2-text-semibold"
-          css={{
-            color: "#525252",
-            position: "absolute",
-            top: "0px",
-            left: "0px",
-            
-            height: "40px",
-            borderRadius: "22.5px",
-            padding: "8px 20px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#f0f0f0",
-          }}
-        >
-          {`${currentIndex + 1}/${images.length}`}
-        </Text>
-      </Flex>
+      {/* 오른쪽에 오류 검토 박스 */}
+      <div css={errorBoxWrapperStyle}>
+        <Text tag="xxl-title-bold">올바르게 입력되었는지<br /> 확인해주세요</Text>
+        <div css={fieldContainerStyle}>
+          {fields.length > 0 ? (
+            fields.map((field) => (
+              <ErrorTextBox
+                key={field.label}
+                label={field.label}
+                value={values[field.label]}
+                placeholder={field.placeholder}
+                onChange={(value) => handleChange(field.label, value)}
+              />
+            ))
+          ) : (
+            <Text tag="xxl-title-bold">입력할 항목이 없습니다.</Text>
+          )}
+        </div>
 
-      {/* 이미지 컨테이너 */}
-      <Flex tag="div" css={imageContainerStyle}>
-       
-
-        {/* 이미지 */}
-        <Flex tag="div" css={imageWrapperStyle}>
-          <img
-            src={images[currentIndex]}
-            alt={`OCR 인식된 세금계산서 ${currentIndex + 1}`}
-          />
-        </Flex>
-
-        {/* 페이지네이션 */}
-        <Flex tag="div" css={paginationStyle}>
-          {images.map((_, index) => (
-            <span
-              key={index}
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                backgroundColor: currentIndex === index ? "#009857" : "#D4D4D4",
-                margin: "0 5px",
-                display: "inline-block",
-              }}
-            />
-          ))}
-        </Flex>
-      </Flex>
-
-      {/* 입력 폼 컨테이너 */}
-      <Flex tag="div" css={inputContainerStyle}>
-        <ErrorTextBox label="공급자 사업자등록번호" value="214-82-00250" />
-        <ErrorTextBox label="공급자 등록번호" value="216-82-00028" />
-        <ErrorTextBox label="승인번호" value="20220630-41000115-a3lgrxs" />
-        <ErrorTextBox label="작성일자" value="2022/06/30" />
-        <ErrorTextBox label="공급가액" value="5,400,000" />
-      </Flex>
-
-      {/* 버튼 컨테이너 */}
-      <Flex tag="div" css={buttonContainerStyle}>
-        <Button
-          variant="primary"
-          onClick={handlePrev}
-          disabled={currentIndex === 0}
-        >
-          이전 파일
+        {/* 버튼 영역 */}
+        <div css={buttonContainerStyle}>
+          <Button variant="primary" padding="1.7rem 9.5rem" onClick={onSave} 
+            css={{ whiteSpace: "nowrap", height: "5rem", width: "8rem" }}>
+            저장
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={onReview}
+            padding="1.7rem 9.5rem"
+            disabled={!isSaved} // isSaved가 false일 경우 비활성화
+            css={{ height: "5rem", whiteSpace: "nowrap", width: "8rem" }}
+          >
+          진위여부 확인
         </Button>
-        <Button variant="secondary" onClick={handleNext}>
-          {currentIndex === images.length - 1 ? "완료" : "다음 파일"}
-        </Button>
-      </Flex>
-    </Flex>
+        </div>
+      </div>
+    </div>
   );
 };
 
