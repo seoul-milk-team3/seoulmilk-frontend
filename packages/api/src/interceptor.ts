@@ -9,10 +9,15 @@ import { USER_ID_KEY, REFRESH_TOKEN_KEY } from "@seoulmilk/utils";
 
 export const handleCheckAndSetToken = (config: InternalAxiosRequestConfig) => {
   // ✅ 로그인 요청이라면 Authorization 헤더를 추가하지 않음
-  if (config.url?.includes("/auth/login")) {
+
+  if (
+    config.url?.includes("/auth/login/office") ||
+    config.url?.includes("/auth/login/branch") ||
+    config.url?.includes("/auth/office/sign-up") ||
+    config.url?.includes("/auth/branch/sign-up")
+  ) {
     return config;
   }
-
   const accessToken = localStorage.getItem(USER_ID_KEY);
 
   console.log("📡 인터셉터 - 저장된 액세스 토큰:", accessToken);

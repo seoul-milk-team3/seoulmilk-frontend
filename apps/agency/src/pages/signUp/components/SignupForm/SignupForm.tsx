@@ -1,10 +1,9 @@
+import { useBranchSignupMutation } from '@seoulmilk/api/src/signup/queries';
 import { Input, Button, Flex, Text } from '@seoulmilk/ui';
 import { SelectDropdown } from '@seoulmilk/ui';
 import useMediaQuery from '@seoulmilk/utils/src/hooks/useMediaQuery';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
-const mockBusinessNumbers = ['1234567890', '0987654321']; // 서버 예시 데이터 (등록된 사업자 번호)
 
 interface SignupData {
   businessNumber: string;
@@ -34,15 +33,21 @@ const SignupForm = () => {
   const emailWidth = isMobile ? '16.1rem' : '19.3rem';
   const [serverError, setServerError] = useState('');
 
+  const { mutate } = useBranchSignupMutation(); // API 연동
+
   const onSubmit = (data: SignupData) => {
     setServerError(''); // 서버 에러 초기화
 
-    if (!mockBusinessNumbers.includes(data.businessNumber)) {
-      setError('businessNumber', { message: '등록되지 않은 사업자 등록번호에요.' });
-      return;
-    }
+    const requestBody = {
+      businessId: data.businessNumber, // 사업자 등록번호를 businessId로 변환
+      phoneNo: data.phoneNumber, // 전화번호
+      email: `${data.email}@${data.emailDomain}`, // 이메일 도메인 포함
+      password: data.password, // 비밀번호
+    };
 
-    alert('회원가입 성공!');
+    console.log('데이터', requestBody);
+
+    mutate(requestBody);
   };
 
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;

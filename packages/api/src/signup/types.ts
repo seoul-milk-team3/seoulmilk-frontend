@@ -1,4 +1,4 @@
-interface SignupRequestBody {
+export interface SignupRequestBody {
   name: string;
   employeeId: string;
   password: string;
@@ -9,8 +9,15 @@ interface SignupRequestBody {
   role: "ADMIN" | "OFFICE";
 }
 
-interface SignupResponse {
+export interface SignupResponse {
   status: number;
   message: string;
   data: string;
+}
+
+export interface SignupBranchRequestBody {
+  businessId: string;
+  phoneNo: string;
+  email: string;
+  password: string;
 }

@@ -25,7 +25,7 @@ export const postLogin = async ({
   const rawAccessToken = headers?.["authorization"];
   const rawRefreshToken = headers?.["authorization-refresh"];
 
-  // ✅ 헤더 또는 응답 본문에서 토큰 가져오기
+  // 헤더 또는 응답 본문에서 토큰 가져오기
   const accessToken = rawAccessToken?.replace("Bearer ", "") || null;
   const refreshToken = rawRefreshToken?.replace("Bearer ", "") || null;
 
@@ -59,7 +59,7 @@ export const postBranchLogin = async ({
   const rawAccessToken = headers?.["authorization"];
   const rawRefreshToken = headers?.["authorization-refresh"];
 
-  // ✅ 헤더 또는 응답 본문에서 토큰 가져오기
+  //  헤더 또는 응답 본문에서 토큰 가져오기
   const accessToken = rawAccessToken?.replace("Bearer ", "") || null;
   const refreshToken = rawRefreshToken?.replace("Bearer ", "") || null;
 
