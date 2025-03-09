@@ -4,8 +4,12 @@ export interface PostLoginRequestBody {
 }
 
 export interface PostLoginResponse {
-  data: {
-    accessToken: string;
-    refreshToken: string;
-  };
+  status: number;
+  message: string;
+  data: string;
+}
+
+export interface PostBranchLoginRequestBody {
+  businessId: string;
+  password: string;
 }

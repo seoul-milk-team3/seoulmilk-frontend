@@ -1,3 +1,5 @@
+import { useBranchLoginMutation } from '@seoulmilk/api/src/login/queries';
+import { PostBranchLoginRequestBody } from '@seoulmilk/api/src/login/types';
 import { IcLoginLogo } from '@seoulmilk/icon';
 import { Input, Button, Flex, Text } from '@seoulmilk/ui';
 import useMediaQuery from '@seoulmilk/utils/src/hooks/useMediaQuery';
@@ -5,16 +7,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { dividerStyle, textColor } from './LoginPage.style';
-
-const mockUser = {
-  id: 'qwer-1122-29393',
-  password: 'kkkk20238934',
-};
-
-interface LoginForm {
-  id: string;
-  password: string;
-}
 
 const Login = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -28,25 +20,18 @@ const Login = () => {
     clearErrors,
     setValue,
     watch,
-  } = useForm<LoginForm>({
+  } = useForm<PostBranchLoginRequestBody>({
     mode: 'onChange',
   });
 
-  const [serverError, setServerError] = useState('');
+  const { mutate } = useBranchLoginMutation(setError);
 
-  const onSubmit = (data: LoginForm) => {
-    setServerError('');
-
-    if (data.id !== mockUser.id || data.password !== mockUser.password) {
-      setError('id', { message: '입력하신 사업자 등록번호를 찾을 수 없어요. 다시 한 번 확인해주세요!' });
-      setError('password', { message: '비밀번호가 올바르지 않아요. 다시 확인해주세요.' });
-      setServerError('아이디 또는 비밀번호가 올바르지 않습니다.');
-      return;
-    }
+  const onSubmit = (data: PostBranchLoginRequestBody) => {
+    mutate(data);
   };
 
   //입력값이 하나라도 없으면 버튼 비활성화
-  const isDisabled = !watch('id') || !watch('password');
+  const isDisabled = !watch('businessId') || !watch('password');
 
   return (
     <Flex styles={{ direction: 'column', align: 'center', paddingTop: '9.6rem', height: '100vh' }}>
@@ -56,12 +41,12 @@ const Login = () => {
         <Flex styles={{ direction: 'column', gap: '1.2rem' }}>
           <Input
             placeholder="사업자 등록번호"
-            value={watch('id') || ''}
+            value={watch('businessId') || ''}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setValue('id', e.target.value);
-              clearErrors('id'); // 입력값 변경 시 에러 제거
+              setValue('businessId', e.target.value);
+              clearErrors('businessId'); // 입력값 변경 시 에러 제거
             }}
-            errorMessage={errors.id?.message}
+            errorMessage={errors.businessId?.message}
             width={formWidth}
           />
           <Input
