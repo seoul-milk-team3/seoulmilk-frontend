@@ -42,7 +42,9 @@ export const resetBtnStyle = css({
   backgroundColor: theme.colors.grayscale_0,
   width: '5.4rem',
   height: '4.8rem',
-  borderRadius: '10px',
+  borderRadius: '12px',
+
+  border: `1px solid ${theme.colors.grayscale_30}`,
 });
 
 export const searchBtnStyle = css({
