@@ -24,7 +24,7 @@ const initialFilters: FilterState = {
   endDate: '날짜',
   region: '지역',
   storeName: '',
-  status: '전체',
+  status: '처리결과',
 };
 
 const FilterContainer = ({ onFilter }: { onFilter: (filters: FilterState) => void }) => {
