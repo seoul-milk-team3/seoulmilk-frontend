@@ -9,11 +9,14 @@ import {
   errorBoxWrapperStyle,
   fieldContainerStyle,
   buttonContainerStyle,
-  imageBox
-} from "./ErrorBox.style";
+  imageBox,
+  bigImageIconStyle ,
+  overlayStyle ,
+  enlargedImageStyle 
+}from "./ErrorBox.style";
 import ErrorTextBox from "../ErrorTextBox/ErrorTextBox";
 import { imageStyle } from "@/Image/ImageModal/ImageModal.style";
-import BigImage from "@seoulmilk/icon/src/BigImage"
+import {IcImageZoom} from "@seoulmilk/icon";
 
 export interface ErrorBoxProps {
   imageUrl: string;
@@ -22,9 +25,19 @@ export interface ErrorBoxProps {
   onReview?: () => void;
 }
 
+
 const ErrorBox = ({ imageUrl, fields = [], onSave, onReview }: ErrorBoxProps) => {
   const [isSaved, setIsSaved] = useState(false); // 저장 상태 관리
-const handleSave = () => {
+const [isImageEnlarged, setIsImageEnlarged] = useState(false); // 확대 상태 관리
+
+const handleImageClick = () => {
+  setIsImageEnlarged(true); // 이미지 클릭 시 확대 상태로 변경
+};
+
+const closeImage = () => {
+  setIsImageEnlarged(false); // 확대된 이미지 닫기
+};
+  const handleSave = () => {
   if (onSave) {
     onSave();
   }
@@ -46,9 +59,29 @@ const [values, setValues] = useState<Record<string, string>>(
       {/* 왼쪽에 이미지 표시 */}
       <div css={imageContainerStyle}>
         <div css={imageBox}>
-        <img css={imageStyle}src={imageUrl} alt="세금 계산서 이미지" />
+        <img css={imageStyle}
+        src={imageUrl} 
+        alt="세금 계산서 이미지"
+        onClick={handleImageClick}  />
+        <IcImageZoom
+          css={bigImageIconStyle} 
+          onClick={handleImageClick} 
+        />
        </div>
       </div>
+        {/* 확대된 이미지 모달 */}
+    {isImageEnlarged && (
+      <div css={overlayStyle} onClick={closeImage}>
+        <img
+          src={imageUrl}
+          alt="Enlarged Image"
+          css={enlargedImageStyle} 
+          onClick={(e) => e.stopPropagation()} 
+        />
+          </div>
+    )}
+
+
 
       {/* 오른쪽에 오류 검토 박스 */}
       <div css={errorBoxWrapperStyle}>
@@ -79,7 +112,7 @@ const [values, setValues] = useState<Record<string, string>>(
             variant="secondary"
             onClick={onReview}
             padding="1.7rem 9.5rem"
-            disabled={!isSaved} // isSaved가 false일 경우 비활성화
+            disabled={!isSaved} 
             css={{ height: "5rem", whiteSpace: "nowrap", width: "8rem" }}
           >
           진위여부 확인

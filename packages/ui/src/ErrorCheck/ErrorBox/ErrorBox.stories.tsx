@@ -5,8 +5,8 @@ const meta: Meta<ErrorBoxProps> = {
   title: "Components/ErrorBox",
   component: ErrorBox,
   argTypes: {
-    imageUrl: { control: "text" }, // 단일 이미지 URL 입력
-    fields: { control: "object" }, // 필드 데이터 입력 가능하도록 설정
+    imageUrl: { control: "text" },
+    fields: { control: "object" },
     onSave: { action: "saved" },
     onReview: { action: "reviewed" },
   },
@@ -17,7 +17,7 @@ type Story = StoryObj<ErrorBoxProps>;
 
 export const Default: Story = {
   args: {
-    imageUrl: "https://via.placeholder.com/600x400.png?text=Example+Image", // 이미지 URL을 여기 넣습니다.
+    imageUrl: "https://via.placeholder.com/600x400.png?text=Example+Image",
     fields: [
       { label: "사업자번호", value: "123-45-67890", placeholder: "사업자번호 입력" },
       { label: "공급가액", value: "1,000,000", placeholder: "공급가액 입력" },
