@@ -1,10 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import CheckDone from "@/CheckDone/CheckDone";
+import { MemoryRouter } from "react-router-dom"; // ✅ MemoryRouter 추가
 
 const meta: Meta<typeof CheckDone> = {
   title: "Components/CheckDone",
   component: CheckDone,
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
   argTypes: {
     variant: {
       control: "radio",
@@ -18,7 +26,8 @@ const meta: Meta<typeof CheckDone> = {
     onClose: { action: "close clicked", description: "확인 버튼 클릭" },
     onErrorClick: {
       action: "error details clicked",
-      description: "오류 내역 확인 버튼 클릭 (비정상일 경우) - primary variant에서만 사용",
+      description:
+        "오류 내역 확인 버튼 클릭 (비정상일 경우) - primary variant에서만 사용",
     },
   },
 };
