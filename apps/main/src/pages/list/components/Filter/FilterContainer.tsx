@@ -27,7 +27,7 @@ const initialFilters: FilterState = {
   status: '처리결과',
 };
 
-const FilterContainer = ({ onFilter }: { onFilter: (filters: FilterState) => void }) => {
+const FilterContainer = ({ onFilter, onReset }: { onFilter: (filters: FilterState) => void; onReset: () => void }) => {
   const [filters, setFilters] = useState<FilterState>(initialFilters);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -51,6 +51,7 @@ const FilterContainer = ({ onFilter }: { onFilter: (filters: FilterState) => voi
     setFilters(initialFilters);
     setSearchTerm('');
     onFilter(initialFilters);
+    onReset();
   };
 
   const handleSearch = () => {

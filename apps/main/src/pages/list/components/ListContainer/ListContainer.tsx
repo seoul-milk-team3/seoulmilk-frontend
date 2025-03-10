@@ -52,8 +52,7 @@ const ListContainer = ({ filters, currentPage, setCurrentPage, resetCheckBoxesTr
     );
   });
 
-  // ✅ 초기화 버튼 클릭 시 모든 체크박스 해제
-  // ✅ 트리거 값이 변경될 때 체크박스 초기화
+  // 초기화 버튼 클릭 시 모든 체크박스 해제
   useEffect(() => {
     setSelectedItems([]);
     setIsAllChecked(false);
@@ -78,7 +77,7 @@ const ListContainer = ({ filters, currentPage, setCurrentPage, resetCheckBoxesTr
     setIsAllChecked(selectedItems.length === filteredData.length);
   }, [selectedItems, filteredData.length]);
 
-  // ✅ 선택된 항목들을 엑셀 파일로 다운로드하는 함수
+  // 선택된 항목들을 엑셀 파일로 다운로드하는 함수
   const handleDownloadExcel = () => {
     if (selectedItems.length === 0) {
       alert('다운로드할 항목을 선택해주세요.');
@@ -121,7 +120,7 @@ const ListContainer = ({ filters, currentPage, setCurrentPage, resetCheckBoxesTr
           </Text>
         </Flex>
 
-        {/* ✅ 엑셀 다운로드 버튼 */}
+        {/* 엑셀 다운로드 버튼 */}
         <Flex
           tag="button"
           styles={{ align: 'center', gap: '1rem', padding: '1.2rem 2.4rem' }}

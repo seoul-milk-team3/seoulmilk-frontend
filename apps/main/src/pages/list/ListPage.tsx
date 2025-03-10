@@ -19,15 +19,14 @@ const ListPage = () => {
 
   // ✅ useCallback으로 handleReset 최적화
   const handleReset = useCallback(() => {
-    setFilters(initialFilters);
-    setCurrentPage(1);
+    //setCurrentPage(1);
     setResetCheckBoxesTrigger((prev) => !prev); // ✅ 트리거 변경하여 체크박스 상태 초기화
   }, []);
 
   return (
     <Flex styles={{ direction: 'column', gap: '2.6rem', padding: '4rem 4.8rem' }}>
       <Text tag="xxl-title-bold">자료 조회</Text>
-      <FilterContainer onFilter={setFilters} />
+      <FilterContainer onFilter={setFilters} onReset={handleReset} />
       <ListContainer
         filters={filters}
         currentPage={currentPage}
