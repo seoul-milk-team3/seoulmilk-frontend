@@ -80,7 +80,11 @@ const ErrorCheckPage = () => {
           <Button variant="primary" onClick={handleSave} padding="1.7rem 7.45rem">
             저장
           </Button>
-          <Button variant="secondary" disabled={!isSaved} onClick={() => navigate('/')} padding="1.7rem 3.75rem">
+          <Button
+            variant="secondary"
+            disabled={!isSaved}
+            onClick={() => navigate('/confirm-list/auth')}
+            padding="1.7rem 3.75rem">
             진위여부 확인
           </Button>
         </Flex>

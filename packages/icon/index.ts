@@ -41,6 +41,7 @@ export { default as IcLoginLogo } from "./src/IcLoginLogo";
 export { default as IcMenu } from "./src/IcMenu";
 export { default as IcNaver } from "./src/IcNaver";
 export { default as IcNh } from "./src/IcNh";
+export { default as IcNoneFile } from "./src/IcNoneFile";
 export { default as IcNotice } from "./src/IcNotice";
 export { default as IcPaginationLeft } from "./src/IcPaginationLeft";
 export { default as IcPaginationLeftDouble } from "./src/IcPaginationLeftDouble";
