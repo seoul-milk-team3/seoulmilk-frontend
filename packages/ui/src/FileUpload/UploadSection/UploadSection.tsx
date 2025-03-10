@@ -352,7 +352,7 @@ const UploadSection = ({
                 color: colors.grayscale_40,
                 marginTop: "1rem",
                 position: "absolute",
-                bottom: "-2.5rem", // 컨테이너 하단보다 아래로 배치
+                bottom: "-4rem", // 컨테이너 하단보다 아래로 배치
                 left: "0",
               }}
             >
