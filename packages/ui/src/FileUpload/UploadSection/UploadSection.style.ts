@@ -68,4 +68,9 @@ export const fileNameStyle = css`
   font-size: 1.4rem;
   font-weight: 500;
   color: ${colors.grayscale_90};
+  max-width: 25rem; 
+  overflow: hidden;
+  text-overflow: ellipsis;  
+  white-space: nowrap; 
+  min-width: 0; 
 `;

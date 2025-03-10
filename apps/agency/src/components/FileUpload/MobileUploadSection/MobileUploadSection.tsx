@@ -12,7 +12,8 @@ import {
   FilePreview,
   ActionButtons,
   FileUploadButton,
-  CameraButton
+  CameraButton,
+  fileNameStyle
 } from "./MobileUploadSection.style";
 import { Button, Flex, Text } from "@seoulmilk/ui";
 import { FileUploadIcon, Camera, Image, DeleteX } from "@seoulmilk/icon";
@@ -216,7 +217,7 @@ const MobileSection = () => {
                       <DeleteX width="48px" height="48px" />
                     )}
                     <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                      <Text tag="sm-text-medium">{file.name}</Text>
+                      <Text tag="sm-text-medium"css={fileNameStyle}>{file.name}</Text>
                       <Text tag="sm-text-medium" css={{ color: colors.grayscale_40 }}>
                         {(file.size / 1024).toFixed(1)}kb
                       </Text>
