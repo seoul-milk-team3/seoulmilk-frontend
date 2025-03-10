@@ -6,8 +6,11 @@ export const titleStyle = css({
 });
 
 export const textStyle = css({
-  backgroundColor: theme.colors.grayscale_15,
-  width: '34.4rem',
+  backgroundColor: theme.colors.grayscale_0,
+  width: '35.6rem',
   height: '5.6rem',
   borderRadius: '8px',
+  border: `1px solid ${theme.colors.grayscale_20}`,
+
+  padding: '1.6rem 1.9rem',
 });

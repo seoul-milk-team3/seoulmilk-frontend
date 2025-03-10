@@ -16,7 +16,7 @@ const ImagePreview = ({ imageUrl, altText = "이미지" }: ImagePreviewProps) =>
         src={imageUrl}
         alt={altText}
         css={{
-          width: "73.4rem",
+          width: "62rem",
           height: "38.3rem",
           objectFit: "cover",
           cursor: "pointer",
