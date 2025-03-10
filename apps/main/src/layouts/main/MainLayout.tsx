@@ -15,7 +15,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       <div css={containerStyle}>
         <Sidebar variant="main" />
         <main css={contentStyle}>
-          {children ?? <Outlet />}  {/* children이 있으면 렌더링, 없으면 Outlet */}
+        {children ?? <Outlet context={{ layoutVariant: "main" }} />}  {/* children이 있으면 렌더링, 없으면 Outlet */}
         </main>
       </div>
     </div>

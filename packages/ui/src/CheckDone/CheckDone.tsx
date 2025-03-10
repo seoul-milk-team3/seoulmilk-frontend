@@ -12,10 +12,12 @@ import { css } from "@emotion/react";
 import { colors } from "@seoulmilk/styles";
 import { CheckDoneIcon } from "@seoulmilk/icon";
 import UploadTopMessage from "@/FileUpload/UploadTopMessage/UploadTopMessage";
+import { useOutletContext } from "react-router-dom"; // ✅ Outlet에서 `layoutVariant` 가져오기
 import { useNavigate } from "react-router-dom";
 interface CheckDoneProps {
   onClose: () => void;
   variant: "primary" | "secondary";
+  layoutVariant: "main" | "agency";  // ✅ MainLayout에서 전달받은 variant
   isNormal?: boolean;
   onErrorClick?: () => void;
 }
@@ -26,6 +28,7 @@ const CheckDone = ({
   isNormal,
   onErrorClick,
 }: CheckDoneProps) => {
+  const { layoutVariant } = useOutletContext<{ layoutVariant: string }>(); // ✅ 현재 레이아웃 타입 가져오기
   const navigate = useNavigate();
 
   return (
@@ -101,21 +104,21 @@ const CheckDone = ({
       <Flex css={buttonContainer}>
         <Button
           css={buttonStyle}
-          variant="primary"
-          onClick={() => {
+          variant={layoutVariant === "main" ? "secondary" : "primary"}
+            onClick={() => {
             navigate("/");
             window.location.reload(); // ✅ 페이지 강제 새로고침
           }}
         >
           새로운 파일 업로드하기
         </Button>
-        <Button
-          css={buttonStyle}
+        {layoutVariant === "main" && ( // ✅ main일 때만 보이도록 조건 추가
+          <Button css={buttonStyle}
           variant="secondary"
-          onClick={() => navigate("/confirm-list")}
-        >
-          진위여부 확인하기
-        </Button>
+          onClick={() => navigate("/confirm-list")}>
+            진위여부 확인하기
+          </Button>
+        )}
       </Flex>
     </Flex>
   );

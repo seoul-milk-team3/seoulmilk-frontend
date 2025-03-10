@@ -59,7 +59,7 @@ export const ButtonWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   gap: 0.8rem;
-  margin-top:1rem;
+  margin-top:5rem;
 `;
 
 export const UploadButton = styled.button`
