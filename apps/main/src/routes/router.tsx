@@ -13,6 +13,8 @@ const Detail = lazy(() => import('@main/pages/detail/DetailPage'));
 const AuthSelect = lazy(() => import('@main/pages/authSelection/AuthSelectionPage'));
 const ConfirmAnalysis = lazy(() => import('@main/pages/confrimAnalysis/ConfirmAnalysisPage'));
 const ErrorCheck = lazy(() => import('@main/pages/errorCheck/ErrorCheckPage'));
+const ErrorList = lazy(() => import('@main/pages/erroList/ErrorListPage'));
+
 export const router = createBrowserRouter([
   {
     element: <AuthLayout />,
@@ -29,11 +31,12 @@ export const router = createBrowserRouter([
         children: [
           { path: '/', element: <FileUpload /> },
           { path: '/confirm-list', element: <ConfirmList /> },
-          { path: '/confirm-list/:id/auth', element: <AuthSelect /> },
-          { path: '/confirm-list/:id/analysis', element: <ConfirmAnalysis /> },
+          { path: '/confirm-list/auth', element: <AuthSelect /> },
+          { path: '/confirm-list/analysis', element: <ConfirmAnalysis /> },
           { path: '/list', element: <List /> },
           { path: '/list/:id/detail', element: <Detail /> },
-          { path: '/list/:id/error', element: <ErrorCheck /> },
+          { path: '/error/:id', element: <ErrorCheck /> },
+          { path: '/error', element: <ErrorList /> },
         ],
       },
     ],

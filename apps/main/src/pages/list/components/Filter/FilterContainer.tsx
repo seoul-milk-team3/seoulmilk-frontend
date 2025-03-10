@@ -24,7 +24,7 @@ const initialFilters: FilterState = {
   endDate: '날짜',
   region: '지역',
   storeName: '',
-  status: '전체',
+  status: '처리결과',
 };
 
 const FilterContainer = ({ onFilter }: { onFilter: (filters: FilterState) => void }) => {
@@ -71,6 +71,7 @@ const FilterContainer = ({ onFilter }: { onFilter: (filters: FilterState) => voi
         <SelectDropdown type="date" value={filters.endDate} onSelect={(val: string) => handleChange('endDate', val)} />
         <SelectDropdown type="region" value={filters.region} onSelect={(val: string) => handleChange('region', val)} />
 
+        <SelectDropdown type="status" value={filters.status} onSelect={(val: string) => handleChange('status', val)} />
         <div css={inputContainerStyle}>
           <IcSearchInput css={iconStyle} />
           <input
@@ -81,8 +82,6 @@ const FilterContainer = ({ onFilter }: { onFilter: (filters: FilterState) => voi
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-
-        <SelectDropdown type="status" value={filters.status} onSelect={(val: string) => handleChange('status', val)} />
       </Flex>
       <Flex styles={{ align: 'center', gap: '1.2rem' }}>
         <Flex tag="button" onClick={handleReset} styles={{ align: 'center', justify: 'center' }} css={resetBtnStyle}>

@@ -9,6 +9,7 @@ import DropdownTrigger from "@/DropDown/DropdownTrigger";
 import { dropdownListStyle } from "@/DropDown/Dropdown.style";
 
 const regions = [
+  "전체 선택",
   "서울특별시",
   "부산광역시",
   "대구광역시",
@@ -69,7 +70,7 @@ const SelectDropdown = ({
     date: "날짜",
     region: "지역",
     email: "선택해주세요",
-    status: "전체",
+    status: "처리결과",
     telecom: "통신사",
   };
 

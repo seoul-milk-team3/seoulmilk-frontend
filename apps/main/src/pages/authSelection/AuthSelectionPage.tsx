@@ -11,7 +11,7 @@ const AuthSelectionpage = () => {
 
   const handleAuthClick = () => {
     // API 연동하여 인증 요청 처리
-    navigate(`/confirm-list/${id}/analysis`);
+    navigate(`/confirm-list/analysis`);
   };
 
   return (

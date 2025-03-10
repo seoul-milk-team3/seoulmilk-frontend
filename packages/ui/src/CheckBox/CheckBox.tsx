@@ -1,6 +1,5 @@
 import { HTMLAttributes } from "react";
-
-import { inputStyle, iconStyle } from "./CheckBox.style";
+import { inputStyle, iconStyle, wrapperStyle } from "./CheckBox.style";
 import { IcCheck } from "@seoulmilk/icon";
 
 interface CheckBoxProps extends HTMLAttributes<HTMLInputElement> {
@@ -10,7 +9,7 @@ interface CheckBoxProps extends HTMLAttributes<HTMLInputElement> {
 
 const CheckBox = ({ isChecked, onChange, ...props }: CheckBoxProps) => {
   return (
-    <label style={{ position: "relative", display: "inline-block" }}>
+    <label css={wrapperStyle}>
       <input
         aria-checked={isChecked}
         type="checkbox"
@@ -19,7 +18,7 @@ const CheckBox = ({ isChecked, onChange, ...props }: CheckBoxProps) => {
         checked={isChecked}
         {...props}
       />
-      <IcCheck width={16} height={16} css={iconStyle} />{" "}
+      <IcCheck width={16} height={16} css={iconStyle(isChecked)} />
     </label>
   );
 };

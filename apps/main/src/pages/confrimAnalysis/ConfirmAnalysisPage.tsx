@@ -20,7 +20,7 @@ const ConfirmAnalysisPage = () => {
 
   return (
     <Flex styles={{ align: 'center', justify: 'center', height: '100%', width: '100%' }}>
-      {isLoading ? <ConfirmLoading /> : <ConfirmResult isError={isError} />}
+      {isLoading ? <ConfirmLoading /> : <ConfirmResult />}
     </Flex>
   );
 };
