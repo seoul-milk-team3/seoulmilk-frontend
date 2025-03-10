@@ -1,5 +1,5 @@
 import { Flex, Text, CheckBox } from '@seoulmilk/ui';
-import { listItemStyle } from './ConfirmItem.style';
+import { listItemStyle, labelBackgroundStyle, labelTextStyle } from './ConfirmItem.style';
 
 interface ConfirmItemProps {
   id: number;
@@ -16,7 +16,14 @@ const ConfirmItem = ({ id, date, supplier, isChecked, onCheck }: ConfirmItemProp
       <Text tag="md2-text-medium" css={{ width: '15.6rem', marginLeft: '1.2rem' }}>
         {date}
       </Text>
-      <Text tag="md2-text-medium">{supplier}</Text>
+      <Text tag="md2-text-medium" css={{ width: '17rem', marginLeft: '1.2rem' }}>
+        {supplier}
+      </Text>
+      <Flex styles={{ align: 'center', justify: 'center' }} css={labelBackgroundStyle}>
+        <Text tag="md2-text-medium" css={labelTextStyle}>
+          처리전
+        </Text>
+      </Flex>
     </Flex>
   );
 };

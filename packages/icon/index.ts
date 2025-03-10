@@ -49,6 +49,8 @@ export { default as IcSearch } from "./src/IcSearch";
 export { default as IcSearchInput } from "./src/IcSearchInput";
 export { default as IcShinhan } from "./src/IcShinhan";
 export { default as IcToss } from "./src/IcToss";
+export { default as IcValidationError } from "./src/IcValidationError";
+export { default as IcValidationNormal } from "./src/IcValidationNormal";
 export { default as IcWoori } from "./src/IcWoori";
 export { default as Image } from "./src/Image";
 export { default as SeoulmilkLogo } from "./src/SeoulmilkLogo";

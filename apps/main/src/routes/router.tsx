@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
           { path: '/', element: <FileUpload /> },
           { path: '/confirm-list', element: <ConfirmList /> },
           { path: '/confirm-list/auth', element: <AuthSelect /> },
-          { path: '/confirm-list/:id/analysis', element: <ConfirmAnalysis /> },
+          { path: '/confirm-list/analysis', element: <ConfirmAnalysis /> },
           { path: '/list', element: <List /> },
           { path: '/list/:id/detail', element: <Detail /> },
           { path: '/list/:id/error', element: <ErrorCheck /> },

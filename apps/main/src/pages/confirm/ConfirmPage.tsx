@@ -37,19 +37,42 @@ const ConfirmPage = () => {
 
   return (
     <Flex styles={{ direction: 'column', padding: '4rem 4.8rem', width: '100%' }}>
-      <Text tag="xxl-title-bold">진위여부 확인 전 리스트</Text>
+      <Text tag="xxl-title-bold">업로드된 리스트</Text>
 
       {/* 리스트 헤더 */}
-      <Flex styles={{ align: 'center', height: '5.2rem', padding: '1.4rem 2.6rem', marginTop: '4rem' }}>
-        <CheckBox isChecked={selectedIds.length === (data?.length || 0)} onChange={handleSelectAll} />
-        <Text tag="md2-text-medium" css={{ width: '15.6rem', marginLeft: '1.2rem' }}>
-          일자
-        </Text>
-        <Text tag="md2-text-medium">공급자명</Text>
+      <Flex
+        styles={{
+          width: '100%',
+          align: 'center',
+          marginTop: '1.4rem',
+          justify: 'space-between',
+        }}>
+        <Flex styles={{ align: 'center', padding: '1.4rem 2.6rem' }}>
+          <CheckBox isChecked={selectedIds.length === (data?.length || 0)} onChange={handleSelectAll} />
+          <Text tag="md2-text-medium" css={{ width: '15.6rem', marginLeft: '1.2rem' }}>
+            일자
+          </Text>
+          <Text tag="md2-text-medium" css={{ width: '17rem', marginLeft: '1.2rem' }}>
+            공급자명
+          </Text>
+          <Text tag="md2-text-medium">처리결과</Text>
+        </Flex>
+        <Flex>
+          <Button
+            variant="secondary"
+            tag="md2-text-semibold"
+            onClick={handleConfirm}
+            disabled={selectedIds.length === 0}
+            padding="2.6rem 5rem">
+            진위여부 검증하기
+          </Button>
+        </Flex>
       </Flex>
 
       {/* 리스트 아이템 */}
-      <Flex styles={{ direction: 'column', gap: '1.2rem', marginTop: '1.2rem', width: '100%' }}>
+      <Flex
+        styles={{ direction: 'column', gap: '1.2rem', marginTop: '1.6rem', width: '100%' }}
+        css={{ minHeight: '59.6rem', flex: 1 }}>
         {data?.map((item) => (
           <ConfirmItem
             key={item.id}
@@ -69,13 +92,6 @@ const ConfirmPage = () => {
         currentPage={currentPage}
         onPageChange={setCurrentPage}
       />
-
-      {/* 진위여부 확인 버튼 (선택 시 활성화) */}
-      <Flex styles={{ marginTop: '2rem', justify: 'flex-end' }}>
-        <Button variant="primary" onClick={handleConfirm} disabled={selectedIds.length === 0}>
-          진위여부 검증하기
-        </Button>
-      </Flex>
     </Flex>
   );
 };
