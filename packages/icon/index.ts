@@ -14,6 +14,7 @@ export { default as IcCalendar } from "./src/IcCalendar";
 export { default as IcCheck } from "./src/IcCheck";
 export { default as IcChevronLeft } from "./src/IcChevronLeft";
 export { default as IcChevronRight } from "./src/IcChevronRight";
+export { default as IcClose } from "./src/IcClose";
 export { default as IcConfrim } from "./src/IcConfrim";
 export { default as IcDetailArrow } from "./src/IcDetailArrow";
 export { default as IcDoubleChevronLeft } from "./src/IcDoubleChevronLeft";
