@@ -1,29 +1,22 @@
-import { IcErrorArrow, IcErrorDot } from '@seoulmilk/icon';
-import { Flex, Text } from '@seoulmilk/ui';
-import { listItemStyle, confirmTextStyle } from './ConfirmItem.style';
+import { Flex, Text, CheckBox } from '@seoulmilk/ui';
+import { listItemStyle } from './ConfirmItem.style';
 
 interface ConfirmItemProps {
+  id: number;
   date: string;
   supplier: string;
-  onClick: () => void;
+  isChecked: boolean;
+  onCheck: (id: number) => void;
 }
 
-const ConfirmItem = ({ date, supplier, onClick }: ConfirmItemProps) => {
+const ConfirmItem = ({ id, date, supplier, isChecked, onCheck }: ConfirmItemProps) => {
   return (
-    <Flex css={listItemStyle} onClick={onClick}>
-      <Flex styles={{ align: 'center' }}>
-        <Text tag="md2-text-medium" css={{ width: '15.6rem' }}>
-          {date}
-        </Text>
-        <Text tag="md2-text-medium">{supplier}</Text>
-      </Flex>
-      <Flex tag="button" styles={{ align: 'center', gap: '0.2rem' }}>
-        <IcErrorDot width={6} height={6} />
-        <Text tag="md2-text-medium" css={confirmTextStyle}>
-          진위여부확인
-        </Text>
-        <IcErrorArrow width={20} height={20} />
-      </Flex>
+    <Flex css={listItemStyle}>
+      <CheckBox isChecked={isChecked} onChange={() => onCheck(id)} />
+      <Text tag="md2-text-medium" css={{ width: '15.6rem', marginLeft: '1.2rem' }}>
+        {date}
+      </Text>
+      <Text tag="md2-text-medium">{supplier}</Text>
     </Flex>
   );
 };
