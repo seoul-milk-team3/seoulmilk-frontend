@@ -36,21 +36,25 @@ const UploadModal = ({ onClose }: { onClose: () => void }) => (
   >
     <div
       style={{
+        display: "flex",
+        flexDirection: "column",
         background: "white",
         width: "418px",
         height: "286px",
-        padding: "2rem",
+        padding: "2.4rem",
         borderRadius: "8px",
         textAlign: "center",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <Spinner size={92} />
-      <Text tag="lg-subtitle-semibold" css={{ marginTop: "1rem" }}>
+      <Text tag="lg-subtitle-semibold" css={{ marginTop: "2rem" }}>
         세금계산서를 업로드중이에요
       </Text>
       <Text
         tag="md2-text-regular"
-        css={{ color: "#989BA2", marginTop: "0.8rem", paddingBottom: "5px" }}
+        css={{ color: "#989BA2", marginTop: "0.8rem" }}
       >
         잠시만 기다려주세요
       </Text>
@@ -58,7 +62,7 @@ const UploadModal = ({ onClose }: { onClose: () => void }) => (
         variant="primary"
         padding="1.7rem 13.5rem"
         onClick={onClose}
-        css={{ height: "5rem", marginTop: "0.8rem" }}
+        css={{ height: "5rem", marginTop: "2.4rem" }}
       >
         업로드 취소
       </Button>
