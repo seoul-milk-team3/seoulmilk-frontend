@@ -3,9 +3,12 @@ import { useTaxInvoicesQuery } from '@seoulmilk/api/src/list/queries';
 import { TaxInvoice } from '@seoulmilk/api/src/list/types';
 import { IcDownload } from '@seoulmilk/icon';
 import { CheckBox, Flex, Text, Pagination } from '@seoulmilk/ui';
+import * as XLSX from 'xlsx';
 import { useState, useEffect } from 'react';
 import ListItem from '../ListItem/ListItem';
 import { textStyle, text1Style, text2Style, btnTextStyle, btnStyle } from './ListContainer.style';
+
+// ✅ 엑셀 변환 라이브러리 추가
 
 interface ListContainerProps {
   filters: {
@@ -17,11 +20,12 @@ interface ListContainerProps {
   };
   currentPage: number;
   setCurrentPage: (page: number) => void;
+  resetCheckBoxesTrigger: boolean; // ✅ 필터 초기화 시 체크박스도 초기화하기 위한 콜백 함수
 }
 
 const ITEMS_PER_PAGE = 8;
 
-const ListContainer = ({ filters, currentPage, setCurrentPage }: ListContainerProps) => {
+const ListContainer = ({ filters, currentPage, setCurrentPage, resetCheckBoxesTrigger }: ListContainerProps) => {
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [isAllChecked, setIsAllChecked] = useState(false);
 
@@ -48,6 +52,12 @@ const ListContainer = ({ filters, currentPage, setCurrentPage }: ListContainerPr
     );
   });
 
+  // 초기화 버튼 클릭 시 모든 체크박스 해제
+  useEffect(() => {
+    setSelectedItems([]);
+    setIsAllChecked(false);
+  }, [resetCheckBoxesTrigger]);
+
   // 전체 체크박스 클릭
   const handleSelectAll = () => {
     if (isAllChecked) {
@@ -67,6 +77,33 @@ const ListContainer = ({ filters, currentPage, setCurrentPage }: ListContainerPr
     setIsAllChecked(selectedItems.length === filteredData.length);
   }, [selectedItems, filteredData.length]);
 
+  // 선택된 항목들을 엑셀 파일로 다운로드하는 함수
+  const handleDownloadExcel = () => {
+    if (selectedItems.length === 0) {
+      alert('다운로드할 항목을 선택해주세요.');
+      return;
+    }
+
+    const selectedData = filteredData
+      .filter((item) => selectedItems.includes(item.id))
+      .map((item) => ({
+        승인번호: item.id,
+        공급자사업자등록번호: item.suId,
+        공급받는자사업자등록번호: item.ipId,
+        거래일자: item.transDate,
+        공급자명: item.suName,
+        공급자주소: item.suAddr,
+        처리결과: item.isNormal === 'NORMAL' ? '정상' : '비정상',
+        생성일자: item.createdDate,
+      }));
+
+    const worksheet = XLSX.utils.json_to_sheet(selectedData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, '세금계산서 목록');
+
+    XLSX.writeFile(workbook, '세금계산서_목록.xlsx');
+  };
+
   return (
     <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
       <Flex styles={{ justify: 'space-between', width: '100%', align: 'center' }}>
@@ -82,7 +119,13 @@ const ListContainer = ({ filters, currentPage, setCurrentPage }: ListContainerPr
             처리결과
           </Text>
         </Flex>
-        <Flex tag="button" styles={{ align: 'center', gap: '1rem', padding: '1.2rem 2.4rem' }} css={btnStyle}>
+
+        {/* 엑셀 다운로드 버튼 */}
+        <Flex
+          tag="button"
+          styles={{ align: 'center', gap: '1rem', padding: '1.2rem 2.4rem' }}
+          css={btnStyle}
+          onClick={handleDownloadExcel}>
           <IcDownload width={24} height={24} />
           <Text tag="md2-text-medium" css={btnTextStyle}>
             엑셀 다운로드

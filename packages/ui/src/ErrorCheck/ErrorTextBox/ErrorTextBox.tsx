@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { css } from "@emotion/react";
 import Text from "@/Text/Text";
-import { containerStyle, labelStyle, inputStyle, placeholderStyle } from "./ErrorTextBox.style";
+import { containerStyle, labelStyle, inputStyle } from "./ErrorTextBox.style";
 
 export interface ErrorTextBoxProps {
   label: string;
@@ -10,7 +10,12 @@ export interface ErrorTextBoxProps {
   onChange?: (value: string) => void;
 }
 
-const ErrorTextBox = ({ label, value = "", placeholder, onChange }: ErrorTextBoxProps) => {
+const ErrorTextBox = ({
+  label,
+  value = "",
+  placeholder,
+  onChange,
+}: ErrorTextBoxProps) => {
   const [inputValue, setInputValue] = useState(value);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

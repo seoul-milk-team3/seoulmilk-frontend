@@ -12,7 +12,7 @@ import { css } from "@emotion/react";
 import { colors } from "@seoulmilk/styles";
 import { CheckDoneIcon } from "@seoulmilk/icon";
 import UploadTopMessage from "@/FileUpload/UploadTopMessage/UploadTopMessage";
-
+import { useNavigate } from "react-router-dom";
 interface CheckDoneProps {
   onClose: () => void;
   variant: "primary" | "secondary";
@@ -20,7 +20,14 @@ interface CheckDoneProps {
   onErrorClick?: () => void;
 }
 
-const CheckDone = ({ onClose, variant, isNormal, onErrorClick }: CheckDoneProps) => {
+const CheckDone = ({
+  onClose,
+  variant,
+  isNormal,
+  onErrorClick,
+}: CheckDoneProps) => {
+  const navigate = useNavigate();
+
   return (
     <Flex
       css={[
@@ -32,7 +39,6 @@ const CheckDone = ({ onClose, variant, isNormal, onErrorClick }: CheckDoneProps)
       ]}
       styles={{ direction: "column", align: "center" }}
     >
-      
       <Flex css={contentWrapper}>
         <CheckDoneIcon css={{ width: "6.4rem", height: "6.4rem" }} />
         <Text tag="xxl-title-bold" css={titleText}>
@@ -53,11 +59,13 @@ const CheckDone = ({ onClose, variant, isNormal, onErrorClick }: CheckDoneProps)
           )}
         </Text>
         {variant === "secondary" && (
-  <Text tag="md1-text-medium" css={{color:"#A3A3A3", marginTop:'0.8rem'}}>
-    업로드한 세금계산서의 진위 여부를 분석하러 가볼까요?
-  </Text>
-)}
-
+          <Text
+            tag="md1-text-medium"
+            css={{ color: "#A3A3A3", marginTop: "0.8rem" }}
+          >
+            업로드한 세금계산서의 진위 여부를 분석하러 가볼까요?
+          </Text>
+        )}
 
         {variant === "primary" && (
           <Text tag="xxl-title-semibold">
@@ -91,10 +99,21 @@ const CheckDone = ({ onClose, variant, isNormal, onErrorClick }: CheckDoneProps)
       </Flex>
 
       <Flex css={buttonContainer}>
-        <Button css={buttonStyle} variant="primary" onClick={onClose}>
+        <Button
+          css={buttonStyle}
+          variant="primary"
+          onClick={() => {
+            navigate("/");
+            window.location.reload(); // ✅ 페이지 강제 새로고침
+          }}
+        >
           새로운 파일 업로드하기
         </Button>
-        <Button css={buttonStyle} variant="secondary" onClick={onClose}>
+        <Button
+          css={buttonStyle}
+          variant="secondary"
+          onClick={() => navigate("/confirm-list")}
+        >
           진위여부 확인하기
         </Button>
       </Flex>
