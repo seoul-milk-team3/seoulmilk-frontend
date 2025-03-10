@@ -142,6 +142,7 @@ if (formDataEntries.length === 0) {
   console.error("🚨 FormData가 비어 있습니다!");
   return;
 }
+setIsUploading(true); 
 
     analyzeTaxInvoice(formData, {
       onSuccess: (data) => {
@@ -150,7 +151,7 @@ if (formDataEntries.length === 0) {
         if (!data || Object.keys(data).length === 0) {
           console.warn("🚨 OCR 분석이 성공했지만, 응답이 비어 있습니다.");
         }
-        setIsUploading(true);  
+        setIsUploading(false);  
         setOcrResults(data);
         setIsCompleted(true);
       },

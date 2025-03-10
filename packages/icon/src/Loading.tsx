@@ -15,7 +15,7 @@ const SvgLoading = (props: SVGProps<SVGSVGElement>) => (
         y={-1017.24}
         transform="rotate(90 0 46)scale(.046)"
       >
-        <div
+        <svg
           xmlns="http://www.w3.org/1999/xhtml"
           style={{
             background:

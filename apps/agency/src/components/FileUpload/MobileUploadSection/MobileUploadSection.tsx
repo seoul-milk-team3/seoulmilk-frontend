@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback,useEffect } from "react";
 import Webcam from "react-webcam";
 import { useDropzone } from "react-dropzone";
 import {
@@ -18,7 +18,8 @@ import { Button, Flex, Text } from "@seoulmilk/ui";
 import { FileUploadIcon, Camera, Image, DeleteX } from "@seoulmilk/icon";
 import { colors } from "@seoulmilk/styles";
 import Modal from "./Modal/Modal";
-import MobileErrorBox from "../../ErrorCheck/MobileErrorBox/MobileErrorBox"
+import MobileCheckDone from "../MobileCheckDone/MobileCheckDone";
+import { useTaxInvoiceOCRMutation } from "@seoulmilk/api";
 
 const MobileSection = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -29,6 +30,11 @@ const MobileSection = () => {
   const [analysisResult, setAnalysisResult] = useState<string | null>(null);
   const [isFrontCamera, setIsFrontCamera] = useState(true);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]); // ⬅️ 업로드된 이미지 URL 저장
+  const [isUploading, setIsUploading] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false); // ✅ 성공 상태 추가
+
+  const { mutate: analyzeTaxInvoice, isPending } = useTaxInvoiceOCRMutation();
 
   // 파일 추가 핸들러 (10개 제한)
   const onDropHandler = (acceptedFiles: File[]) => {
@@ -79,24 +85,48 @@ const MobileSection = () => {
     onDrop: onDropHandler,
   });
 
-  const handleUpload = async () => {
-    if (files.length === 0) {
+  const checkFiles = async () => {
+    if (files.length === 0 || isPending) {
       alert("파일을 업로드해주세요.");
       return;
     }
-  
-    // 서버 없이 파일을 업로드한 것처럼 로컬에서 처리
-    const uploadedUrls = files.map((file) => URL.createObjectURL(file));
-  
-    setUploadedImages(uploadedUrls); // 업로드된 파일을 미리보기용 URL로 저장
-    setAnalysisResult("success"); // 분석이 완료된 것처럼 처리
-  
+    console.log("📂 업로드할 파일 목록:", files);
+
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append("files", file);
+    });
+
+    console.log("📤 서버에 보낼 FormData:", [...formData.entries()]);
+
+    setIsUploading(true);
+
+    analyzeTaxInvoice(formData, {
+      onSuccess: (data) => {
+        console.log("✅ OCR 분석 성공:", data);
+        setUploadedImages(files.map((file) => URL.createObjectURL(file)));
+        setAnalysisResult("success");
+        setIsUploading(false);
+        setIsCompleted(true);
+        setIsSuccess(true); // ✅ 성공 상태 변경
+
+      },
+      onError: (error) => {
+        console.error("❌ OCR 분석 실패:", error);
+        setIsUploading(false);
+        setIsCompleted(true);
+      },
+    });
   };
 
-  // 분석 결과가 있으면 MobileCheckDone으로 이동
-  if (analysisResult !== null) {
-    return <MobileErrorBox images={uploadedImages} />;
+  useEffect(() => {
+    console.log("📊 OCR 분석 결과 업데이트:", analysisResult);
+  }, [analysisResult]);
+
+  if (isSuccess) {
+    return <MobileCheckDone/>;
   }
+
   return ( <> {/* 파일 업로드 & 카메라 선택 모달 */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <Flex styles={{ direction: "column", align: "center", width: "100%" }}>
@@ -201,7 +231,7 @@ const MobileSection = () => {
               <ActionButtons>
                 <Flex styles={{ gap: "2rem", width: "100%", justify: "center" }}>
                   <UploadButton onClick={() => setIsModalOpen(true)}>파일 추가</UploadButton>
-                  <ConfirmButton onClick={handleUpload}>확인</ConfirmButton>
+                  <ConfirmButton onClick={checkFiles}>완료</ConfirmButton>
                 </Flex>
               </ActionButtons>
             </>
