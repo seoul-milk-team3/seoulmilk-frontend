@@ -60,7 +60,6 @@ export { default as IcValidationError } from "./src/IcValidationError";
 export { default as IcValidationNormal } from "./src/IcValidationNormal";
 export { default as IcWoori } from "./src/IcWoori";
 export { default as Image } from "./src/Image";
-export { default as Loading } from "./src/Loading";
 export { default as SeoulmilkLogo } from "./src/SeoulmilkLogo";
 export { default as Telephone } from "./src/Telephone";
 export { default as UserProfile } from "./src/UserProfile";
