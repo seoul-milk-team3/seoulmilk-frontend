@@ -1,9 +1,9 @@
 import Flex from "@/Flex/Flex";
 import {
-  IcChevronLeft,
-  IcChevronRight,
-  IcDoubleChevronLeft,
-  IcDoubleChevronRight,
+  IcPaginationLeft,
+  IcPaginationLeftDouble,
+  IcPaginationRight,
+  IcPaginationRightDouble,
 } from "@seoulmilk/icon";
 import { paginationStyle, pageButtonStyle } from "./Pagination.style";
 interface PaginationProps {
@@ -26,14 +26,14 @@ const Pagination = ({
     <Flex css={paginationStyle}>
       <Flex styles={{ gap: "0.8rem", align: "center" }}>
         {currentPage > 10 && (
-          <IcDoubleChevronLeft
+          <IcPaginationLeftDouble
             width={32}
             height={32}
             onClick={() => onPageChange(1)}
           />
         )}
         {currentPage > 1 && (
-          <IcChevronLeft
+          <IcPaginationLeft
             width={32}
             height={32}
             onClick={() => onPageChange(currentPage - 1)}
@@ -41,7 +41,7 @@ const Pagination = ({
         )}
       </Flex>
 
-      <Flex styles={{ gap: "2.8rem", align: "center" }}>
+      <Flex styles={{ align: "center", gap: "1rem" }}>
         {Array.from(
           { length: endPage - startPage + 1 },
           (_, i) => startPage + i
@@ -58,14 +58,14 @@ const Pagination = ({
 
       <Flex styles={{ gap: "0.8rem", align: "center" }}>
         {currentPage < totalPages && (
-          <IcChevronRight
+          <IcPaginationRight
             width={32}
             height={32}
             onClick={() => onPageChange(currentPage + 1)}
           />
         )}
         {currentPage < totalPages - 9 && (
-          <IcDoubleChevronRight
+          <IcPaginationRightDouble
             width={32}
             height={32}
             onClick={() => onPageChange(totalPages)}

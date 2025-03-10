@@ -4,6 +4,7 @@ import {
   IcNotice,
   IcSearch,
   IcConfrim,
+  IcErrorList,
 } from "@seoulmilk/icon";
 import { useLocation } from "react-router-dom";
 import SidebarItem from "@/Sidebar/SidebarItem/SidebarItem";
@@ -18,7 +19,8 @@ const menuConfig: Record<
   main: [
     { to: "/", icon: <IcHome />, label: "홈" },
     { to: "/confirm-list", icon: <IcConfrim />, label: "진위여부 확인" },
-    { to: "/list", icon: <IcSearch />, label: "자료 조회" },
+    { to: "/error", icon: <IcErrorList />, label: "오류 검토" },
+    { to: "/list", icon: <IcSearch />, label: "완료된 자료" },
     { to: "/notices", icon: <IcNotice />, label: "공지사항" },
   ],
   agency: [
