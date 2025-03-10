@@ -32,20 +32,6 @@ const CheckDone = ({ onClose, variant, isNormal, onErrorClick }: CheckDoneProps)
       ]}
       styles={{ direction: "column", align: "center" }}
     >
-      {variant === "secondary" && (
-        <div
-          css={css`
-            position: absolute;
-            top: -8rem;
-            left: 0rem;
-          `}
-        >
-          <UploadTopMessage
-            title="세금계산서 업로드를 완료했어요"
-            subTitle="업로드한 세금계산서의 진위 여부를 확인하러 가볼까요?"
-          />
-        </div>
-      )}
       
       <Flex css={contentWrapper}>
         <CheckDoneIcon css={{ width: "6.4rem", height: "6.4rem" }} />
@@ -60,12 +46,19 @@ const CheckDone = ({ onClose, variant, isNormal, onErrorClick }: CheckDoneProps)
                   color: red;
                 `}
               >
-                업로드가
+                세금계산서 업로드
               </span>
-              <span> 완료됐어요</span>
+              <span>가 완료됐어요</span>
             </>
           )}
         </Text>
+        {variant === "secondary" && (
+  <Text tag="md1-text-medium" css={{color:"#A3A3A3", marginTop:'0.8rem'}}>
+    업로드한 세금계산서의 진위 여부를 분석하러 가볼까요?
+  </Text>
+)}
+
+
         {variant === "primary" && (
           <Text tag="xxl-title-semibold">
             진위여부 결과 :{" "}
@@ -102,7 +95,7 @@ const CheckDone = ({ onClose, variant, isNormal, onErrorClick }: CheckDoneProps)
           새로운 파일 업로드하기
         </Button>
         <Button css={buttonStyle} variant="secondary" onClick={onClose}>
-          확인하기
+          진위여부 확인하기
         </Button>
       </Flex>
     </Flex>
