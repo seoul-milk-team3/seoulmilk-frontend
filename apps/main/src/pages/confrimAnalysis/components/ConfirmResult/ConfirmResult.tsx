@@ -16,6 +16,12 @@ interface ConfirmResultProps {
 const ConfirmResult = ({ isError, totalFiles = 1, normalCount = 0, errorCount = 0 }: ConfirmResultProps) => {
   const navigate = useNavigate();
   const isSingleFile = totalFiles === 1; // 파일 개수가 1개인지 체크
+  const hasError = errorCount > 0; // 비정상 개수가 1개 이상인지 체크
+
+  // 버튼 텍스트 및 이동 경로 설정
+  const buttonLabel = isSingleFile ? (isError ? '오류 확인' : '확인') : hasError ? '오류 확인' : '확인';
+
+  const navigatePath = isSingleFile ? (isError ? '/error' : '/list') : hasError ? '/error' : '/list';
 
   return (
     <Flex styles={{ direction: 'column', align: 'center', justify: 'center' }} css={borderStyle}>
@@ -79,17 +85,16 @@ const ConfirmResult = ({ isError, totalFiles = 1, normalCount = 0, errorCount = 
         </Flex>
       )}
 
-      {/* 버튼 변경: 파일 개수에 따라 텍스트 다르게 설정 */}
+      {/* 버튼: 조건에 맞게 텍스트와 이동 경로 설정 */}
       <Button
         variant="secondary"
         tag="lg-subtitle-semibold"
         padding="1.7rem 14.2rem"
         css={{ marginTop: '6rem' }}
-        onClick={() => navigate(isSingleFile ? '/list' : '/error')}>
-        {isSingleFile ? '확인' : '오류 확인'}
+        onClick={() => navigate(navigatePath)}>
+        {buttonLabel}
       </Button>
     </Flex>
   );
 };
-
 export default ConfirmResult;

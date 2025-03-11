@@ -21,7 +21,7 @@ export const buttonContainerStyle = css({
   position: 'sticky',
   bottom: '0',
   background: theme.colors.grayscale_0,
-  padding: '1.6rem',
+  padding: '2.6rem',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

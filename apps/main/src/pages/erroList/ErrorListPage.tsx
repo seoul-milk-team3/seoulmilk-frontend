@@ -1,7 +1,7 @@
+import { useErrorListQuery } from '@seoulmilk/api/src/errorlist/queries';
 import { Flex, Text, Pagination } from '@seoulmilk/ui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useErrorListQuery } from '@seoulmilk/api/src/errorlist/queries';
 import ErrorItem from './components/ErrorItem/ErrorItem';
 
 const ITEMS_PER_PAGE = 8;
@@ -10,30 +10,21 @@ const ErrorListPage = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
 
-  // ✅ API 데이터 가져오기
   const { data, isLoading, error } = useErrorListQuery({
     filters: {},
     page: currentPage,
     size: ITEMS_PER_PAGE,
   });
 
-  if (isLoading) {
-    return <Text tag="md2-text-medium">로딩 중...</Text>;
-  }
-
-  if (error) {
-    return <Text tag="md2-text-medium">오류 발생: {error.message}</Text>;
-  }
-
   const displayedItems = data?.officeAbnormalTaxValidationResponses || [];
 
-  console.log("📌 필터링된 비정상 항목:", displayedItems);
-  
+  console.log('📌 필터링된 비정상 항목:', displayedItems);
+
   return (
     <Flex styles={{ direction: 'column', padding: '4rem 4.8rem', width: '100%' }}>
       <Text tag="xxl-title-bold">오류 검토</Text>
 
-      {/* ✅ 리스트 헤더 */}
+      {/* 리스트 헤더 */}
       <Flex styles={{ align: 'center', height: '5.2rem', padding: '1.4rem 2.6rem', marginTop: '4rem' }}>
         <Text tag="md2-text-medium" css={{ width: '15.6rem', marginLeft: '1.2rem' }}>
           업로드 일자
@@ -44,7 +35,7 @@ const ErrorListPage = () => {
         <Text tag="md2-text-medium">처리결과</Text>
       </Flex>
 
-      {/* ✅ 리스트 아이템 */}
+      {/* 리스트 아이템 */}
       <Flex styles={{ direction: 'column', gap: '1.2rem', marginTop: '1.2rem', width: '100%' }}>
         {displayedItems.map((item) => (
           <ErrorItem
@@ -52,13 +43,13 @@ const ErrorListPage = () => {
             id={item.id}
             date={item.createdDate}
             supplier={item.suName}
-            status='비정상' 
+            status="비정상"
             onCheckError={() => navigate(`/error/${item.id}`)}
           />
         ))}
       </Flex>
 
-      {/* ✅ 페이지네이션 */}
+      {/* 페이지네이션 */}
       <Pagination
         totalItems={data?.totalPageSize || 0}
         itemsPerPage={ITEMS_PER_PAGE}

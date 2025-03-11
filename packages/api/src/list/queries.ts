@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { format, lastDayOfMonth, parse } from "date-fns";
 import { fetchTaxInvoices } from ".";
+import { regionMap, statusMap } from "./types";
 
 // 상태 값 타입 정의 (정확한 타입 적용)
 type StatusType = "NORMAL" | "ABNORMAL" | "ALL" | "처리 결과" | "전체";
@@ -28,31 +29,23 @@ export const useTaxInvoicesQuery = ({
     endDate?: string;
     region?: string;
     storeName?: string;
-    status?: StatusType;
+    status?: string;
   };
   page: number;
   size: number;
 }) => {
   return useQuery({
-    queryKey: ["taxInvoices", filters, page, size], // 필터와 페이지 유지
+    queryKey: ["taxInvoices", filters, page, size],
     queryFn: () =>
       fetchTaxInvoices({
         startDate: getStartOfMonth(filters.startDate),
         endDate: getEndOfMonth(filters.endDate),
 
-        region:
-          filters.region &&
-          filters.region !== "지역" &&
-          filters.region !== "전체 선택"
-            ? filters.region.trim()
-            : undefined,
+        region: regionMap[filters.region ?? "전체 선택"] || "ALL", // ✅ 한글 → 영문 변환 적용
 
-        status:
-          filters.status && filters.status !== "처리 결과"
-            ? ((filters.status === "전체"
-                ? "ALL"
-                : filters.status.toUpperCase()) as StatusType)
-            : undefined,
+        status: statusMap[filters.status ?? "처리 결과"] || "ALL",
+
+        storeName: filters.storeName?.trim(),
 
         page,
         size,

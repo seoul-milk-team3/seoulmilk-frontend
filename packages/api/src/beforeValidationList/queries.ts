@@ -9,7 +9,10 @@ export const useTaxInvoicesQueryBeforeValidation = ({
   page: number;
   size: number;
 }) => {
-  return useQuery<TaxInvoiceBeforeValidation[]>({
+  return useQuery<{
+    data: TaxInvoiceBeforeValidation[];
+    totalPageSize: number;
+  }>({
     queryKey: ["taxInvoicesBeforeValidation", page, size],
     queryFn: () => fetchTaxInvoicesBeforeValidation({ page, size }),
     staleTime: 5000,
