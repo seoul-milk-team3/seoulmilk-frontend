@@ -17,6 +17,8 @@ import { colors } from "@seoulmilk/styles";
 import CheckDone from "@/CheckDone/CheckDone";
 import { useTaxInvoiceOCRMutation } from "@seoulmilk/api";
 import Spinner from "@/Spinner/Spinner";
+import { useOutletContext } from "react-router-dom"; // ✅ context 사용
+
 const MAX_FILES = 10;
 
 const UploadModal = ({ onClose }: { onClose: () => void }) => (
@@ -81,6 +83,7 @@ const UploadSection = ({
   onUploadSuccess,
   onCheckValidity,
 }: UploadSectionProps) => {
+  const { layoutVariant } = useOutletContext<{ layoutVariant: "main" | "agency" }>();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isChecking, setIsChecking] = useState(false);
@@ -206,7 +209,7 @@ const UploadSection = ({
     <>
       {isUploading && <UploadModal onClose={() => setIsUploading(false)} />}
       {isCompleted ? (
-        <CheckDone variant="secondary" onClose={() => setIsCompleted(false)} />
+        <CheckDone variant="secondary" onClose={() => setIsCompleted(false) } layoutVariant={layoutVariant}/>
       ) : (
         <Flex
           css={uploadWrapperStyle}

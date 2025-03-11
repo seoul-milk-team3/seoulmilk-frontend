@@ -17,8 +17,7 @@ const MainLayout = () => {
       <div css={containerStyle}>
         {!isMobile && <Sidebar variant="agency" />}
         <main css={contentStyle}>
-          <Outlet />
-        </main>
+        <Outlet context={{ layoutVariant: "agency" }} />        </main>
       </div>
       {isMobile && <MobileSidebar isOpen={isOpen} onClose={closeSidebar} />}
     </div>

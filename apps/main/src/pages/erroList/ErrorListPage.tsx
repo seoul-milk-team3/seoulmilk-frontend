@@ -1,15 +1,8 @@
-import { Flex, Text, Button, Pagination } from '@seoulmilk/ui';
+import { Flex, Text, Pagination } from '@seoulmilk/ui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useErrorListQuery } from '@seoulmilk/api/src/errorlist/queries';
 import ErrorItem from './components/ErrorItem/ErrorItem';
-
-// ✅ Mock 데이터 (오류 리스트)
-const MOCK_ERROR_LIST = Array.from({ length: 20 }, (_, i) => ({
-  id: i + 1,
-  date: '2024.12.25',
-  supplier: '목동지점',
-  status: '비정상',
-}));
 
 const ITEMS_PER_PAGE = 8;
 
@@ -17,10 +10,25 @@ const ErrorListPage = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
 
-  // 현재 페이지에 맞게 데이터 Slice
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const displayedItems = MOCK_ERROR_LIST.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  // ✅ API 데이터 가져오기
+  const { data, isLoading, error } = useErrorListQuery({
+    filters: {},
+    page: currentPage,
+    size: ITEMS_PER_PAGE,
+  });
 
+  if (isLoading) {
+    return <Text tag="md2-text-medium">로딩 중...</Text>;
+  }
+
+  if (error) {
+    return <Text tag="md2-text-medium">오류 발생: {error.message}</Text>;
+  }
+
+  const displayedItems = data?.officeAbnormalTaxValidationResponses || [];
+
+  console.log("📌 필터링된 비정상 항목:", displayedItems);
+  
   return (
     <Flex styles={{ direction: 'column', padding: '4rem 4.8rem', width: '100%' }}>
       <Text tag="xxl-title-bold">오류 검토</Text>
@@ -42,9 +50,9 @@ const ErrorListPage = () => {
           <ErrorItem
             key={item.id}
             id={item.id}
-            date={item.date}
-            supplier={item.supplier}
-            status={item.status}
+            date={item.createdDate}
+            supplier={item.suName}
+            status='비정상' 
             onCheckError={() => navigate(`/error/${item.id}`)}
           />
         ))}
@@ -52,7 +60,7 @@ const ErrorListPage = () => {
 
       {/* ✅ 페이지네이션 */}
       <Pagination
-        totalItems={MOCK_ERROR_LIST.length}
+        totalItems={data?.totalPageSize || 0}
         itemsPerPage={ITEMS_PER_PAGE}
         currentPage={currentPage}
         onPageChange={setCurrentPage}

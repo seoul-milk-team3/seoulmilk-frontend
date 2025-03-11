@@ -11,8 +11,11 @@ import {
 } from "./MobileCheckDone.style";
 import { CheckDoneIcon } from "@seoulmilk/icon"; // 성공 아이콘
 import { Text } from "@seoulmilk/ui"; // UI 텍스트
+import { useNavigate } from "react-router-dom";
 
 const MobileCheckDone = () => {
+  const navigate = useNavigate();
+
   return (
     <Container>
             <div style={{ position: "relative", display: "inline-block" }}>
@@ -31,8 +34,10 @@ const MobileCheckDone = () => {
         </Message>
         
         <ButtonWrapper>
-          <UploadButton>새로운 파일 업로드하기</UploadButton>
-          <ConfirmButton>확인하기</ConfirmButton>
+          <ConfirmButton onClick={() => {
+            navigate("/");
+            window.location.reload(); // ✅ 페이지 강제 새로고침
+          }}>새로운 파일 업로드하기</ConfirmButton>
         </ButtonWrapper>
       </Card>
     </Container>

@@ -92,7 +92,13 @@ export const modalOverlayStyle = css`
   align-items: center;
   justify-content: center;
 `;
-
+export const fileNameStyle = css`
+  max-width: 14rem;  
+  overflow: hidden; 
+  text-overflow: ellipsis;  
+  white-space: nowrap; 
+  min-width: 0;
+`;
 export const modalContentStyle = css`
   background: white;
   padding: 10px;

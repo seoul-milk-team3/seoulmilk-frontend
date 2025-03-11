@@ -5,7 +5,7 @@ import { containerStyle, labelStyle, inputStyle } from './ErrorBox.style';
 
 export interface ErrorBoxProps {
   label: string;
-  value?: string;
+  value: string | number;
   onChange?: (value: string) => void;
 }
 
