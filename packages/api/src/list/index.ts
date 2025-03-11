@@ -1,14 +1,9 @@
 import { axiosInstance } from "../instance";
 import { TaxInvoicesResponse, regionMap, statusMap } from "./types";
 
-type StatusType =
-  | "NORMAL"
-  | "ABNORMAL"
-  | "ALL"
-  | "처리 결과"
-  | "전체"
-  | "정상"
-  | "비정상";
+const reverseStatusMap = Object.fromEntries(
+  Object.entries(statusMap).map(([key, value]) => [value, key])
+);
 
 export const fetchTaxInvoices = async ({
   startDate,
@@ -32,26 +27,41 @@ export const fetchTaxInvoices = async ({
   if (startDate) params.append("startYearAndMonth", startDate);
   if (endDate) params.append("endYearAndMonth", endDate);
 
-  const regionValue = regionMap[region ?? "전체 선택"] || "ALL";
+  const regionValue =
+    region && Object.values(regionMap).includes(region)
+      ? region
+      : (regionMap[region ?? "전체 선택"] ?? "ALL");
+
   params.append("region", regionValue);
 
   if (storeName) {
     params.append("searchSupplierName", storeName.trim());
   }
 
-  const resultType = statusMap[status ?? "처리 결과"] || "ALL";
-  params.append("resultType", resultType);
+  let mappedStatus = "ALL"; // 기본값
 
-  params.append("page", page.toString());
-  params.append("size", size.toString());
+  if (status) {
+    if (statusMap[status]) {
+      mappedStatus = statusMap[status]; // 한글 상태값 변환
+    } else if (reverseStatusMap[status]) {
+      mappedStatus = status; // 이미 변환된 값이면 그대로 사용
+    } else {
+      console.error(
+        "[fetchTaxInvoices] statusMap에서 찾을 수 없는 값:",
+        status
+      );
+    }
+  } else {
+    console.warn("fetchTaxInvoices] status 값이 undefined입니다.");
+  }
 
-  console.log("리스트 API 요청:", params.toString());
+  params.append("resultType", mappedStatus);
 
   const response = await axiosInstance.get<{ data: TaxInvoicesResponse }>(
     `/tax-invoices/office/filter?${params.toString()}`
   );
 
-  console.log(" 리스트 API 응답:", response.data);
+  console.log("📤 리스트 API 응답:", response.data);
 
   return response.data.data;
 };
