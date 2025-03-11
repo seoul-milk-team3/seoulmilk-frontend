@@ -1,7 +1,6 @@
 import { IcClose } from '@seoulmilk/icon';
 import { Flex, Button, Text, ImagePreview } from '@seoulmilk/ui';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useTaxInvoiceDetailQuery } from '@seoulmilk/api';
 import {
   detailContainerStyle,
   detailListWrapperStyle,
@@ -9,13 +8,16 @@ import {
   detailListStyle,
 } from './ErrorCheckPage.style';
 import ErrorBox from './components/ErrorBox/ErrorBox';
+import { useErrorDetailQuery } from '@seoulmilk/api';
 
-const detailLabels = [
-  { key: 'id', label: '승인 번호' },
+
+const errordetailLabels = [
+  { key: 'arap', label: '매출/매입 구분' },
   { key: 'suId', label: '공급자 사업자등록번호' },
   { key: 'ipId', label: '공급받는자 사업자등록번호' },
-  { key: 'issueDate', label: '작성일자' },
   { key: 'chargeTotal', label: '총 공급가액 합계' },
+  { key: 'grandTotal', label: '총액 (공급가액 + 세액)' },
+  { key: 'taxTotal', label: '총 세액 합계' },
 ];
 
 const ErrorCheckPage = () => {
@@ -24,7 +26,7 @@ const ErrorCheckPage = () => {
   const taxId = id ? parseInt(id, 10) : undefined;
 
   // ✅ React Query로 서버 데이터 가져오기
-  const { data: item, isLoading, error } = useTaxInvoiceDetailQuery(taxId!);
+  const { data: item, isLoading, error } = useErrorDetailQuery(taxId!);
 
   if (isLoading) return <Text tag="md2-text-medium">로딩 중...</Text>;
   if (error || !item) return <Text tag="md2-text-medium">데이터를 불러오는 데 실패했습니다.</Text>;
@@ -50,7 +52,7 @@ const ErrorCheckPage = () => {
           </Flex>
 
           {/* 상세 정보 입력 필드 */}
-          {detailLabels.map(({ key, label }) => (
+          {errordetailLabels.map(({ key, label }) => (
             <ErrorBox
               key={key}
               label={label}

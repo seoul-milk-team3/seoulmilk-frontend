@@ -7,3 +7,4 @@ export { useTaxInvoiceDetailQuery } from "./listDetail/queries";
 export { useTaxInvoicesQueryBeforeValidation } from "./beforeValidationList/queries";
 
 export { useTaxInvoiceOCRMutation } from "./fileupload/queries";
+export {useErrorDetailQuery} from "./errorcheck/queries";
