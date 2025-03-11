@@ -1,5 +1,8 @@
+import { useErrorDetailQuery, useSaveModifiedTaxInvoice } from '@seoulmilk/api';
+import { TaxInvoiceRequest } from '@seoulmilk/api/src/errorstore/types';
 import { IcClose } from '@seoulmilk/icon';
 import { Flex, Button, Text, ImagePreview } from '@seoulmilk/ui';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   detailContainerStyle,
@@ -8,18 +11,13 @@ import {
   detailListStyle,
 } from './ErrorCheckPage.style';
 import ErrorBox from './components/ErrorBox/ErrorBox';
-import { useErrorDetailQuery } from '@seoulmilk/api';
-import { saveModifiedTaxInvoice } from '@seoulmilk/api';
-import { TaxInvoiceRequest } from '@seoulmilk/api/src/errorstore/types';
-import { useState } from 'react';
 
 const errordetailLabels = [
-  { key: 'arap', label: '매출/매입 구분' },
   { key: 'suId', label: '공급자 사업자등록번호' },
-  { key: 'ipId', label: '공급받는자 사업자등록번호' },
-  { key: 'chargeTotal', label: '총 공급가액 합계' },
-  { key: 'grandTotal', label: '총액 (공급가액 + 세액)' },
-  { key: 'taxTotal', label: '총 세액 합계' },
+  { key: 'id', label: '승인 번호' },
+  { key: 'chargeTotal', label: '공급가액' },
+  { key: 'ipId', label: '공급받는자 등록번호' },
+  { key: 'issueDate', label: '작성일자' },
 ];
 
 const ErrorCheckPage = () => {
@@ -28,24 +26,47 @@ const ErrorCheckPage = () => {
   const taxId = id ? parseInt(id, 10) : undefined;
 
   const { data: item, isLoading, error } = useErrorDetailQuery(taxId!);
+  const mutation = useSaveModifiedTaxInvoice(); // ✅ 리액트 쿼리 Mutation 사용
 
-  const [modifiedData, setModifiedData] = useState(item || {});
+  const [modifiedData, setModifiedData] = useState<Record<string, string | number>>({});
+
+  const isModifiedDataReady = Object.keys(modifiedData).length > 0;
+
+  useEffect(() => {
+    if (item) {
+      const formattedData: Record<string, string | number> = Object.entries(item).reduce(
+        (acc, [key, value]) => ({
+          ...acc,
+          [key]: value ?? '',
+        }),
+        {}
+      );
+      console.log('변환된 데이터:', formattedData); // 🔥 확인용 로그
+      setModifiedData(formattedData);
+    }
+  }, [item]);
+
   const [isSaved, setIsSaved] = useState(false); // 저장 성공 여부
 
   if (isLoading) return <Text tag="md2-text-medium">로딩 중...</Text>;
   if (error || !item) return <Text tag="md2-text-medium">데이터를 불러오는 데 실패했습니다.</Text>;
 
+  const handleVerify = () => {
+    if (taxId) {
+      navigate('/confirm-list/auth', { state: { selectedIds: [taxId] } });
+    }
+  };
+
   const handleInputChange = (key: string, value: string) => {
     setModifiedData((prev) => ({
       ...prev,
-      [key]: value,
+      [key]: isNaN(Number(value)) ? value : Number(value),
     }));
   };
 
   const handleSave = async () => {
     if (!taxId) return;
 
-    // API에 맞는 데이터 변환
     const requestData: TaxInvoiceRequest = {
       requests: [
         {
@@ -55,19 +76,23 @@ const ErrorCheckPage = () => {
           })),
         },
       ],
-    }; 
+    };
 
-    console.log("저장 요청 데이터:", requestData);
-    console.log("API 호출 URL:", `/tax-invoices/office?taxId=${taxId}`);
+    console.log('저장 요청 데이터:', requestData);
 
-    try {
-      await saveModifiedTaxInvoice(taxId, requestData);
-      alert('수정된 세금 계산서가 저장되었습니다.');
-      setIsSaved(true); 
-    } catch (err) {
-      console.error('세금 계산서 저장 실패:', err);
-      alert('저장에 실패했습니다.');
-    }
+    mutation.mutate(
+      { taxId, requestData },
+      {
+        onSuccess: () => {
+          alert('수정된 세금 계산서가 저장되었습니다.');
+          setIsSaved(true);
+        },
+        onError: (err) => {
+          console.error('세금 계산서 저장 실패:', err);
+          alert('저장에 실패했습니다.');
+        },
+      }
+    );
   };
 
   return (
@@ -91,34 +116,33 @@ const ErrorCheckPage = () => {
           </Flex>
 
           {/* 상세 정보 입력 필드 */}
-          {errordetailLabels.map(({ key, label }) => (
-            <ErrorBox
-              key={key}
-              label={label}
-              value={modifiedData[key as keyof typeof modifiedData] ?? 'N/A'}
-              onChange={(value) => handleInputChange(key, value)}
-            />
-          ))}
+          {isModifiedDataReady &&
+            errordetailLabels.map(({ key, label }) => (
+              <ErrorBox
+                key={key}
+                label={label}
+                value={modifiedData[key] ?? ''}
+                onChange={(value) => handleInputChange(key, value)}
+              />
+            ))}
         </Flex>
 
         {/* 버튼 영역 */}
         <Flex css={buttonContainerStyle}>
-    
-          <Button 
-            variant="primary" 
-            padding="1.7rem 9.5rem" 
-            onClick={handleSave} 
-            css={{ whiteSpace: "nowrap", height: "5rem", width: "8rem" }}
-          >
+          <Button
+            variant="primary"
+            padding="1.7rem 9.5rem"
+            onClick={handleSave}
+            css={{ whiteSpace: 'nowrap', height: '5rem', width: '8rem' }}>
             저장
           </Button>
 
           <Button
             variant="secondary"
+            onClick={handleVerify}
             padding="1.7rem 9.5rem"
-            css={{ height: "5rem", whiteSpace: "nowrap", width: "8rem" }}
-            disabled={!isSaved} 
-          >
+            css={{ height: '5rem', whiteSpace: 'nowrap', width: '8rem' }}
+            disabled={!isSaved}>
             진위여부 확인
           </Button>
         </Flex>

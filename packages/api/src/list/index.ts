@@ -1,5 +1,5 @@
 import { axiosInstance } from "../instance";
-import { TaxInvoicesResponse } from "./types";
+import { TaxInvoicesResponse, regionMap, statusMap } from "./types";
 
 type StatusType =
   | "NORMAL"
@@ -23,7 +23,7 @@ export const fetchTaxInvoices = async ({
   endDate?: string;
   region?: string;
   storeName?: string;
-  status?: StatusType;
+  status?: string;
   page: number;
   size: number;
 }) => {
@@ -32,25 +32,15 @@ export const fetchTaxInvoices = async ({
   if (startDate) params.append("startYearAndMonth", startDate);
   if (endDate) params.append("endYearAndMonth", endDate);
 
-  if (region && region !== "지역" && region !== "전체 선택") {
-    params.append("region", region.trim());
+  const regionValue = regionMap[region ?? "전체 선택"] || "ALL";
+  params.append("region", regionValue);
+
+  if (storeName) {
+    params.append("searchSupplierName", storeName.trim());
   }
 
-  let resultType: string | undefined;
-  if (status && status !== "처리 결과") {
-    resultType =
-      status === "전체"
-        ? "ALL"
-        : status === "정상"
-          ? "NORMAL"
-          : status === "비정상"
-            ? "ABNORMAL"
-            : status.toUpperCase();
-  }
-
-  if (resultType) {
-    params.append("resultType", resultType);
-  }
+  const resultType = statusMap[status ?? "처리 결과"] || "ALL";
+  params.append("resultType", resultType);
 
   params.append("page", page.toString());
   params.append("size", size.toString());

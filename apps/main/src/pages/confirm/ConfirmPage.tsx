@@ -15,10 +15,10 @@ const ConfirmPage = () => {
 
   // 전체 선택 체크박스
   const handleSelectAll = () => {
-    if (selectedIds.length === (data?.length || 0)) {
+    if (selectedIds.length === (data?.data.length || 0)) {
       setSelectedIds([]);
     } else {
-      setSelectedIds(data?.map((item) => item.id) || []);
+      setSelectedIds(data?.data.map((item) => item.id) || []);
     }
   };
 
@@ -48,7 +48,7 @@ const ConfirmPage = () => {
           justify: 'space-between',
         }}>
         <Flex styles={{ align: 'center', padding: '1.4rem 2.6rem' }}>
-          <CheckBox isChecked={selectedIds.length === (data?.length || 0)} onChange={handleSelectAll} />
+          <CheckBox isChecked={selectedIds.length === (data?.data.length || 0)} onChange={handleSelectAll} />
           <Text tag="md2-text-medium" css={{ width: '15.6rem', marginLeft: '1.2rem' }}>
             일자
           </Text>
@@ -73,7 +73,7 @@ const ConfirmPage = () => {
       <Flex
         styles={{ direction: 'column', gap: '1.2rem', marginTop: '1.6rem', width: '100%' }}
         css={{ minHeight: '59.6rem', flex: 1 }}>
-        {data?.map((item) => (
+        {data?.data.map((item) => (
           <ConfirmItem
             key={item.id}
             id={item.id}
@@ -87,7 +87,7 @@ const ConfirmPage = () => {
 
       {/* 페이지네이션 */}
       <Pagination
-        totalItems={5} // 현재 서버에서 totalCount가 없어 하드코딩
+        totalItems={data?.totalPageSize || 0}
         itemsPerPage={ITEMS_PER_PAGE}
         currentPage={currentPage}
         onPageChange={setCurrentPage}

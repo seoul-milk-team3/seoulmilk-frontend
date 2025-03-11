@@ -8,5 +8,8 @@ export interface TaxInvoiceBeforeValidation {
 export interface TaxInvoicesBeforeValidationResponse {
   status: number;
   message: string;
-  data: TaxInvoiceBeforeValidation[];
+  data: {
+    beforeValidateTaxResponses: TaxInvoiceBeforeValidation[]; // ✅ 리스트 구조 변경
+    totalPageSize: number; // ✅ 총 페이지 개수 추가
+  };
 }
