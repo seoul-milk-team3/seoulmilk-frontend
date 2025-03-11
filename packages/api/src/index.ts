@@ -8,3 +8,4 @@ export { useTaxInvoicesQueryBeforeValidation } from "./beforeValidationList/quer
 
 export { useTaxInvoiceOCRMutation } from "./fileupload/queries";
 export {useErrorDetailQuery} from "./errorcheck/queries";
+export {saveModifiedTaxInvoice}  from "./errorstore/queries"

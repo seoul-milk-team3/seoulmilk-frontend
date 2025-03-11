@@ -9,7 +9,9 @@ import {
 } from './ErrorCheckPage.style';
 import ErrorBox from './components/ErrorBox/ErrorBox';
 import { useErrorDetailQuery } from '@seoulmilk/api';
-
+import { saveModifiedTaxInvoice } from '@seoulmilk/api';
+import { TaxInvoiceRequest } from '@seoulmilk/api/src/errorstore/types';
+import { useState } from 'react';
 
 const errordetailLabels = [
   { key: 'arap', label: '매출/매입 구분' },
@@ -21,15 +23,52 @@ const errordetailLabels = [
 ];
 
 const ErrorCheckPage = () => {
-  const { id } = useParams(); // URL에서 오류 ID 가져오기
+  const { id } = useParams();
   const navigate = useNavigate();
   const taxId = id ? parseInt(id, 10) : undefined;
 
-  // ✅ React Query로 서버 데이터 가져오기
   const { data: item, isLoading, error } = useErrorDetailQuery(taxId!);
+
+  const [modifiedData, setModifiedData] = useState(item || {});
+  const [isSaved, setIsSaved] = useState(false); // 저장 성공 여부
 
   if (isLoading) return <Text tag="md2-text-medium">로딩 중...</Text>;
   if (error || !item) return <Text tag="md2-text-medium">데이터를 불러오는 데 실패했습니다.</Text>;
+
+  const handleInputChange = (key: string, value: string) => {
+    setModifiedData((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const handleSave = async () => {
+    if (!taxId) return;
+
+    // API에 맞는 데이터 변환
+    const requestData: TaxInvoiceRequest = {
+      requests: [
+        {
+          fields: Object.entries(modifiedData).map(([key, value]) => ({
+            name: key,
+            inferText: String(value),
+          })),
+        },
+      ],
+    }; 
+
+    console.log("저장 요청 데이터:", requestData);
+    console.log("API 호출 URL:", `/tax-invoices/office?taxId=${taxId}`);
+
+    try {
+      await saveModifiedTaxInvoice(taxId, requestData);
+      alert('수정된 세금 계산서가 저장되었습니다.');
+      setIsSaved(true); 
+    } catch (err) {
+      console.error('세금 계산서 저장 실패:', err);
+      alert('저장에 실패했습니다.');
+    }
+  };
 
   return (
     <Flex css={detailContainerStyle}>
@@ -56,15 +95,31 @@ const ErrorCheckPage = () => {
             <ErrorBox
               key={key}
               label={label}
-              value={item[key as keyof typeof item] ?? 'N/A'}
+              value={modifiedData[key as keyof typeof modifiedData] ?? 'N/A'}
+              onChange={(value) => handleInputChange(key, value)}
             />
           ))}
         </Flex>
 
         {/* 버튼 영역 */}
         <Flex css={buttonContainerStyle}>
-          <Button variant="secondary" onClick={() => navigate(-1)}>
-            닫기
+    
+          <Button 
+            variant="primary" 
+            padding="1.7rem 9.5rem" 
+            onClick={handleSave} 
+            css={{ whiteSpace: "nowrap", height: "5rem", width: "8rem" }}
+          >
+            저장
+          </Button>
+
+          <Button
+            variant="secondary"
+            padding="1.7rem 9.5rem"
+            css={{ height: "5rem", whiteSpace: "nowrap", width: "8rem" }}
+            disabled={!isSaved} 
+          >
+            진위여부 확인
           </Button>
         </Flex>
       </Flex>
