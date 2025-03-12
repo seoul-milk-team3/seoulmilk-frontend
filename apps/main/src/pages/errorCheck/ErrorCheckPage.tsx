@@ -14,7 +14,7 @@ import ErrorBox from './components/ErrorBox/ErrorBox';
 
 const errordetailLabels = [
   { key: 'suId', label: '공급자 사업자등록번호' },
-  { key: 'id', label: '승인 번호' },
+  { key: 'issueId', label: '승인 번호' },
   { key: 'chargeTotal', label: '공급가액' },
   { key: 'ipId', label: '공급받는자 등록번호' },
   { key: 'issueDate', label: '작성일자' },
@@ -34,19 +34,29 @@ const ErrorCheckPage = () => {
 
   useEffect(() => {
     if (item) {
-      const formattedData: Record<string, string | number> = Object.entries(item).reduce(
-        (acc, [key, value]) => ({
-          ...acc,
-          [key]: value ?? '',
-        }),
-        {}
-      );
-      console.log('변환된 데이터:', formattedData); // 🔥 확인용 로그
+      const validKeys = [
+        'issueId', 'arap', 'issueDate', 'suId', 'suName', 'ipId',
+        'chargeTotal', 'grandTotal', 'taxTotal',
+        'createdDate', 'createdTime', 'imageUrl',
+      ];
+  
+      const formattedData: Record<string, string | number> = Object.entries(item)
+        .filter(([key, value]) => validKeys.includes(key)) 
+        .reduce(
+          (acc, [key, value]) => ({
+            ...acc,
+            [key]: value !== null && value !== undefined ? value : undefined,
+          }),
+          {}
+        );
+  
       setModifiedData(formattedData);
     }
   }, [item]);
+  
+  
 
-  const [isSaved, setIsSaved] = useState(false); // 저장 성공 여부
+  const [isSaved, setIsSaved] = useState(false);
 
   if (isLoading) return <Text tag="md2-text-medium">로딩 중...</Text>;
   if (error || !item) return <Text tag="md2-text-medium">데이터를 불러오는 데 실패했습니다.</Text>;
@@ -63,23 +73,35 @@ const ErrorCheckPage = () => {
       [key]: isNaN(Number(value)) ? value : Number(value),
     }));
   };
-
   const handleSave = async () => {
     if (!taxId) return;
-
+  
+    const validKeys = [
+      'issueId', 'arap', 'issueDate', 'suId', 'suName', 'ipId',
+      'chargeTotal', 'grandTotal', 'taxTotal',
+      'createdDate', 'createdTime', 'imageUrl',
+    ];
+  
+    const updatedData = { ...item, ...modifiedData };
+  
+    //  suName 필드 필터링 
+    const cleanedData = Object.fromEntries(
+      Object.entries(updatedData).filter(([key, value]) => validKeys.includes(key) && key !== "suName" && value !== undefined && value !== "")
+    );
+  
     const requestData: TaxInvoiceRequest = {
       requests: [
         {
-          fields: Object.entries(modifiedData).map(([key, value]) => ({
+          fields: Object.entries(cleanedData).map(([key, value]) => ({
             name: key,
-            inferText: String(value),
+            inferText: String(value ?? ""),
           })),
         },
       ],
     };
-
-    console.log('저장 요청 데이터:', requestData);
-
+  
+    console.log('저장 요청 데이터:', JSON.stringify(requestData, null, 2));
+  
     mutation.mutate(
       { taxId, requestData },
       {
@@ -94,6 +116,10 @@ const ErrorCheckPage = () => {
       }
     );
   };
+  
+  
+  
+  
 
   return (
     <Flex css={detailContainerStyle}>
