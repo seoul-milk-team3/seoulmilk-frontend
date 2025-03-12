@@ -11,7 +11,7 @@ import {
 import DetailItem from './components/DetailItem/DetailItem';
 
 const detailLabels = [
-  { key: 'id', label: '승인 번호' },
+  { key: 'issueId', label: '승인 번호' },
   { key: 'arap', label: '매출/매입 구분' },
   { key: 'issueDate', label: '작성일자' },
   { key: 'suId', label: '공급자 사업자등록번호' },
@@ -28,7 +28,6 @@ const DetailPage = () => {
   const navigate = useNavigate();
   const taxId = id ? parseInt(id, 10) : undefined;
 
-  // ✅ React Query로 서버 데이터 가져오기
   const { data: item, isLoading, error } = useTaxInvoiceDetailQuery(taxId!);
 
   if (isLoading) return <p>로딩 중...</p>;

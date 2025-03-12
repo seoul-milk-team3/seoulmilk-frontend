@@ -5,9 +5,16 @@ import ImageModal from "../ImageModal/ImageModal";
 interface ImagePreviewProps {
   imageUrl: string;
   altText?: string;
+  width?: string;
+  height?: string;
 }
 
-const ImagePreview = ({ imageUrl, altText = "이미지" }: ImagePreviewProps) => {
+const ImagePreview = ({
+  imageUrl,
+  altText = "이미지",
+  width = "62rem",
+  height = "38.3rem",
+}: ImagePreviewProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -16,8 +23,8 @@ const ImagePreview = ({ imageUrl, altText = "이미지" }: ImagePreviewProps) =>
         src={imageUrl}
         alt={altText}
         css={{
-          width: "62rem",
-          height: "38.3rem",
+          width,
+          height,
           objectFit: "cover",
           cursor: "pointer",
         }}

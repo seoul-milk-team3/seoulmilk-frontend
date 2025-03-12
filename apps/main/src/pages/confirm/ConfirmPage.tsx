@@ -77,7 +77,7 @@ const ConfirmPage = () => {
           <ConfirmItem
             key={item.id}
             id={item.id}
-            date={item.transDate}
+            date={item.createdDate}
             supplier={item.suName}
             isChecked={selectedIds.includes(item.id)}
             onCheck={handleItemCheck}

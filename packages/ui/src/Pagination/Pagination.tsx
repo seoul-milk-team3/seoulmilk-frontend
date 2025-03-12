@@ -18,7 +18,7 @@ const Pagination = ({
   currentPage,
   onPageChange,
 }: PaginationProps) => {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = totalItems;
   const startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
   const endPage = Math.min(startPage + 9, totalPages);
 

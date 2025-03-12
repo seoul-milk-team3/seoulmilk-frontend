@@ -1,5 +1,5 @@
 import { IcCalendar, IcLocal } from "@seoulmilk/icon";
-import { format, subMonths } from "date-fns";
+import { format, subMonths, parse } from "date-fns";
 import { ko } from "date-fns/locale";
 import useMediaQuery from "@seoulmilk/utils/src/hooks/useMediaQuery";
 import DropdownItem from "@/DropDown/DropdownItem";
@@ -76,6 +76,16 @@ const SelectDropdown = ({
 
   const selectedValue = value ?? defaultValues[type];
 
+  const handleSelect = (item: string) => {
+    if (type === "date") {
+      const parsedDate = parse(item, "yyyy.MM", new Date());
+      const formattedDate = format(parsedDate, "yyyy-MM");
+      onSelect(formattedDate);
+    } else {
+      onSelect(item);
+    }
+  };
+
   const options =
     type === "date"
       ? generateMonths()
@@ -106,7 +116,7 @@ const SelectDropdown = ({
       <DropdownList css={dropdownListStyle(type, isMobile)}>
         {" "}
         {options.map((item) => (
-          <DropdownItem key={item} onSelect={() => onSelect(item)}>
+          <DropdownItem key={item} onSelect={() => handleSelect(item)}>
             {item}
           </DropdownItem>
         ))}

@@ -4,6 +4,7 @@ export interface TaxInvoiceDetailResponse {
   issueDate: string; // 작성일자
   suId: string; // 공급자 사업자등록번호
   ipId: string; // 공급받는자 사업자등록번호
+  issueId: string;
   chargeTotal: number; // 총 공급가액 합계
   grandTotal: number; // 총액 (공급가액 + 세액)
   taxTotal: number; // 총 세액 합계
