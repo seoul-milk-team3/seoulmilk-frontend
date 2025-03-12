@@ -1,5 +1,5 @@
 export interface ErrorDetailResponse {
-  id: number; // 승인 번호
+  issueId: number; // 승인 번호
   arap: string; // 매출/매입 구분
   issueDate: string; // 작성일자
   suId: string; // 공급자 사업자등록번호
