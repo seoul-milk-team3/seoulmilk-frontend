@@ -1,12 +1,20 @@
-import { Flex, ImagePreview, Text } from '@seoulmilk/ui';
+import { TaxInvoiceDetail } from '@seoulmilk/api/src/agencyDetail/types';
+import { Flex, Text, ImagePreview } from '@seoulmilk/ui';
+import { format, parseISO, isValid } from 'date-fns';
 import { invoiceDetailsWrapper, invoiceDetailsInfo, textStyle, text1Style } from './InvoiceDetails.style';
 
 interface InvoiceDetailsProps {
-  amount: string;
-  paymentDate: string;
-  status: 'PAID_YET' | 'PAID' | 'ABNORMAL';
-  imageUrl: string;
+  invoiceDetail: TaxInvoiceDetail;
 }
+
+const formatDate = (date?: string) => {
+  if (!date) return '미지급'; // ✅ 날짜가 없으면 "미지급" 반환
+
+  const parsedDate = parseISO(date); // ✅ 문자열을 날짜 형식으로 변환
+  if (!isValid(parsedDate)) return '미지급'; // ✅ 유효하지 않은 날짜일 경우 "미지급" 반환
+
+  return format(parsedDate, 'yyyy.MM.dd'); // ✅ 정상적인 날짜일 경우 변환
+};
 
 /* 지급 상태 한글 변환 */
 const statusMap: Record<'PAID_YET' | 'PAID' | 'ABNORMAL', string> = {
@@ -15,11 +23,11 @@ const statusMap: Record<'PAID_YET' | 'PAID' | 'ABNORMAL', string> = {
   ABNORMAL: '비정상',
 };
 
-const InvoiceDetails = ({ amount, paymentDate, status, imageUrl }: InvoiceDetailsProps) => {
+const InvoiceDetails = ({ invoiceDetail }: InvoiceDetailsProps) => {
   return (
     <div css={invoiceDetailsWrapper}>
       {/* 세금 계산서 이미지 */}
-      <ImagePreview imageUrl={imageUrl} width="41.4rem" height="27.2rem" />
+      <ImagePreview imageUrl={invoiceDetail.imageUrl} width="41.4rem" height="27.2rem" />
 
       {/* 지급 정보 */}
       <div css={invoiceDetailsInfo}>
@@ -36,10 +44,10 @@ const InvoiceDetails = ({ amount, paymentDate, status, imageUrl }: InvoiceDetail
         </Flex>
         <Flex styles={{ direction: 'column', gap: '1.7rem' }}>
           <Text tag="md2-text-medium" css={text1Style}>
-            {statusMap[status]}
+            {statusMap[invoiceDetail.payStatus]}
           </Text>
-          <Text tag="md2-text-medium">{amount}원</Text>
-          <Text tag="md2-text-medium">{paymentDate}</Text>
+          <Text tag="md2-text-medium">{invoiceDetail.grandTotal.toLocaleString()} 원</Text>
+          <Text tag="md2-text-medium">{formatDate(invoiceDetail.payDate)}</Text>
         </Flex>
       </div>
     </div>

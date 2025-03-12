@@ -1,3 +1,4 @@
+import { useAgencyTaxInvoiceDetailQuery } from '@seoulmilk/api';
 import { IcAgencyArrow } from '@seoulmilk/icon';
 import { Flex, Text } from '@seoulmilk/ui';
 import React, { useState } from 'react';
@@ -16,31 +17,30 @@ import {
 } from './InvoiceItem.style';
 
 interface InvoiceItemProps {
-  id: string;
-  date: string;
-  status: 'PAID_YET' | 'PAID' | 'ABNORMAL';
-  amount: string;
-  paymentDate: string;
-  imageUrl: string;
+  id: number;
+  issueId: string;
+  payStatus: 'PAID_YET' | 'PAID' | 'ABNORMAL';
+  createdDate: string;
 }
 
-const InvoiceItem = ({ id, date, status, amount, paymentDate, imageUrl }: InvoiceItemProps) => {
+const InvoiceItem = ({ id, issueId, payStatus, createdDate }: InvoiceItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data } = useAgencyTaxInvoiceDetailQuery(id, isOpen); // ✅ 로딩 상태 사용 안함
 
   return (
     <div css={invoiceItemWrapper}>
-      {/* 클릭 시 아코디언 열림/닫힘 */}
+      {/* 클릭 시 상세 정보 로드 */}
       <Flex onClick={() => setIsOpen(!isOpen)} css={invoiceItemHeader}>
         <Flex styles={{ align: 'center' }}>
           <Text tag="md2-text-medium" css={invoiceIdText}>
-            {id}
+            {issueId}
           </Text>
           <Text tag="md2-text-medium" css={invoiceDateText}>
-            {date}
+            {createdDate}
           </Text>
         </Flex>
         <Flex styles={{ align: 'center', gap: '4.1rem' }}>
-          <StatusChip status={status} />
+          <StatusChip status={payStatus} />
           <IcAgencyArrow width={24} height={24} css={isOpen ? arrowIconRotated : arrowIcon} />
         </Flex>
       </Flex>
@@ -48,10 +48,12 @@ const InvoiceItem = ({ id, date, status, amount, paymentDate, imageUrl }: Invoic
       {/* 아코디언이 열렸을 때만 구분선 표시 */}
       {isOpen && <div css={divider} />}
 
-      {/* 상세 내용 */}
-      <Flex css={[invoiceDetailsContainer, isOpen && invoiceDetailsWrapper]}>
-        {isOpen && <InvoiceDetails amount={amount} paymentDate={paymentDate} status={status} imageUrl={imageUrl} />}
-      </Flex>
+      {/* 상세 정보 표시 (로딩 중 UI 제거) */}
+      {isOpen && data && (
+        <Flex css={[invoiceDetailsContainer, invoiceDetailsWrapper]}>
+          <InvoiceDetails invoiceDetail={data} />
+        </Flex>
+      )}
     </div>
   );
 };

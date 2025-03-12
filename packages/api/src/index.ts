@@ -11,3 +11,5 @@ export { useErrorDetailQuery } from "./errorcheck/queries";
 export { useSaveModifiedTaxInvoice } from "./errorstore/queries";
 export { usePreVerification } from "./validation/queries";
 export { usePostVerification } from "./validation/queries";
+export { useAgencyTaxInvoicesQuery } from "./agencyList/queries";
+export { useAgencyTaxInvoiceDetailQuery } from "./agencyDetail/queries";
