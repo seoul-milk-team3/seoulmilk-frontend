@@ -148,10 +148,10 @@ const ErrorCheckPage = () => {
 
           {/* 상세 정보 입력 필드 */}
           {isModifiedDataReady &&
-            errordetailLabels.map(({ key, label }) => (
+            errordetailLabels.map(({ key, name }) => (
               <ErrorBox
                 key={key}
-                label={label}
+                label={name}
                 value={modifiedData[key] ?? ''}
                 onChange={(value) => handleInputChange(key, value)}
               />
