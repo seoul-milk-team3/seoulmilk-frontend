@@ -27,7 +27,8 @@ const AuthSelectionPage = () => {
   };
 
   const handleCompleteAuth = () => {
-    navigate('/confirm-list/analysis', { state: { selectedIds: state.selectedIds } });
+    const fromPage = state?.from || 'ConfirmPage'; // 기본값으로 ConfirmPage 사용
+    navigate('/confirm-list/analysis', { state: { selectedIds: state.selectedIds, from: fromPage } });
   };
 
   return (

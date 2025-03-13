@@ -16,6 +16,10 @@ const ErrorListPage = () => {
     size: ITEMS_PER_PAGE,
   });
 
+  const handleCheckError = (id: number) => {
+    navigate(`/error/${id}`, { state: { from: 'ErrorListPage' } });
+  };
+
   const displayedItems = data?.officeAbnormalTaxValidationResponses || [];
 
   console.log('📌 필터링된 비정상 항목:', displayedItems);
@@ -44,7 +48,7 @@ const ErrorListPage = () => {
             date={item.createdDate}
             supplier={item.suName}
             status="비정상"
-            onCheckError={() => navigate(`/error/${item.id}`)}
+            onCheckError={() => handleCheckError(item.id)}
           />
         ))}
       </Flex>
