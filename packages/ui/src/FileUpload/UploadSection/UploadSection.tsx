@@ -64,7 +64,8 @@ const UploadModal = ({ onClose }: { onClose: () => void }) => (
         variant="primary"
         padding="1.7rem 13.5rem"
         onClick={onClose}
-        css={{ height: "5rem", marginTop: "2.4rem" }}
+        css={{ height: "5rem", marginTop: "2.4rem", whiteSpace: "nowrap"  }}
+
       >
         업로드 취소
       </Button>
@@ -106,18 +107,24 @@ const UploadSection = ({
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       setUploadedFiles((prev) => {
-        const newFiles = [...prev, ...acceptedFiles];
-        uploadedFilesRef.current = newFiles; // ✅ useRef로 최신 상태 유지
-        console.log(
-          "📂 파일 드롭 후 최신 파일 목록:",
-          uploadedFilesRef.current
+        // ✅ 중복 제거 로직 추가
+        const existingFileNames = new Set(prev.map((file) => file.name + file.size));
+        const newFiles = acceptedFiles.filter(
+          (file) => !existingFileNames.has(file.name + file.size)
         );
-        return newFiles.slice(0, MAX_FILES);
+  
+        const updatedFiles = [...prev, ...newFiles].slice(0, MAX_FILES);
+        uploadedFilesRef.current = updatedFiles; // ✅ useRef로 최신 상태 유지
+  
+        console.log("📂 파일 드롭 후 최신 파일 목록:", uploadedFilesRef.current);
+        return updatedFiles;
       });
+  
       onUploadStart?.();
     },
     [onUploadStart]
   );
+  
   useEffect(() => {
     uploadedFilesRef.current = uploadedFiles;
   }, [uploadedFiles]);
@@ -366,7 +373,7 @@ const UploadSection = ({
               </span>{" "}
             </Text>
           </Flex>
-          )
+          
         </Flex>
       )}
     </>
