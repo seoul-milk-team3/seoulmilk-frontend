@@ -40,7 +40,9 @@ const ErrorListPage = () => {
       </Flex>
 
       {/* 리스트 아이템 */}
-      <Flex styles={{ direction: 'column', gap: '1.2rem', marginTop: '1.2rem', width: '100%' }}>
+      <Flex
+        styles={{ direction: 'column', gap: '1.2rem', marginTop: '1.2rem', width: '100%' }}
+        css={{ minHeight: '59.6rem', flex: 1 }}>
         {displayedItems.map((item) => (
           <ErrorItem
             key={item.id}
