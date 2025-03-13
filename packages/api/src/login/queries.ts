@@ -19,9 +19,6 @@ export const useLoginMutation = (setError: any) => {
     onSuccess: ({ accessToken, refreshToken }) => {
       if (!accessToken || !refreshToken) {
         console.error("⚠️ 로그인 성공했지만 토큰이 없음.");
-        setError("employeeId", {
-          message: "서버에서 인증 토큰을 받지 못했습니다. 다시 시도해주세요.",
-        });
         return;
       }
 

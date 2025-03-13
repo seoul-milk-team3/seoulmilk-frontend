@@ -4,6 +4,7 @@ import {
   IcPhone,
   UserProfile,
   IcHeaderLogoMain,
+  IcArrowAgency,
 } from "@seoulmilk/icon";
 import Flex from "@/Flex/Flex";
 import Text from "@/Text/Text";
@@ -45,7 +46,11 @@ const Header = ({ variant = "main", ...props }: HeaderProps) => {
         >
           a12123
         </Text>
-        <HeaderDropdown  />
+        {isAgency ? (
+          <IcArrowAgency width={24} height={24} />
+        ) : (
+          <HeaderDropdown />
+        )}
 
         <HeaderAlarm
           css={{
