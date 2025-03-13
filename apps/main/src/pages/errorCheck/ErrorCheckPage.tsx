@@ -13,11 +13,11 @@ import {
 import ErrorBox from './components/ErrorBox/ErrorBox';
 
 const errordetailLabels = [
-  { key: 'suId', label: '공급자 사업자등록번호' },
-  { key: 'issueId', label: '승인 번호' },
-  { key: 'chargeTotal', label: '공급가액' },
-  { key: 'ipId', label: '공급받는자 등록번호' },
-  { key: 'issueDate', label: '작성일자' },
+  { key: 'suId', name: '공급자 등록번호' },
+  { key: 'issueId', name: '승인번호' },
+  { key: 'chargeTotal', name: '공급가액' },
+  { key: 'ipId', name: '공급받는자 등록번호' },
+  { key: 'issueDate', name: '작성일자' },
 ];
 
 const ErrorCheckPage = () => {
@@ -92,13 +92,14 @@ const ErrorCheckPage = () => {
     const requestData: TaxInvoiceRequest = {
       requests: [
         {
-          fields: Object.entries(cleanedData).map(([key, value]) => ({
-            name: key,
-            inferText: String(value ?? ""),
+          fields: errordetailLabels.map(({ key, name }) => ({
+            name,  // 한글 유지
+            inferText: String(cleanedData[key] ?? ""),
           })),
         },
       ],
     };
+    
   
     console.log('저장 요청 데이터:', JSON.stringify(requestData, null, 2));
   
