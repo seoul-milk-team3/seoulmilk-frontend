@@ -8,14 +8,14 @@ const SvgIcConfrim = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <path
-      stroke="#A3A3A3"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
       d="m9 11 3 3L22 4"
     />
     <path
-      stroke="#A3A3A3"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}

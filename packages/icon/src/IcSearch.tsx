@@ -8,7 +8,7 @@ const SvgIcSearch = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <path
-      stroke="#A3A3A3"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
