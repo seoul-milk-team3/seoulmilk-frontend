@@ -113,8 +113,12 @@ const ErrorCheckPage = () => {
           console.error('세금 계산서 저장 실패:', err);
           alert('저장에 실패했습니다.');
         },
+        
       }
+      
     );
+    console.log("최종 요청 데이터:", JSON.stringify(requestData, null, 2));
+
   };
   
   

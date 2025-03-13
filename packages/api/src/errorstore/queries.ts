@@ -8,7 +8,7 @@ import { postModifiedTaxInvoice } from ".";
  */
 export const useSaveModifiedTaxInvoice = () => {
   return useMutation({
-    mutationFn: ({
+    mutationFn: async ({
       taxId,
       requestData,
     }: {
@@ -17,3 +17,4 @@ export const useSaveModifiedTaxInvoice = () => {
     }) => postModifiedTaxInvoice(taxId, requestData),
   });
 };
+
