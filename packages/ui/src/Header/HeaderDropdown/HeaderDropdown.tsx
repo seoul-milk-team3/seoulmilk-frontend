@@ -50,7 +50,7 @@ const HeaderDropdown = ({ variant = "agency" }: HeaderDropdownProps) => {
 
     delete axiosInstance.defaults.headers.Authorization;
 
-    window.location.href = "/login";
+    window.location.href = "/";
 
     setIsLogoutModalOpen(false);
   };
