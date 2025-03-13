@@ -23,6 +23,7 @@ export const postModifiedTaxInvoice = async (
       },
     }
   );
+  console.log("세금계산서 저장 API 응답:", JSON.stringify(response.data, null, 2));
 
   return response.data;
 };

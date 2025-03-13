@@ -13,4 +13,5 @@ export interface TaxInvoiceRequest {
 
 export interface TaxInvoiceResponse {
   message: string;
+  data?: object | null; // `data` 필드 추가 (빈 객체 또는 null 가능)
 }

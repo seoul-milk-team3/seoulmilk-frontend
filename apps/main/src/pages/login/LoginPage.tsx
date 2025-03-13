@@ -64,7 +64,7 @@ const Login = () => {
             variant="secondary"
             padding="1.7rem 16.65rem"
             disabled={isDisabled}
-            css={{ marginTop: '0.8rem' }}>
+            css={{ marginTop: '0.8rem' , whiteSpace: "nowrap" }}>
             로그인하기
           </Button>
         </Flex>

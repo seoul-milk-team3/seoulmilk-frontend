@@ -104,7 +104,7 @@ const CheckDone = ({
       <Flex css={buttonContainer}>
         <Button
           css={buttonStyle}
-          variant={layoutVariant === "main" ? "secondary" : "primary"}
+          variant={layoutVariant === "main" ? "primary" : "secondary"}
             onClick={() => {
             navigate("/");
             window.location.reload(); // ✅ 페이지 강제 새로고침
