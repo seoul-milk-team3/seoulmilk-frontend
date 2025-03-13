@@ -7,6 +7,8 @@ import {
   dropdownMenuStyle,
   dropdownItemStyle,
 } from "@/Header/HeaderDropdown/HeaderDropdown.style";
+import { REFRESH_TOKEN_KEY, USER_ID_KEY } from "@seoulmilk/utils";
+import { axiosInstance } from "@seoulmilk/api/src/instance";
 
 interface HeaderDropdownProps {
   variant?: "agency" | "main";
@@ -43,8 +45,14 @@ const HeaderDropdown = ({ variant = "agency" }: HeaderDropdownProps) => {
   };
 
   const handleConfirmLogout = () => {
+    localStorage.removeItem(USER_ID_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+
+    delete axiosInstance.defaults.headers.Authorization;
+
+    window.location.href = "/login";
+
     setIsLogoutModalOpen(false);
-    console.log("로그아웃 실행"); // 실제 로그아웃 로직 추가
   };
 
   return (

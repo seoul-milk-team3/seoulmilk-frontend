@@ -32,14 +32,7 @@ const ConfirmAnalysisPage = () => {
           const normalCount = data.filter((item) => item.isNormal === 'NORMAL').length;
           const errorCount = data.filter((item) => item.isNormal === 'ABNORMAL').length;
 
-          return (
-            <ConfirmResult
-              isError={errorCount > 0}
-              totalFiles={data.length}
-              normalCount={normalCount}
-              errorCount={errorCount}
-            />
-          );
+          return <ConfirmResult totalFiles={data.length} normalCount={normalCount} errorCount={errorCount} />;
         })()
       ) : null}
     </Flex>

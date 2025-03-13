@@ -33,7 +33,7 @@ const SignupForm = () => {
   const emailWidth = isMobile ? '16.1rem' : '19.3rem';
   const [serverError, setServerError] = useState('');
 
-  const { mutate } = useBranchSignupMutation(); // API 연동
+  const { mutate } = useBranchSignupMutation(setError);
 
   const onSubmit = (data: SignupData) => {
     setServerError(''); // 서버 에러 초기화
@@ -103,8 +103,12 @@ const SignupForm = () => {
             title="이메일"
             placeholder="이메일"
             value={watch('email') || ''}
-            onChange={(e) => setValue('email', e.target.value)}
+            onChange={(e) => {
+              setValue('email', e.target.value);
+              clearErrors('email');
+            }}
             width={emailWidth}
+            errorMessage={errors.email?.message}
           />
           <Text tag="md1-text-semibold" css={{ marginTop: '2rem' }}>
             @
@@ -130,9 +134,11 @@ const SignupForm = () => {
             clearErrors('password');
           }}
           errorMessage={
-            watch('password') && !passwordRegex.test(watch('password'))
-              ? '비밀번호는 영문, 숫자를 포함하여 8자 이상이어야 해요.'
-              : ''
+            watch('password') && watch('password')?.length > 0 && watch('password')?.length < 8
+              ? '비밀번호는 8자 이상이어야 해요.'
+              : watch('password') && !passwordRegex.test(watch('password'))
+                ? '비밀번호는 영문, 숫자를 포함해야 해요.'
+                : ''
           }
           width={formWidth}
         />
@@ -145,7 +151,7 @@ const SignupForm = () => {
           value={watch('confirmPassword') || ''}
           onChange={(e) => setValue('confirmPassword', e.target.value)}
           errorMessage={
-            watch('confirmPassword') && watch('password') !== watch('confirmPassword')
+            watch('confirmPassword')?.length > 0 && watch('password') !== watch('confirmPassword')
               ? '비밀번호가 일치하지 않습니다.'
               : ''
           }

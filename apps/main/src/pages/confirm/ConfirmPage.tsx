@@ -30,7 +30,7 @@ const ConfirmPage = () => {
   // 진위여부 확인 버튼 클릭 시 (선택한 ID 배열 넘기기)
   const handleConfirm = () => {
     if (selectedIds.length > 0) {
-      navigate('/confirm-list/auth', { state: { selectedIds } });
+      navigate('/confirm-list/auth', { state: { selectedIds, from: 'ConfirmPage' } });
       console.log('체크된 id', selectedIds);
     }
   };

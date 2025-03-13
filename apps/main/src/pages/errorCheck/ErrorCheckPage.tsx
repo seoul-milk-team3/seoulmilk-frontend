@@ -35,13 +35,22 @@ const ErrorCheckPage = () => {
   useEffect(() => {
     if (item) {
       const validKeys = [
-        'issueId', 'arap', 'issueDate', 'suId', 'suName', 'ipId',
-        'chargeTotal', 'grandTotal', 'taxTotal',
-        'createdDate', 'createdTime', 'imageUrl',
+        'issueId',
+        'arap',
+        'issueDate',
+        'suId',
+        'suName',
+        'ipId',
+        'chargeTotal',
+        'grandTotal',
+        'taxTotal',
+        'createdDate',
+        'createdTime',
+        'imageUrl',
       ];
-  
+
       const formattedData: Record<string, string | number> = Object.entries(item)
-        .filter(([key, value]) => validKeys.includes(key)) 
+        .filter(([key, value]) => validKeys.includes(key))
         .reduce(
           (acc, [key, value]) => ({
             ...acc,
@@ -49,12 +58,10 @@ const ErrorCheckPage = () => {
           }),
           {}
         );
-  
+
       setModifiedData(formattedData);
     }
   }, [item]);
-  
-  
 
   const [isSaved, setIsSaved] = useState(false);
 
@@ -63,7 +70,7 @@ const ErrorCheckPage = () => {
 
   const handleVerify = () => {
     if (taxId) {
-      navigate('/confirm-list/auth', { state: { selectedIds: [taxId] } });
+      navigate('/confirm-list/auth', { state: { selectedIds: [taxId], from: 'ErrorListPage' } });
     }
   };
 
@@ -75,34 +82,44 @@ const ErrorCheckPage = () => {
   };
   const handleSave = async () => {
     if (!taxId) return;
-  
+
     const validKeys = [
-      'issueId', 'arap', 'issueDate', 'suId', 'suName', 'ipId',
-      'chargeTotal', 'grandTotal', 'taxTotal',
-      'createdDate', 'createdTime', 'imageUrl',
+      'issueId',
+      'arap',
+      'issueDate',
+      'suId',
+      'suName',
+      'ipId',
+      'chargeTotal',
+      'grandTotal',
+      'taxTotal',
+      'createdDate',
+      'createdTime',
+      'imageUrl',
     ];
-  
+
     const updatedData = { ...item, ...modifiedData };
-  
-    //  suName 필드 필터링 
+
+    //  suName 필드 필터링
     const cleanedData = Object.fromEntries(
-      Object.entries(updatedData).filter(([key, value]) => validKeys.includes(key) && key !== "suName" && value !== undefined && value !== "")
+      Object.entries(updatedData).filter(
+        ([key, value]) => validKeys.includes(key) && key !== 'suName' && value !== undefined && value !== ''
+      )
     );
-  
+
     const requestData: TaxInvoiceRequest = {
       requests: [
         {
           fields: errordetailLabels.map(({ key, name }) => ({
-            name,  // 한글 유지
-            inferText: String(cleanedData[key] ?? ""),
+            name, // 한글 유지
+            inferText: String(cleanedData[key] ?? ''),
           })),
         },
       ],
     };
-    
-  
+
     console.log('저장 요청 데이터:', JSON.stringify(requestData, null, 2));
-  
+
     mutation.mutate(
       { taxId, requestData },
       {
@@ -114,17 +131,10 @@ const ErrorCheckPage = () => {
           console.error('세금 계산서 저장 실패:', err);
           alert('저장에 실패했습니다.');
         },
-        
       }
-      
     );
-    console.log("최종 요청 데이터:", JSON.stringify(requestData, null, 2));
-
+    console.log('최종 요청 데이터:', JSON.stringify(requestData, null, 2));
   };
-  
-  
-  
-  
 
   return (
     <Flex css={detailContainerStyle}>

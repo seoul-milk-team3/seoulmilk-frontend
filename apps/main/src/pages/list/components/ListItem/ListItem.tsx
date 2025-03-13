@@ -19,7 +19,7 @@ const ListItem = ({ item, isChecked, onCheck }: ListItemProps) => {
       <Flex styles={{ align: 'center' }}>
         <CheckBox isChecked={isChecked} onChange={() => onCheck(item.id)} css={{ marginRight: '13rem' }} />
         <Text tag="md2-text-medium" css={text1Style}>
-          {item.transDate}
+          {item.createdDate}
         </Text>
         <Text tag="md2-text-medium" css={text2Style}>
           {item.suName}

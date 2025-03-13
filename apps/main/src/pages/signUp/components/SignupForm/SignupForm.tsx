@@ -11,11 +11,20 @@ interface SignupData {
   emailDomain: string;
   phoneNo: string;
   birthday: string;
-  telecom: 'SKT' | 'KT' | 'LG';
+  telecom: string;
   password: string;
   confirmPassword: string;
   role: 'ADMIN' | 'OFFICE';
 }
+
+const telecomMap: Record<string, 'SKT' | 'KT' | 'LG'> = {
+  SKT: 'SKT',
+  '알뜰폰 SKT': 'SKT',
+  KT: 'KT',
+  '알뜰폰 KT': 'KT',
+  'LG U+': 'LG',
+  '알뜰폰 LG U+': 'LG',
+};
 
 const SignupForm = ({ type }: { type: 'admin' | 'user' }) => {
   const {
@@ -25,10 +34,11 @@ const SignupForm = ({ type }: { type: 'admin' | 'user' }) => {
     setValue,
     watch,
     clearErrors,
+    setError,
     reset,
   } = useForm<SignupData>({ mode: 'onChange' });
 
-  const { mutate } = useSignupMutation();
+  const { mutate } = useSignupMutation(setError);
 
   useEffect(() => {
     reset();
@@ -37,6 +47,8 @@ const SignupForm = ({ type }: { type: 'admin' | 'user' }) => {
   }, [type, reset, setValue]);
 
   const onSubmit = (data: SignupData) => {
+    const telecomValue = telecomMap[data.telecom] || 'SKT';
+
     mutate({
       name: data.name,
       employeeId: data.employeeId,
@@ -44,11 +56,11 @@ const SignupForm = ({ type }: { type: 'admin' | 'user' }) => {
       email: `${data.email}@${data.emailDomain}`,
       phoneNo: data.phoneNo,
       birthday: data.birthday,
-      telecom: data.telecom,
+      telecom: telecomValue,
       role: type === 'admin' ? 'ADMIN' : 'OFFICE',
     });
 
-    console.log('데이터', data);
+    console.log('데이터', data.telecom);
   };
 
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -64,7 +76,7 @@ const SignupForm = ({ type }: { type: 'admin' | 'user' }) => {
     !watch('password')?.trim() ||
     !watch('confirmPassword')?.trim() ||
     Object.keys(errors).length > 0 ||
-    (!!watch('password') && watch('password').length >= 8 && !passwordRegex.test(watch('password') ?? '')) ||
+    (!!watch('password') && !passwordRegex.test(watch('password') ?? '')) ||
     (!!watch('confirmPassword') &&
       watch('confirmPassword').length >= 8 &&
       watch('password') !== watch('confirmPassword'));
@@ -97,6 +109,7 @@ const SignupForm = ({ type }: { type: 'admin' | 'user' }) => {
             setValue('employeeId', e.target.value);
             clearErrors('employeeId');
           }}
+          errorMessage={errors.employeeId?.message}
           width="42rem"
         />
 
@@ -106,8 +119,12 @@ const SignupForm = ({ type }: { type: 'admin' | 'user' }) => {
             title="이메일"
             value={watch('email') || ''}
             placeholder="이메일"
-            onChange={(e) => setValue('email', e.target.value)}
+            onChange={(e) => {
+              setValue('email', e.target.value);
+              clearErrors('email');
+            }}
             width="19.3rem"
+            errorMessage={errors.email?.message}
           />
           <Text tag="md1-text-semibold" css={{ marginTop: '2rem' }}>
             @
@@ -152,9 +169,7 @@ const SignupForm = ({ type }: { type: 'admin' | 'user' }) => {
             type="telecom"
             value={watch('telecom')}
             onSelect={(value) => {
-              if (isValidTelecom(value)) {
-                setValue('telecom', value);
-              }
+              setValue('telecom', value);
             }}
           />
         </Flex>
@@ -171,9 +186,11 @@ const SignupForm = ({ type }: { type: 'admin' | 'user' }) => {
             clearErrors('password');
           }}
           errorMessage={
-            watch('password')?.length >= 8 && !passwordRegex.test(watch('password'))
-              ? '비밀번호는 영문, 숫자를 포함하여 8자 이상이어야 해요.'
-              : ''
+            watch('password') && watch('password')?.length > 0 && watch('password')?.length < 8
+              ? '비밀번호는 8자 이상이어야 해요.'
+              : watch('password') && !passwordRegex.test(watch('password'))
+                ? '비밀번호는 영문, 숫자를 포함해야 해요.'
+                : ''
           }
           width="42rem"
         />
@@ -186,7 +203,7 @@ const SignupForm = ({ type }: { type: 'admin' | 'user' }) => {
           placeholder="비밀번호 확인"
           onChange={(e) => setValue('confirmPassword', e.target.value)}
           errorMessage={
-            watch('confirmPassword')?.length >= 8 && watch('password') !== watch('confirmPassword')
+            watch('confirmPassword')?.length > 0 && watch('password') !== watch('confirmPassword')
               ? '비밀번호가 일치하지 않습니다.'
               : ''
           }
