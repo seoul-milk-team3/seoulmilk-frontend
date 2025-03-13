@@ -16,8 +16,8 @@ const ErrorListPage = () => {
     size: ITEMS_PER_PAGE,
   });
 
-  const handleCheckError = (id: number) => {
-    navigate(`/error/${id}`, { state: { from: 'ErrorListPage' } });
+  const handleCheckError = (id: number, suName: string) => {
+    navigate(`/error/${id}`, { state: { from: 'ErrorListPage', suName } });
   };
 
   const displayedItems = data?.officeAbnormalTaxValidationResponses || [];
@@ -48,7 +48,7 @@ const ErrorListPage = () => {
             date={item.createdDate}
             supplier={item.suName}
             status="비정상"
-            onCheckError={() => handleCheckError(item.id)}
+            onCheckError={() => handleCheckError(item.id, item.suName)}
           />
         ))}
       </Flex>

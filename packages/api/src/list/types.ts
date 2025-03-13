@@ -1,5 +1,6 @@
 export interface TaxInvoice {
   id: number;
+  issueId: string;
   suId: string;
   ipId: string;
   transDate: string;

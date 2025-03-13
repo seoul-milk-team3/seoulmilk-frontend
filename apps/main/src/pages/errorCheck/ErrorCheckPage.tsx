@@ -3,7 +3,7 @@ import { TaxInvoiceRequest } from '@seoulmilk/api/src/errorstore/types';
 import { IcClose } from '@seoulmilk/icon';
 import { Flex, Button, Text, ImagePreview } from '@seoulmilk/ui';
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import {
   detailContainerStyle,
   detailListWrapperStyle,
@@ -24,9 +24,12 @@ const ErrorCheckPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const taxId = id ? parseInt(id, 10) : undefined;
+  const location = useLocation();
+  const suNameFromList = location.state?.suName || '';
+  console.log(suNameFromList);
 
   const { data: item, isLoading, error } = useErrorDetailQuery(taxId!);
-  const mutation = useSaveModifiedTaxInvoice(); // ✅ 리액트 쿼리 Mutation 사용
+  const mutation = useSaveModifiedTaxInvoice();
 
   const [modifiedData, setModifiedData] = useState<Record<string, string | number>>({});
 
@@ -110,10 +113,16 @@ const ErrorCheckPage = () => {
     const requestData: TaxInvoiceRequest = {
       requests: [
         {
-          fields: errordetailLabels.map(({ key, name }) => ({
-            name, // 한글 유지
-            inferText: String(cleanedData[key] ?? ''),
-          })),
+          fields: [
+            ...errordetailLabels.map(({ key, name }) => ({
+              name,
+              inferText: String(cleanedData[key] ?? ''),
+            })),
+            {
+              name: '공급자명', // 공급자명 추가
+              inferText: String(suNameFromList), // 리스트에서 가져온 값이 우선
+            },
+          ],
         },
       ],
     };
@@ -124,7 +133,8 @@ const ErrorCheckPage = () => {
       { taxId, requestData },
       {
         onSuccess: () => {
-          alert('수정된 세금 계산서가 저장되었습니다.');
+          console.log('수정된 세금 계산서가 저장되었습니다.');
+          //alert('수정된 세금 계산서가 저장되었습니다.');
           setIsSaved(true);
         },
         onError: (err) => {

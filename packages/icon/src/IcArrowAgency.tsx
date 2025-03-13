@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { SVGProps } from "react";
-const SvgIcErrorList = (props: SVGProps<SVGSVGElement>) => (
+const SvgIcArrowAgency = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -8,12 +8,12 @@ const SvgIcErrorList = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <path
-      stroke="currentColor"
+      stroke="#171717"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
-      d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10M12 8v4M12 16h.01"
+      d="m6 9 6 6 6-6"
     />
   </svg>
 );
-export default SvgIcErrorList;
+export default SvgIcArrowAgency;

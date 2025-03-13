@@ -87,7 +87,7 @@ const ListContainer = ({ filters, currentPage, setCurrentPage, resetCheckBoxesTr
     const selectedData = filteredData
       .filter((item) => selectedItems.includes(item.id))
       .map((item) => ({
-        승인번호: item.id,
+        승인번호: item.issueId,
         공급자사업자등록번호: item.suId,
         공급받는자사업자등록번호: item.ipId,
         거래일자: item.transDate,

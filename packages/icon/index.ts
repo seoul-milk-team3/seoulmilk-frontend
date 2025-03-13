@@ -8,6 +8,7 @@ export { default as HeaderAlarm } from "./src/HeaderAlarm";
 export { default as HeaderDropdownIcon } from "./src/HeaderDropdownIcon";
 export { default as IcAgencyArrow } from "./src/IcAgencyArrow";
 export { default as IcAlarm } from "./src/IcAlarm";
+export { default as IcArrowAgency } from "./src/IcArrowAgency";
 export { default as IcArrowDropdown } from "./src/IcArrowDropdown";
 export { default as IcArrowRed } from "./src/IcArrowRed";
 export { default as IcBankSalad } from "./src/IcBankSalad";
