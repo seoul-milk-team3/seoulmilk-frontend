@@ -28,7 +28,16 @@ const ImageModal = ({
         <button onClick={onClose} css={closeButtonStyle}>
           <IcImageClose width={40} height={40} />
         </button>
-        <img src={imageUrl} alt={altText} css={imageStyle} />
+        {imageUrl.endsWith(".pdf") ? (
+          <iframe
+            src={imageUrl}
+            width="100%"
+            height="600px"
+            style={{ border: "none" }}
+          />
+        ) : (
+          <img src={imageUrl} alt={altText} css={imageStyle} />
+        )}
       </div>
     </div>,
     document.body

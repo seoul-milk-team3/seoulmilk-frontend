@@ -2,7 +2,6 @@ import { useTaxInvoiceOCRMutation } from '@seoulmilk/api';
 import { FileUploadIcon, Camera, Image, DeleteX } from '@seoulmilk/icon';
 import { colors } from '@seoulmilk/styles';
 import { Button, Flex, Text } from '@seoulmilk/ui';
-import * as pdfjsLib from 'pdfjs-dist';
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Webcam from 'react-webcam';
@@ -23,8 +22,6 @@ import {
 } from './MobileUploadSection.style';
 import Modal from './Modal/Modal';
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = `${window.location.origin}/pdf.worker.mjs`;
-
 const MobileSection = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const webcamRef = useRef<Webcam>(null);
@@ -37,34 +34,6 @@ const MobileSection = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false); // ✅ 성공 상태 추가
-  const [pdfPreviews, setPdfPreviews] = useState({});
-
-  useEffect(() => {
-    const renderPdfPreviews = async () => {
-      const newPreviews = {};
-      for (const file of files) {
-        if (file.type === 'application/pdf') {
-          const fileReader = new FileReader();
-          fileReader.onload = async (event) => {
-            const arrayBuffer = event.target.result;
-            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-            const page = await pdf.getPage(1);
-            const scale = 1.5;
-            const viewport = page.getViewport({ scale });
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            canvas.width = viewport.width;
-            canvas.height = viewport.height;
-            await page.render({ canvasContext: context, viewport }).promise;
-            newPreviews[file.name] = canvas.toDataURL('image/png');
-            setPdfPreviews((prev) => ({ ...prev, ...newPreviews }));
-          };
-          fileReader.readAsArrayBuffer(file);
-        }
-      }
-    };
-    renderPdfPreviews();
-  }, [files]);
 
   const { mutate: analyzeTaxInvoice, isPending } = useTaxInvoiceOCRMutation();
 
