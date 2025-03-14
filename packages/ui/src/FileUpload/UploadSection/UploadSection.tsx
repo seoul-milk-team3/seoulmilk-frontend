@@ -18,6 +18,9 @@ import CheckDone from "@/CheckDone/CheckDone";
 import { useTaxInvoiceOCRMutation } from "@seoulmilk/api";
 import Spinner from "@/Spinner/Spinner";
 import { useOutletContext } from "react-router-dom"; // ✅ context 사용
+import * as pdfjsLib from "pdfjs-dist";
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = `${window.location.origin}/pdf.worker.mjs`;
 
 const MAX_FILES = 10;
 
@@ -64,8 +67,7 @@ const UploadModal = ({ onClose }: { onClose: () => void }) => (
         variant="primary"
         padding="1.7rem 13.5rem"
         onClick={onClose}
-        css={{ height: "5rem", marginTop: "2.4rem", whiteSpace: "nowrap"  }}
-
+        css={{ height: "5rem", marginTop: "2.4rem", whiteSpace: "nowrap" }}
       >
         업로드 취소
       </Button>
@@ -84,13 +86,94 @@ const UploadSection = ({
   onUploadSuccess,
   onCheckValidity,
 }: UploadSectionProps) => {
-  const { layoutVariant } = useOutletContext<{ layoutVariant: "main" | "agency" }>();
+  const { layoutVariant } = useOutletContext<{
+    layoutVariant: "main" | "agency";
+  }>();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isChecking, setIsChecking] = useState(false);
   const [ocrResults, setOcrResults] = useState<any>(null); // OCR 분석된 데이터 저장
   const [isUploading, setIsUploading] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [pdfPreviews, setPdfPreviews] = useState<{ [key: string]: string }>({});
+
+  useEffect(() => {
+    const renderPdfPreviews = async () => {
+      console.log("📌 PDF 미리보기 렌더링 시작");
+
+      const newPreviews: { [key: string]: string } = {};
+
+      for (const file of uploadedFiles) {
+        console.log(`📂 처리 중인 파일: ${file.name}, 타입: ${file.type}`);
+
+        if (file.type === "application/pdf") {
+          const fileUrl = URL.createObjectURL(file);
+          console.log(`🔗 생성된 파일 URL: ${fileUrl}`);
+
+          try {
+            console.log("📥 PDF 파일을 ArrayBuffer로 변환 중...");
+            const fileReader = new FileReader();
+
+            fileReader.onload = async (event) => {
+              if (!event.target?.result) {
+                console.error("❌ PDF 파일을 ArrayBuffer로 변환 실패!");
+                return;
+              }
+
+              const arrayBuffer = event.target.result as ArrayBuffer;
+              console.log("📥 PDF 파일을 ArrayBuffer로 변환 완료");
+
+              console.log("📥 PDF 문서 로드 시도...");
+              const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer }); // ✅ 변경된 부분
+              const pdf = await loadingTask.promise;
+              console.log("✅ PDF 문서 로드 성공!", pdf);
+
+              const page = await pdf.getPage(1);
+              console.log("📄 첫 번째 페이지 가져오기 성공!");
+
+              const scale = 1.5;
+              const viewport = page.getViewport({ scale });
+              console.log(
+                `🔍 뷰포트 설정: width=${viewport.width}, height=${viewport.height}`
+              );
+
+              const canvas = document.createElement("canvas");
+              const context = canvas.getContext("2d");
+
+              if (!context) {
+                console.error("❌ Canvas context를 가져오지 못했습니다!");
+                return;
+              }
+
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+              console.log("🎨 Canvas 생성 완료!");
+
+              const renderContext = { canvasContext: context, viewport };
+              console.log("📌 PDF 페이지 렌더링 시작...");
+              await page.render(renderContext).promise;
+              console.log("✅ PDF 페이지 렌더링 완료!");
+
+              newPreviews[file.name] = canvas.toDataURL("image/png");
+              console.log(
+                `📸 변환된 미리보기 데이터 URL 저장 완료: ${file.name}`
+              );
+
+              setPdfPreviews((prev) => ({ ...prev, ...newPreviews }));
+            };
+
+            fileReader.readAsArrayBuffer(file);
+          } catch (error) {
+            console.error("❌ PDF 렌더링 실패:", error);
+          }
+        }
+      }
+
+      console.log("📌 모든 PDF 파일 미리보기 변환 완료! 상태 업데이트...");
+    };
+
+    renderPdfPreviews();
+  }, [uploadedFiles]);
 
   // ✅ OCR 분석 Mutation 훅
   const { mutate: analyzeTaxInvoice, isPending } = useTaxInvoiceOCRMutation();
@@ -108,23 +191,28 @@ const UploadSection = ({
     (acceptedFiles: File[]) => {
       setUploadedFiles((prev) => {
         // ✅ 중복 제거 로직 추가
-        const existingFileNames = new Set(prev.map((file) => file.name + file.size));
+        const existingFileNames = new Set(
+          prev.map((file) => file.name + file.size)
+        );
         const newFiles = acceptedFiles.filter(
           (file) => !existingFileNames.has(file.name + file.size)
         );
-  
+
         const updatedFiles = [...prev, ...newFiles].slice(0, MAX_FILES);
         uploadedFilesRef.current = updatedFiles; // ✅ useRef로 최신 상태 유지
-  
-        console.log("📂 파일 드롭 후 최신 파일 목록:", uploadedFilesRef.current);
+
+        console.log(
+          "📂 파일 드롭 후 최신 파일 목록:",
+          uploadedFilesRef.current
+        );
         return updatedFiles;
       });
-  
+
       onUploadStart?.();
     },
     [onUploadStart]
   );
-  
+
   useEffect(() => {
     uploadedFilesRef.current = uploadedFiles;
   }, [uploadedFiles]);
@@ -216,7 +304,11 @@ const UploadSection = ({
     <>
       {isUploading && <UploadModal onClose={() => setIsUploading(false)} />}
       {isCompleted ? (
-        <CheckDone variant="secondary" onClose={() => setIsCompleted(false) } layoutVariant={layoutVariant}/>
+        <CheckDone
+          variant="secondary"
+          onClose={() => setIsCompleted(false)}
+          layoutVariant={layoutVariant}
+        />
       ) : (
         <Flex
           css={uploadWrapperStyle}
@@ -282,6 +374,12 @@ const UploadSection = ({
                           alt={file.name}
                           css={filePreviewStyle}
                         />
+                      ) : file.type === "application/pdf" ? (
+                        <img
+                          src={pdfPreviews[file.name]}
+                          alt="PDF 미리보기"
+                          css={filePreviewStyle}
+                        />
                       ) : (
                         <Flex
                           css={filePreviewStyle}
@@ -290,7 +388,6 @@ const UploadSection = ({
                           📄
                         </Flex>
                       )}
-
                       <Flex
                         styles={{
                           direction: "column",
@@ -373,7 +470,6 @@ const UploadSection = ({
               </span>{" "}
             </Text>
           </Flex>
-          
         </Flex>
       )}
     </>
