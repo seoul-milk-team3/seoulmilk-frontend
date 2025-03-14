@@ -57,6 +57,9 @@ export const fetchTaxInvoices = async ({
 
   params.append("resultType", mappedStatus);
 
+  params.append("page", page.toString());
+  params.append("size", size.toString());
+
   const response = await axiosInstance.get<{ data: TaxInvoicesResponse }>(
     `/tax-invoices/office/filter?${params.toString()}`
   );
